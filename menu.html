@@ -32,19 +32,55 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212,175,55,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
 
 /* PAGE HERO */
-.page-hero{position:relative;margin-top:75px;overflow:hidden;background:linear-gradient(160deg,#0d0b04 0%,#0f0d00 50%,#0a0a0a 100%);padding:80px 20px 60px;text-align:center;border-bottom:1px solid var(--border);}
-.page-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(212,175,55,0.1) 0%,transparent 65%);pointer-events:none;}
+.page-hero{position:relative;margin-top:75px;overflow:hidden;background:linear-gradient(160deg,#0d0b04 0%,#0f0d00 50%,#0a0a0a 100%);padding:90px 20px 70px;text-align:center;border-bottom:1px solid var(--border);}
+.page-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(212,175,55,0.12) 0%,transparent 65%);pointer-events:none;z-index:1;}
+
+/* Hero particles canvas layer */
+.hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.hero-particle{
+  position:absolute;
+  bottom:0;
+  opacity:0;
+  animation:particle-rise var(--dur,8s) var(--delay,0s) infinite ease-in-out;
+  filter:blur(var(--blur,0px));
+}
+.hp-dot{
+  border-radius:50%;
+  background:radial-gradient(circle,#f0d060 0%,#d4af37 60%,transparent 100%);
+  box-shadow:0 0 var(--glow,6px) var(--glow,6px) rgba(212,175,55,var(--ga,.35));
+}
+.hp-diamond{
+  border-radius:2px;
+  background:var(--gold);
+  box-shadow:0 0 var(--glow,8px) var(--glow,8px) rgba(212,175,55,var(--ga,.3));
+}
+.hp-streak{
+  border-radius:4px;
+  background:linear-gradient(to top,rgba(212,175,55,0),#f0d060,rgba(212,175,55,0));
+}
+@keyframes particle-rise{
+  0%  {transform:translateY(0)   translateX(0)                       rotate(var(--rot0,0deg));   opacity:0;}
+  8%  {opacity:var(--peak,.9);}
+  50% {transform:translateY(var(--midY,-50vh))  translateX(var(--drift,30px))  rotate(var(--rot1,90deg));  opacity:var(--mid,.55);}
+  92% {opacity:.1;}
+  100%{transform:translateY(var(--topY,-105vh)) translateX(var(--drift2,10px)) rotate(var(--rot2,200deg)); opacity:0;}
+}
+
+/* Hero text layer */
+.hero-content{position:relative;z-index:3;}
 .hero-rule{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:18px;}
 .hero-rule span{display:block;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:80px;}
 .hero-rule i{color:var(--gold);font-size:.85rem;opacity:.7;}
-.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:#fff;letter-spacing:2px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:#fff;letter-spacing:2px;animation:hero-fadein .9s .1s both;}
 .page-hero h1 em{font-style:italic;color:var(--gold);}
-.page-hero .sub{margin-top:10px;font-size:.85rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted);}
-.hero-breadcrumb{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;color:#555;}
+.page-hero .sub{margin-top:10px;font-size:.85rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted);animation:hero-fadein .9s .25s both;}
+.hero-breadcrumb{margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;color:#555;animation:hero-fadein .9s .4s both;}
 .hero-breadcrumb a{color:#666;text-decoration:none;transition:color .2s;}
 .hero-breadcrumb a:hover{color:var(--gold);}
 .hero-breadcrumb .sep{color:var(--gold);font-size:.6rem;}
 .hero-breadcrumb .cur{color:var(--gold);}
+@keyframes hero-fadein{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
 
 /* TOOLBAR */
 .menu-toolbar{position:sticky;top:75px;z-index:100;background:rgba(8,7,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:14px 0;}
@@ -409,14 +445,23 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
 
 <!-- HERO -->
 <header class="page-hero">
-  <div class="hero-rule"><span></span><i class="bi bi-diamond-fill"></i><span></span></div>
-  <h1>Our <em>Menu</em></h1>
-  <p class="sub">Chase the Flavours</p>
-  <div class="hero-breadcrumb">
-    <a href="index2.html">Home</a>
-    <i class="bi bi-chevron-right sep"></i>
-    <span class="cur">Menu</span>
+
+  <!-- Floating gold particles -->
+  <div class="hero-particles" id="heroParticles"></div>
+
+  <!-- Text content -->
+  <div class="hero-content">
+    <div class="hero-rule"><span></span><i class="bi bi-diamond-fill"></i><span></span></div>
+    <h1>Our <em>Menu</em></h1>
+    <p class="sub">Chase the Flavours</p>
+    <div class="hero-breadcrumb">
+      <a href="index2.html">Home</a>
+      <i class="bi bi-chevron-right sep"></i>
+      <span class="cur">Menu</span>
+    </div>
   </div>
+
+
 </header>
 
 <!-- STICKY TOOLBAR -->
@@ -450,10 +495,11 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
         </div>
 
         <!-- BUTTONS ONLY — no title, no wrapper section -->
-        <div class="menu-actions" style="margin-top:12px;">
-          <button class="btn-menu" onclick="openMenu()"><i class="bi bi-eye"></i> View Menu</button>
-          <a href="https://drive.google.com/uc?export=download&id=FILE_ID" class="btn-download"><i class="bi bi-download"></i> Download Menu</a>
-        </div>
+<a href="https://github.com/user-attachments/files/26115048/IFS_LOUNGE_MENU.pdf" 
+   class="btn-download" 
+   target="_blank">
+          <i class="bi bi-download"></i> Download Menu
+        </a>
 
       </div>
     </div>
@@ -461,12 +507,7 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
 </div>
 
 <!-- Modal -->
-<div id="menuModal" class="menu-modal">
-  <div class="menu-modal-content">
-    <span class="close-btn" onclick="closeMenu()">&times;</span>
-    <iframe src="https://drive.google.com/file/d/FILE_ID/preview" frameborder="0"></iframe>
-  </div>
-</div>
+
 
 <!-- MENU CONTENT -->
 <div class="menu-main" id="menuPrint">
@@ -938,3 +979,59 @@ updateCartUI();
 </script>
 </body>
 </html>
+<script>
+// ---- HERO PARTICLES (prominent gold) ----
+(function(){
+  const container = document.getElementById('heroParticles');
+  if(!container) return;
+
+  // Particle configs: [type, count, sizeRange, peakOpacity, glowPx, glowAlpha, blur]
+  const groups = [
+    // Large glowing dots
+    { type:'hp-dot',    count:14, sMin:6,  sMax:14, peak:.92, glow:12, ga:.45, blur:0  },
+    // Medium dots
+    { type:'hp-dot',    count:18, sMin:3,  sMax:7,  peak:.75, glow:7,  ga:.32, blur:0  },
+    // Small soft dots
+    { type:'hp-dot',    count:12, sMin:1.5,sMax:3,  peak:.55, glow:4,  ga:.2,  blur:.5 },
+    // Spinning diamonds
+    { type:'hp-diamond',count:10, sMin:4,  sMax:9,  peak:.85, glow:10, ga:.38, blur:0  },
+    // Vertical streaks
+    { type:'hp-streak', count:8,  sMin:1,  sMax:2,  peak:.7,  glow:0,  ga:0,   blur:0, streakH:true },
+  ];
+
+  groups.forEach(g => {
+    for(let i=0;i<g.count;i++){
+      const p = document.createElement('div');
+      p.className = 'hero-particle ' + g.type;
+      const left  = 2 + Math.random()*96;
+      const dur   = 5 + Math.random()*10;
+      const delay = Math.random()*12;
+      const drift = (Math.random()-0.5)*120;
+      const drift2= (Math.random()-0.5)*60;
+      const size  = g.sMin + Math.random()*(g.sMax - g.sMin);
+      const w     = g.streakH ? size : size;
+      const h     = g.streakH ? size*18 : size;
+      const midY  = -(25 + Math.random()*35);  // vh
+      const topY  = -(80 + Math.random()*30);  // vh
+      const rot0  = Math.random()*360;
+      const rot1  = rot0 + (Math.random()-0.5)*120;
+      const rot2  = rot1 + (Math.random()-0.5)*120;
+      const mid   = g.peak * (0.4 + Math.random()*0.3);
+
+      p.style.cssText = [
+        `left:${left}%`,
+        `width:${w}px`,`height:${h}px`,
+        `--dur:${dur}s`,`--delay:${delay}s`,
+        `--drift:${drift}px`,`--drift2:${drift2}px`,
+        `--midY:${midY}vh`,`--topY:${topY}vh`,
+        `--peak:${g.peak}`,`--mid:${mid}`,
+        `--glow:${g.glow}px`,`--ga:${g.ga}`,
+        `--blur:${g.blur}px`,
+        `--rot0:${rot0}deg`,`--rot1:${rot1}deg`,`--rot2:${rot2}deg`,
+      ].join(';');
+
+      container.appendChild(p);
+    }
+  });
+})();
+</script>
