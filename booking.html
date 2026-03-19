@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reserve a Table | IF's Lounge</title>
+  <meta name="description" content="Book a table at IF's Lounge — Manzini or Mbabane. Premium dining reservations in Eswatini.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d4af37;--gold-light:#f0d060;--gold-dim:rgba(212,175,55,0.15);
+  --dark:#0a0a0a;--dark2:#0e0c06;--dark3:#181610;
+  --card-bg:rgba(18,16,8,0.92);--border:rgba(212,175,55,0.2);
+  --text-muted:#888;--radius:12px;--ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#e0ddd4;font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.5;}
+
+/* ─── NAVBAR ─── */
+.navbar{position:fixed;top:0;width:100%;z-index:1050;background:rgba(6,5,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);transition:box-shadow .3s;}
+.navbar.scrolled{box-shadow:0 4px 40px rgba(0,0,0,0.7);}
+.navbar-brand{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold)!important;letter-spacing:1px;padding:14px 0;}
+.navbar-brand img{height:36px;width:36px;border-radius:50%;object-fit:cover;border:1px solid rgba(212,175,55,0.35);}
+.navbar-brand span{font-style:italic;color:#fff;}
+.navbar-nav .nav-link{font-size:.8rem;font-weight:500;letter-spacing:.6px;text-transform:uppercase;color:#999!important;padding:24px 13px!important;position:relative;transition:color .25s var(--ease);}
+.navbar-nav .nav-link::after{content:'';position:absolute;bottom:16px;left:13px;right:13px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease);}
+.navbar-nav .nav-link:hover,.navbar-nav .nav-link.active{color:var(--gold)!important;}
+.navbar-nav .nav-link:hover::after,.navbar-nav .nav-link.active::after{transform:scaleX(1);}
+.nav-pill-item .nav-link{background:var(--gold-dim)!important;border:1px solid var(--border);border-radius:30px;padding:7px 16px!important;margin:14px 3px;color:var(--gold)!important;}
+.nav-pill-item .nav-link::after{display:none;}
+.nav-pill-item .nav-link:hover{background:rgba(212,175,55,0.28)!important;}
+.nav-pill-item.active-loc .nav-link{background:var(--gold)!important;color:#000!important;}
+.navbar-toggler{border:1px solid var(--border);border-radius:8px;padding:6px 10px;}
+.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212,175,55,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
+
+/* ─── HERO ─── */
+.page-hero{position:relative;margin-top:75px;height:52vh;min-height:380px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+.hero-slides{position:absolute;inset:0;}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s var(--ease);transform:scale(1.06);animation:hzoom 18s ease-in-out infinite;}
+.hero-slide.active{opacity:1;animation:hzoom 18s ease-in-out infinite;}
+
+@keyframes hzoom{from{transform:scale(1.06);}to{transform:scale(1);}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.6) 50%,rgba(10,10,10,.97) 100%);}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(212,175,55,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);}
+.hero-content{position:relative;z-index:3;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--gold);font-size:.75rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;opacity:0;animation:fadeUp .8s .3s forwards;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:36px;height:1px;background:var(--gold);}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:700;color:#fff;line-height:1.1;opacity:0;animation:fadeUp .8s .5s forwards;}
+.page-hero h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:.82rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;opacity:0;animation:fadeUp .8s .7s forwards;}
+.hero-breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#555;margin-top:18px;opacity:0;animation:fadeUp .8s .9s forwards;}
+.hero-breadcrumb a{color:#666;text-decoration:none;transition:color .2s;}
+.hero-breadcrumb a:hover{color:var(--gold);}
+.hero-breadcrumb .sep{color:var(--gold);font-size:.6rem;}
+.hero-breadcrumb .cur{color:var(--gold);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── LOCATION SWITCHER ─── */
+.loc-switcher{position:sticky;top:75px;z-index:100;background:rgba(8,7,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:16px 0;}
+.loc-pills{display:flex;gap:10px;justify-content:center;}
+.loc-pill{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(212,175,55,0.3);color:#777;padding:11px 28px;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .25s var(--ease);}
+.loc-pill i{font-size:1rem;}
+.loc-pill:hover{border-color:rgba(212,175,55,.6);color:var(--gold);}
+.loc-pill.active{background:var(--gold);color:#000;border-color:var(--gold);box-shadow:0 4px 20px rgba(212,175,55,.35);}
+.loc-pill .loc-sub{font-size:.65rem;font-weight:400;letter-spacing:.5px;display:block;line-height:1;margin-top:2px;opacity:.7;}
+
+/* ─── LOCATION PANELS ─── */
+.loc-panel{display:none;}
+.loc-panel.active{display:block;}
+
+/* ─── SECTION LAYOUT ─── */
+.booking-wrap{padding:52px 0 80px;position:relative;z-index:1;}
+
+/* ─── INFO CARDS ─── */
+.icard{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:26px;height:100%;position:relative;transition:all .3s var(--ease);}
+.icard::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.35),transparent);}
+.icard:hover{transform:translateY(-5px);border-color:rgba(212,175,55,.45);box-shadow:0 14px 36px rgba(0,0,0,.5);}
+.icard-icon{width:52px;height:52px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.icard-icon i{font-size:1.3rem;color:var(--gold);}
+.icard h4{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin-bottom:10px;}
+.icard p{font-size:.83rem;color:#666;line-height:1.6;margin-bottom:4px;}
+.icard p i{color:var(--gold);margin-right:6px;}
+.icard .highlight{color:var(--gold);font-size:.8rem;margin-top:8px;}
+
+/* ─── FORM WRAPPER ─── */
+.form-wrap{background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:44px;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);}
+.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+
+/* ─── SECTION HEADER ─── */
+.s-header{display:flex;align-items:flex-end;gap:18px;margin-bottom:32px;}
+.s-bar{width:4px;min-height:52px;background:linear-gradient(to bottom,var(--gold),rgba(212,175,55,.3));border-radius:2px;flex-shrink:0;}
+.s-text .eyebrow{font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;display:block;}
+.s-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:#fff;line-height:1.1;}
+.s-text h2 em{font-style:italic;color:var(--gold);}
+.s-text p{font-size:.82rem;color:var(--text-muted);margin-top:4px;}
+
+/* ─── FEATURE BANNER ─── */
+.feat-banner{background:rgba(0,0,0,.5);border:1px dashed rgba(212,175,55,.25);border-radius:12px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:18px;}
+.feat-banner-icon{width:56px;height:56px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.feat-banner-icon i{font-size:1.5rem;color:var(--gold);}
+.feat-banner-text h5{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:3px;}
+.feat-banner-text p{font-size:.8rem;color:#666;margin:0;}
+
+/* ─── FORM FIELDS ─── */
+.field-group{margin-bottom:18px;}
+.field-group label{font-size:.75rem;letter-spacing:1px;text-transform:uppercase;color:#555;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.field-group label i{color:var(--gold);font-size:.85rem;}
+.form-ctrl{width:100%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07);color:#e0ddd4;border-radius:10px;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:.88rem;transition:border-color .25s,box-shadow .25s;outline:none;}
+.form-ctrl:focus{border-color:rgba(212,175,55,.5);box-shadow:0 0 0 3px rgba(212,175,55,.12);color:#fff;}
+.form-ctrl::placeholder{color:#3a3a3a;}
+.form-ctrl option{background:#111;color:#e0ddd4;}
+select.form-ctrl{appearance:none;cursor:pointer;}
+textarea.form-ctrl{resize:vertical;min-height:90px;}
+
+/* date/time color fix */
+input[type="date"].form-ctrl,input[type="time"].form-ctrl{color-scheme:dark;}
+
+/* ─── TIME SLOTS ─── */
+.time-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:18px;}
+.tslot{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 4px;text-align:center;cursor:pointer;transition:all .25s var(--ease);color:#555;font-size:.75rem;}
+.tslot i{display:block;font-size:1rem;margin-bottom:4px;color:#3a3a3a;transition:color .25s;}
+.tslot:hover{border-color:rgba(212,175,55,.4);color:var(--gold);}
+.tslot:hover i{color:var(--gold);}
+.tslot.active{background:var(--gold);border-color:var(--gold);color:#000;font-weight:600;}
+.tslot.active i{color:#000;}
+
+/* ─── GUEST COUNTER ─── */
+.guest-row{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 16px;margin-bottom:18px;}
+.guest-label{font-size:.8rem;color:#666;display:flex;align-items:center;gap:6px;}
+.guest-label i{color:var(--gold);}
+.guest-ctrl{display:flex;align-items:center;gap:18px;}
+.gbtn{width:36px;height:36px;border-radius:50%;background:transparent;border:1px solid rgba(212,175,55,.4);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:.9rem;}
+.gbtn:hover{background:var(--gold);color:#000;border-color:var(--gold);}
+.gnum{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);line-height:1;min-width:32px;text-align:center;}
+
+/* ─── OCCASION GRID ─── */
+.occasion-section label{font-size:.75rem;letter-spacing:1px;text-transform:uppercase;color:#555;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.occasion-section label i{color:var(--gold);}
+.occ-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;}
+.occ-item{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 6px;text-align:center;cursor:pointer;transition:all .25s var(--ease);}
+.occ-item:hover,.occ-item.active{border-color:rgba(212,175,55,.45);background:var(--gold-dim);}
+.occ-item i{font-size:1.3rem;color:var(--gold);margin-bottom:5px;display:block;}
+.occ-item span{font-size:.72rem;color:#888;}
+.occ-item.active span{color:var(--gold);}
+
+/* ─── CHECKBOX ─── */
+.check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:22px;}
+.check-row input[type=checkbox]{appearance:none;width:18px;height:18px;min-width:18px;border:1px solid rgba(212,175,55,.4);border-radius:4px;background:rgba(0,0,0,.5);cursor:pointer;position:relative;margin-top:2px;}
+.check-row input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold);}
+.check-row input[type=checkbox]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#000;font-size:.75rem;font-weight:700;}
+.check-row label{font-size:.82rem;color:#666;cursor:pointer;line-height:1.5;}
+.check-row label a{color:var(--gold);text-decoration:none;}
+.check-row label a:hover{text-decoration:underline;}
+
+/* ─── SUBMIT BUTTON ─── */
+.btn-submit{width:100%;padding:16px;background:var(--gold);color:#000;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,175,55,.4);}
+.btn-submit:disabled{background:#333;color:#666;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* ─── STATUS ─── */
+.form-status{margin-top:18px;border-radius:10px;padding:14px 18px;font-size:.83rem;display:none;align-items:center;gap:10px;}
+.form-status.show{display:flex;}
+.form-status.ok{background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.25);color:#2ecc71;}
+.form-status.err{background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.25);color:#e74c3c;}
+
+/* ─── NOTE BOX ─── */
+.note-box{background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.18);border-radius:12px;padding:18px 22px;font-size:.83rem;color:#666;line-height:1.7;display:flex;align-items:flex-start;gap:14px;}
+.note-box i{color:var(--gold);font-size:1.1rem;margin-top:2px;flex-shrink:0;}
+.note-box strong{color:#e0ddd4;}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ─── FOOTER ─── */
+footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px;position:relative;z-index:1;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);letter-spacing:1px;margin-bottom:6px;}
+.footer-brand span{font-style:italic;color:#fff;}
+.footer-tagline{font-size:.78rem;color:#444;letter-spacing:1.5px;text-transform:uppercase;}
+.footer-copy{font-size:.8rem;color:#3a3a3a;}
+.social-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);color:#666;font-size:1rem;text-decoration:none;transition:all .25s var(--ease);margin:0 4px;}
+.social-link:hover{background:var(--gold-dim);border-color:rgba(212,175,55,.5);color:var(--gold);transform:translateY(-3px);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:767px){
+  .time-grid{grid-template-columns:repeat(3,1fr);}
+  .occ-grid{grid-template-columns:repeat(3,1fr);}
+  .form-wrap{padding:26px 20px;}
+  .loc-pill .loc-sub{display:none;}
+  .navbar-collapse{background:rgba(6,5,3,.98);padding:16px 20px 24px;border-top:1px solid var(--border);}
+  .navbar-nav .nav-link{padding:10px 0!important;border-bottom:1px solid rgba(255,255,255,.04);}
+  .navbar-nav .nav-link::after{display:none;}
+  .nav-pill-item{margin:6px 0 0;}
+  .nav-pill-item .nav-link{display:inline-block;}
+}
+@media(max-width:480px){
+  .occ-grid{grid-template-columns:repeat(2,1fr);}
+  .feat-banner{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index2.html">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeP2kxUO6aH6oLNcJ7nUl9_uyXMhZzqgvKLw&s" alt="Logo">
+      IF's <span>Lounge</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="events-gallery.html">Events &amp; Gallery</a></li>
+        <li class="nav-item nav-pill-item active-loc" id="navManzini"><a class="nav-link" href="#" onclick="switchLoc('manzini');return false;"><i class="bi bi-calendar2-check me-1"></i>Manzini</a></li>
+        <li class="nav-item nav-pill-item" id="navMbabane"><a class="nav-link" href="#" onclick="switchLoc('mbabane');return false;"><i class="bi bi-calendar2-check me-1"></i>Mbabane</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="page-hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="background-image:url('images/Doek\ Thursday.jpg\ \(1\).jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Friday\ Groove.jpg\ \(1\).jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Karaoke\ Nights.jpg.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Sunday\ Pholas.jpg.jpeg')"></div>
+  </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="container hero-content">
+    <div class="hero-eyebrow">IF's Lounge</div>
+    <h1>Reserve Your <em>Table</em></h1>
+    <p class="hero-sub">Two locations · One unforgettable experience</p>
+    <div class="hero-breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="bi bi-chevron-right sep"></i>
+      <span class="cur">Booking</span>
+    </div>
+  </div>
+</header>
+
+<!-- LOCATION SWITCHER -->
+<div class="loc-switcher">
+  <div class="container">
+    <div class="loc-pills">
+      <button class="loc-pill active" id="pillManzini" onclick="switchLoc('manzini')">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span>Manzini<span class="loc-sub">Carson Centre</span></span>
+      </button>
+      <button class="loc-pill" id="pillMbabane" onclick="switchLoc('mbabane')">
+        <i class="bi bi-geo-alt-fill"></i>
+        <span>Mbabane<span class="loc-sub">MVA Building</span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BOOKING CONTENT ═══ -->
+<section class="booking-wrap">
+  <div class="container">
+
+    <!-- ══ MANZINI PANEL ══ -->
+    <div class="loc-panel active" id="panel-manzini">
+
+      <!-- Info Cards -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-4 reveal">
+          <div class="icard">
+            <div class="icard-icon"><i class="bi bi-clock"></i></div>
+            <h4>Opening Hours</h4>
+            <p>Monday – Thursday: 11am – 2am</p>
+            <p>Friday – Saturday: 11am – 2am</p>
+            <p>Sunday: 12pm – 2am</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="icard">
+            <div class="icard-icon"><i class="bi bi-telephone"></i></div>
+            <h4>Contact</h4>
+            <p><i class="bi bi-telephone"></i>+268 3555 2554</p>
+            <p><i class="bi bi-envelope"></i>ifsloungemm@gmail.com</p>
+            <p><i class="bi bi-geo-alt"></i>Carson Centre, Manzini H100</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="icard">
+            <div class="icard-icon"><i class="bi bi-stars"></i></div>
+            <h4>Private Events</h4>
+            <p>Private dining for up to 30 guests</p>
+            <p>Birthday &amp; corporate packages</p>
+            <p class="highlight"><i class="bi bi-star-fill"></i> Ask about our specials</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-wrap reveal">
+        <div class="s-header">
+          <div class="s-bar"></div>
+          <div class="s-text">
+            <span class="eyebrow">Manzini · Carson Centre</span>
+            <h2>Reserve Your <em>Table</em></h2>
+            <p>Fill in the details and we'll confirm your reservation</p>
+          </div>
+        </div>
+
+        <div class="feat-banner">
+          <div class="feat-banner-icon"><i class="bi bi-shop-window"></i></div>
+          <div class="feat-banner-text">
+            <h5>Carson Centre, Manzini</h5>
+            <p>Select your preferences — we'll find the perfect table for you</p>
+          </div>
+          <a href="https://maps.app.goo.gl/tTcZBAi4V9T8CN7VA" target="_blank" rel="noopener" style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:.77rem;color:var(--gold);text-decoration:none;flex-shrink:0;"><i class="bi bi-map"></i>View Map</a>
+        </div>
+
+        <form id="formManzini" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-person"></i>Full Name</label>
+                <input type="text" class="form-ctrl" id="mz-name" placeholder="Your full name" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-telephone"></i>Phone Number</label>
+                <input type="tel" class="form-ctrl" id="mz-phone" placeholder="+268 ..." required>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label><i class="bi bi-envelope"></i>Email Address</label>
+            <input type="email" class="form-ctrl" id="mz-email" placeholder="you@email.com" required>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-calendar3"></i>Date</label>
+                <input type="date" class="form-ctrl" id="mz-date" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-clock"></i>Time</label>
+                <input type="time" class="form-ctrl" id="mz-time" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick time slots -->
+          <div class="field-group">
+            <label><i class="bi bi-lightning"></i>Quick Select Time</label>
+            <div class="time-grid" id="mz-tgrid">
+              <div class="tslot" data-t="17:00"><i class="bi bi-brightness-high"></i>5:00 PM</div>
+              <div class="tslot" data-t="18:30"><i class="bi bi-brightness-high"></i>6:30 PM</div>
+              <div class="tslot" data-t="19:00"><i class="bi bi-moon"></i>7:00 PM</div>
+              <div class="tslot" data-t="20:00"><i class="bi bi-moon"></i>8:00 PM</div>
+              <div class="tslot" data-t="21:00"><i class="bi bi-moon-stars"></i>9:00 PM</div>
+              <div class="tslot" data-t="22:00"><i class="bi bi-moon-stars"></i>10:00 PM</div>
+            </div>
+          </div>
+
+          <!-- Guests -->
+          <div class="guest-row">
+            <span class="guest-label"><i class="bi bi-people"></i>Number of Guests</span>
+            <div class="guest-ctrl">
+              <button type="button" class="gbtn" id="mz-dec"><i class="bi bi-dash"></i></button>
+              <span class="gnum" id="mz-gnum">2</span>
+              <button type="button" class="gbtn" id="mz-inc"><i class="bi bi-plus"></i></button>
+            </div>
+          </div>
+          <input type="hidden" id="mz-guests" value="2">
+
+          <!-- Occasion -->
+          <div class="occasion-section">
+            <label><i class="bi bi-balloon-heart"></i>Occasion <span style="text-transform:none;letter-spacing:0;font-weight:400;color:#444">(optional)</span></label>
+            <div class="occ-grid" id="mz-occgrid">
+              <div class="occ-item active" data-occ="none"><i class="bi bi-cup-hot"></i><span>Casual</span></div>
+              <div class="occ-item" data-occ="birthday"><i class="bi bi-balloon"></i><span>Birthday</span></div>
+              <div class="occ-item" data-occ="anniversary"><i class="bi bi-heart"></i><span>Anniversary</span></div>
+              <div class="occ-item" data-occ="business"><i class="bi bi-briefcase"></i><span>Business</span></div>
+              <div class="occ-item" data-occ="date"><i class="bi bi-wine"></i><span>Date Night</span></div>
+            </div>
+            <input type="hidden" id="mz-occasion" value="none">
+          </div>
+
+          <!-- Notes -->
+          <div class="field-group">
+            <label><i class="bi bi-chat-text"></i>Special Requests</label>
+            <textarea class="form-ctrl" id="mz-notes" placeholder="Dietary requirements, allergies, seating preferences..."></textarea>
+          </div>
+
+          <!-- Terms -->
+          <div class="check-row">
+            <input type="checkbox" id="mz-terms" required>
+            <label for="mz-terms">I agree to the <a href="#">cancellation policy</a> and terms of service</label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="mz-submit">
+            <i class="bi bi-check-circle"></i> Confirm Reservation
+          </button>
+          <div class="form-status" id="mz-status"></div>
+        </form>
+      </div>
+
+      <div class="note-box mt-4 reveal">
+        <i class="bi bi-info-circle"></i>
+        <div><strong>Large groups?</strong> For parties of 8 or more, call us directly at <strong>+268 3555 2554</strong>. We look forward to hosting your unforgettable dining experience at IF's Lounge Manzini!</div>
+      </div>
+
+    </div><!-- /panel-manzini -->
+
+    <!-- ══ MBABANE PANEL ══ -->
+    <div class="loc-panel" id="panel-mbabane">
+
+      <!-- Info Cards -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-4 reveal">
+          <div class="icard">
+            <div class="icard-icon"><i class="bi bi-clock"></i></div>
+            <h4>Opening Hours</h4>
+            <p>Monday – Thursday: 11am – 12am</p>
+            <p>Friday – Saturday: 11am – 12am</p>
+            <p>Sunday: 12pm – 12am</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="icard">
+            <div class="icard-icon"><i class="bi bi-telephone"></i></div>
+            <h4>Contact</h4>
+            <p><i class="bi bi-telephone"></i>+268 78714242</p>
+            <p><i class="bi bi-envelope"></i>ifsloungemm@gmail.com</p>
+            <p><i class="bi bi-geo-alt"></i>MVA Building, Mbabane</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="icard">
+            <div class="icard-icon"><i class="bi bi-stars"></i></div>
+            <h4>Private Events</h4>
+            <p>Private dining for up to 40 guests</p>
+            <p>Birthday &amp; corporate packages</p>
+            <p class="highlight"><i class="bi bi-binoculars"></i> Mountain view terrace</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-wrap reveal">
+        <div class="s-header">
+          <div class="s-bar"></div>
+          <div class="s-text">
+            <span class="eyebrow">Mbabane · MVA Building</span>
+            <h2>Reserve Your <em>Table</em></h2>
+            <p>Fill in the details and we'll confirm your reservation</p>
+          </div>
+        </div>
+
+        <div class="feat-banner">
+          <div class="feat-banner-icon"><i class="bi bi-building"></i></div>
+          <div class="feat-banner-text">
+            <h5>Mountain View Terrace</h5>
+            <p>Enjoy stunning views of the Mbabane hills while you dine</p>
+          </div>
+          <a href="https://maps.app.goo.gl/sSaoR2UvUkjpxZby8" target="_blank" rel="noopener" style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:.77rem;color:var(--gold);text-decoration:none;flex-shrink:0;"><i class="bi bi-map"></i>View Map</a>
+        </div>
+
+        <form id="formMbabane" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-person"></i>Full Name</label>
+                <input type="text" class="form-ctrl" id="mb-name" placeholder="Your full name" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-telephone"></i>Phone Number</label>
+                <input type="tel" class="form-ctrl" id="mb-phone" placeholder="+268 ..." required>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label><i class="bi bi-envelope"></i>Email Address</label>
+            <input type="email" class="form-ctrl" id="mb-email" placeholder="you@email.com" required>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-calendar3"></i>Date</label>
+                <input type="date" class="form-ctrl" id="mb-date" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="field-group">
+                <label><i class="bi bi-clock"></i>Time</label>
+                <input type="time" class="form-ctrl" id="mb-time" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick time slots -->
+          <div class="field-group">
+            <label><i class="bi bi-lightning"></i>Quick Select Time</label>
+            <div class="time-grid" id="mb-tgrid">
+              <div class="tslot" data-t="17:00"><i class="bi bi-brightness-high"></i>5:00 PM</div>
+              <div class="tslot" data-t="18:30"><i class="bi bi-brightness-high"></i>6:30 PM</div>
+              <div class="tslot" data-t="19:00"><i class="bi bi-moon"></i>7:00 PM</div>
+              <div class="tslot" data-t="20:00"><i class="bi bi-moon"></i>8:00 PM</div>
+              <div class="tslot" data-t="21:00"><i class="bi bi-moon-stars"></i>9:00 PM</div>
+              <div class="tslot" data-t="22:00"><i class="bi bi-moon-stars"></i>10:00 PM</div>
+            </div>
+          </div>
+
+          <!-- Guests -->
+          <div class="guest-row">
+            <span class="guest-label"><i class="bi bi-people"></i>Number of Guests</span>
+            <div class="guest-ctrl">
+              <button type="button" class="gbtn" id="mb-dec"><i class="bi bi-dash"></i></button>
+              <span class="gnum" id="mb-gnum">2</span>
+              <button type="button" class="gbtn" id="mb-inc"><i class="bi bi-plus"></i></button>
+            </div>
+          </div>
+          <input type="hidden" id="mb-guests" value="2">
+
+          <!-- Occasion -->
+          <div class="occasion-section">
+            <label><i class="bi bi-balloon-heart"></i>Occasion <span style="text-transform:none;letter-spacing:0;font-weight:400;color:#444">(optional)</span></label>
+            <div class="occ-grid" id="mb-occgrid">
+              <div class="occ-item active" data-occ="none"><i class="bi bi-cup-hot"></i><span>Casual</span></div>
+              <div class="occ-item" data-occ="birthday"><i class="bi bi-balloon"></i><span>Birthday</span></div>
+              <div class="occ-item" data-occ="anniversary"><i class="bi bi-heart"></i><span>Anniversary</span></div>
+              <div class="occ-item" data-occ="business"><i class="bi bi-briefcase"></i><span>Business</span></div>
+              <div class="occ-item" data-occ="date"><i class="bi bi-wine"></i><span>Date Night</span></div>
+            </div>
+            <input type="hidden" id="mb-occasion" value="none">
+          </div>
+
+          <!-- Notes -->
+          <div class="field-group">
+            <label><i class="bi bi-chat-text"></i>Special Requests</label>
+            <textarea class="form-ctrl" id="mb-notes" placeholder="Dietary requirements, allergies, seating preferences..."></textarea>
+          </div>
+
+          <!-- Terms -->
+          <div class="check-row">
+            <input type="checkbox" id="mb-terms" required>
+            <label for="mb-terms">I agree to the <a href="#">cancellation policy</a> and terms of service</label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="mb-submit">
+            <i class="bi bi-check-circle"></i> Confirm Reservation
+          </button>
+          <div class="form-status" id="mb-status"></div>
+        </form>
+      </div>
+
+      <div class="note-box mt-4 reveal">
+        <i class="bi bi-info-circle"></i>
+        <div><strong>Large groups?</strong> For parties of 16 or more, call us at <strong>+268 78714212</strong> to arrange special accommodations. We look forward to hosting you at IF's Lounge Mbabane!</div>
+      </div>
+
+    </div><!-- /panel-mbabane -->
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+        <div class="footer-brand">IF's <span>Lounge</span></div>
+        <div class="footer-tagline">Restaurant &amp; Bar · Eswatini</div>
+      </div>
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <a href="https://www.facebook.com/ifslounge" class="social-link" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/ifslounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/26878729132" class="social-link" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@ifs_lounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+      </div>
+      <div class="col-md-4 text-center text-md-end">
+        <p class="footer-copy">© 2026 IF's Lounge · All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxc-qUMwNOsgFQeOnQqpUFvLbBdqL9WRcnI5pzPsOyi_ZuvhROtX_zwaF1AHl2Dc-jS/exec";
+
+// ── Location Switcher ─────────────────────────────
+function switchLoc(loc){
+  ['manzini','mbabane'].forEach(l=>{
+    document.getElementById('panel-'+l).classList.toggle('active',l===loc);
+    document.getElementById('pill'+l.charAt(0).toUpperCase()+l.slice(1)).classList.toggle('active',l===loc);
+    document.getElementById('nav'+l.charAt(0).toUpperCase()+l.slice(1)).classList.toggle('active-loc',l===loc);
+  });
+  window.scrollTo({top:document.querySelector('.loc-switcher').offsetTop-70,behavior:'smooth'});
+  // trigger reveal on newly visible items
+  setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+    const r=el.getBoundingClientRect();if(r.top<window.innerHeight)el.classList.add('in');
+  }),80);
+}
+
+// ── Navbar scroll ─────────────────────────────────
+window.addEventListener('scroll',()=>document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10));
+
+// ── Set min dates ─────────────────────────────────
+const today=new Date().toISOString().split('T')[0];
+['mz-date','mb-date'].forEach(id=>document.getElementById(id).min=today);
+
+// ── Generic init for a location ──────────────────
+function initLoc(pfx,locLabel){
+  // Guest counter
+  let gc=2;
+  const gnum=document.getElementById(pfx+'-gnum');
+  const ginp=document.getElementById(pfx+'-guests');
+  document.getElementById(pfx+'-inc').addEventListener('click',()=>{if(gc<20){gc++;gnum.textContent=gc;ginp.value=gc;}});
+  document.getElementById(pfx+'-dec').addEventListener('click',()=>{if(gc>1){gc--;gnum.textContent=gc;ginp.value=gc;}});
+
+  // Time slots
+  const tgrid=document.getElementById(pfx+'-tgrid');
+  const tinp=document.getElementById(pfx+'-time');
+  tgrid.querySelectorAll('.tslot').forEach(s=>{
+    s.addEventListener('click',()=>{
+      tgrid.querySelectorAll('.tslot').forEach(x=>x.classList.remove('active'));
+      s.classList.add('active');
+      tinp.value=s.dataset.t;
+    });
+  });
+
+  // Occasion
+  const ogrid=document.getElementById(pfx+'-occgrid');
+  const oinp=document.getElementById(pfx+'-occasion');
+  ogrid.querySelectorAll('.occ-item').forEach(o=>{
+    o.addEventListener('click',()=>{
+      ogrid.querySelectorAll('.occ-item').forEach(x=>x.classList.remove('active'));
+      o.classList.add('active');
+      oinp.value=o.dataset.occ;
+    });
+  });
+
+  // Form submit
+  document.getElementById('form'+pfx.charAt(0).toUpperCase()+pfx.slice(1)+'zini'.replace('zini',locLabel==='Manzini'?'zini':'abane')).addEventListener('submit',async function(e){
+    e.preventDefault();
+    const btn=document.getElementById(pfx+'-submit');
+    const stat=document.getElementById(pfx+'-status');
+    const data={
+      name:document.getElementById(pfx+'-name').value.trim(),
+      phone:document.getElementById(pfx+'-phone').value.trim(),
+      email:document.getElementById(pfx+'-email').value.trim(),
+      date:document.getElementById(pfx+'-date').value,
+      time:document.getElementById(pfx+'-time').value,
+      guests:gc,
+      occasion:document.getElementById(pfx+'-occasion').value,
+      notes:document.getElementById(pfx+'-notes').value.trim(),
+      location:locLabel,
+      submittedAt:new Date().toLocaleString()
+    };
+    if(!data.name||!data.phone||!data.email||!data.date||!data.time){
+      stat.className='form-status show err';
+      stat.innerHTML='<i class="bi bi-exclamation-circle"></i> Please fill in all required fields.';return;
+    }
+    if(!document.getElementById(pfx+'-terms').checked){
+      stat.className='form-status show err';
+      stat.innerHTML='<i class="bi bi-exclamation-circle"></i> Please agree to the terms.';return;
+    }
+    btn.disabled=true;btn.innerHTML='<i class="bi bi-arrow-repeat spin"></i> Processing...';
+    stat.className='form-status';stat.innerHTML='';
+    try{
+      await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      stat.className='form-status show ok';
+      stat.innerHTML='<i class="bi bi-check-circle-fill"></i> Booking received! We\'ll confirm via SMS/email within 30 minutes.';
+      this.reset();gc=2;gnum.textContent=2;ginp.value=2;
+      tgrid.querySelectorAll('.tslot').forEach(x=>x.classList.remove('active'));
+      ogrid.querySelectorAll('.occ-item').forEach(x=>x.classList.remove('active'));
+      ogrid.querySelector('[data-occ="none"]').classList.add('active');
+      oinp.value='none';
+    }catch(err){
+      stat.className='form-status show err';
+      stat.innerHTML='<i class="bi bi-exclamation-circle"></i> Something went wrong. Please call us directly.';
+    }
+    btn.disabled=false;btn.innerHTML='<i class="bi bi-check-circle"></i> Confirm Reservation';
+  });
+}
+
+// ── Fix: manual form binding for each location ───
+document.getElementById('formManzini').addEventListener('submit',async function(e){
+  e.preventDefault();
+  await handleSubmit('mz','Manzini',this);
+});
+document.getElementById('formMbabane').addEventListener('submit',async function(e){
+  e.preventDefault();
+  await handleSubmit('mb','Mbabane',this);
+});
+
+// ── Shared guest/slot/occasion logic ─────────────
+['mz','mb'].forEach(pfx=>{
+  let gc=2;
+  const gnum=document.getElementById(pfx+'-gnum');
+  const ginp=document.getElementById(pfx+'-guests');
+  document.getElementById(pfx+'-inc').addEventListener('click',()=>{if(gc<20){gc++;gnum.textContent=gc;ginp.value=gc;}});
+  document.getElementById(pfx+'-dec').addEventListener('click',()=>{if(gc>1){gc--;gnum.textContent=gc;ginp.value=gc;}});
+
+  const tgrid=document.getElementById(pfx+'-tgrid');
+  const tinp=document.getElementById(pfx+'-time');
+  tgrid.querySelectorAll('.tslot').forEach(s=>{
+    s.addEventListener('click',()=>{tgrid.querySelectorAll('.tslot').forEach(x=>x.classList.remove('active'));s.classList.add('active');tinp.value=s.dataset.t;});
+  });
+
+  const ogrid=document.getElementById(pfx+'-occgrid');
+  const oinp=document.getElementById(pfx+'-occasion');
+  ogrid.querySelectorAll('.occ-item').forEach(o=>{
+    o.addEventListener('click',()=>{ogrid.querySelectorAll('.occ-item').forEach(x=>x.classList.remove('active'));o.classList.add('active');oinp.value=o.dataset.occ;});
+  });
+});
+
+async function handleSubmit(pfx,locLabel,form){
+  const btn=document.getElementById(pfx+'-submit');
+  const stat=document.getElementById(pfx+'-status');
+  const data={
+    name:document.getElementById(pfx+'-name').value.trim(),
+    phone:document.getElementById(pfx+'-phone').value.trim(),
+    email:document.getElementById(pfx+'-email').value.trim(),
+    date:document.getElementById(pfx+'-date').value,
+    time:document.getElementById(pfx+'-time').value,
+    guests:document.getElementById(pfx+'-guests').value,
+    occasion:document.getElementById(pfx+'-occasion').value,
+    notes:document.getElementById(pfx+'-notes').value.trim(),
+    location:locLabel,
+    submittedAt:new Date().toLocaleString()
+  };
+  if(!data.name||!data.phone||!data.email||!data.date||!data.time){
+    stat.className='form-status show err';
+    stat.innerHTML='<i class="bi bi-exclamation-circle"></i> Please fill in all required fields.';return;
+  }
+  if(!document.getElementById(pfx+'-terms').checked){
+    stat.className='form-status show err';
+    stat.innerHTML='<i class="bi bi-exclamation-circle"></i> Please agree to the terms.';return;
+  }
+  btn.disabled=true;
+  btn.innerHTML='<i class="bi bi-hourglass-split"></i> Processing...';
+  stat.className='form-status';stat.innerHTML='';
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    stat.className='form-status show ok';
+    stat.innerHTML='<i class="bi bi-check-circle-fill"></i> Booking received! We\'ll confirm via SMS/email within 30 minutes.';
+    form.reset();
+    document.getElementById(pfx+'-gnum').textContent=2;
+    document.getElementById(pfx+'-guests').value=2;
+    document.getElementById(pfx+'-tgrid').querySelectorAll('.tslot').forEach(x=>x.classList.remove('active'));
+    const og=document.getElementById(pfx+'-occgrid');
+    og.querySelectorAll('.occ-item').forEach(x=>x.classList.remove('active'));
+    og.querySelector('[data-occ="none"]').classList.add('active');
+    document.getElementById(pfx+'-occasion').value='none';
+  }catch(err){
+    stat.className='form-status show err';
+    stat.innerHTML='<i class="bi bi-exclamation-circle"></i> Something went wrong. Please call us directly.';
+  }
+  btn.disabled=false;btn.innerHTML='<i class="bi bi-check-circle"></i> Confirm Reservation';
+}
+
+// ── Scroll Reveal ─────────────────────────────────
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.08+'s';io.observe(el);});
+
+// ── Auto-detect location from hash or referrer ────
+(function(){
+  const h=window.location.hash;
+  const stored=localStorage.getItem('ifsLoc');
+  if(h==='#mbabane'||stored==='mbabane'){
+    localStorage.removeItem('ifsLoc');
+    switchLoc('mbabane');
+  }
+})();
+
+
+
+// rotate hero slides every 7s
+(function(){
+  const slides = document.querySelectorAll('.hero-slide');
+  if (!slides.length) return;
+  let idx = 0;
+  setInterval(() => {
+    slides[idx].classList.remove('active');
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add('active');
+  }, 7000);
+})();
+
+// spinner keyframe injection
+const st=document.createElement('style');
+st.textContent='@keyframes spin{to{transform:rotate(360deg);}} .spin{display:inline-block;animation:spin .7s linear infinite;}';
+document.head.appendChild(st);
+
+</script>
+</body>
+</html>

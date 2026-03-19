@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IF's Lounge | Restaurant & Bar</title>
+  <meta name="description" content="IF's Lounge Restaurant & Bar — Fine Dining, Premium Drinks & Live Vibes in Manzini & Mbabane, Eswatini.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d4af37;--gold-light:#f0d060;--gold-dim:rgba(212,175,55,0.15);--gold-glow:rgba(212,175,55,0.25);--dark:#0a0a0a;--dark2:#111111;--dark3:#181610;--card-bg:rgba(18,16,8,0.88);--border:rgba(212,175,55,0.2);--text-muted:#888;--radius:14px;--ease:cubic-bezier(.4,0,.2,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#e0ddd4;font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:0.5;}
+.navbar{position:fixed;top:0;width:100%;z-index:1050;background:rgba(6,5,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);transition:box-shadow .3s;}
+.navbar.scrolled{box-shadow:0 4px 40px rgba(0,0,0,0.7);}
+.navbar-brand{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold)!important;letter-spacing:1px;padding:14px 0;}
+.navbar-brand img{height:36px;width:36px;border-radius:50%;object-fit:cover;border:1px solid rgba(212,175,55,0.35);}
+.navbar-brand span{font-style:italic;color:#fff;}
+.navbar-nav .nav-link{font-size:0.8rem;font-weight:500;letter-spacing:0.6px;text-transform:uppercase;color:#999!important;padding:24px 13px!important;position:relative;transition:color .25s var(--ease);}
+.navbar-nav .nav-link::after{content:'';position:absolute;bottom:16px;left:13px;right:13px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease);}
+.navbar-nav .nav-link:hover{color:var(--gold)!important;}
+.navbar-nav .nav-link:hover::after,.navbar-nav .nav-link.active::after{transform:scaleX(1);}
+.navbar-nav .nav-link.active{color:var(--gold)!important;}
+.nav-pill-item .nav-link{background:var(--gold-dim)!important;border:1px solid var(--border);border-radius:30px;padding:7px 16px!important;margin:14px 3px;color:var(--gold)!important;}
+.nav-pill-item .nav-link::after{display:none;}
+.nav-pill-item .nav-link:hover{background:rgba(212,175,55,0.28)!important;}
+.navbar-toggler{border:1px solid var(--border);border-radius:8px;padding:6px 10px;}
+.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212,175,55,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--dark3);padding-top:76px;}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,175,55,0.1) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 20% 80%,rgba(212,175,55,0.05) 0%,transparent 50%),linear-gradient(180deg,#0d0b04 0%,#080706 60%,#0a0a0a 100%);}
+.hero-grid{position:absolute;inset:0;z-index:0;opacity:0.06;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black,transparent);}
+.hero-orb{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(212,175,55,0.07) 0%,transparent 70%);border-radius:50%;animation:orb-pulse 6s ease-in-out infinite;pointer-events:none;}
+@keyframes orb-pulse{0%,100%{transform:translateX(-50%) scale(1);opacity:0.7;}50%{transform:translateX(-50%) scale(1.15);opacity:1;}}
+.hero-logo{width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(212,175,55,0.45);box-shadow:0 0 40px rgba(212,175,55,0.25),0 0 80px rgba(212,175,55,0.1);margin-bottom:28px;animation:hero-logo-in 1s ease both;}
+@keyframes hero-logo-in{from{opacity:0;transform:scale(0.7);}to{opacity:1;transform:scale(1);}}
+.hero-eyebrow{font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;animation:fadeUp 0.9s ease both 0.2s;display:flex;align-items:center;justify-content:center;gap:12px;}
+.hero-eyebrow span.line{display:block;width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+.hero-eyebrow span.line.r{transform:scaleX(-1);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1.0;color:#fff;letter-spacing:-1px;animation:fadeUp 0.9s ease both 0.35s;}
+.hero h1 em{font-style:italic;color:var(--gold);display:block;}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease;}
+.hero-sub{margin-top:20px;font-size:clamp(0.85rem,2vw,1.05rem);color:#888;letter-spacing:2px;text-transform:uppercase;animation:fadeUp 0.9s ease both 0.5s;}
+.hero-sub .dot{color:var(--gold);margin:0 10px;font-size:0.4rem;vertical-align:middle;}
+.hero-cta{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.9s ease both 0.65s;}
+.btn-hero-primary{background:linear-gradient(135deg,var(--gold),#c9a227);color:#000;border:none;border-radius:50px;padding:14px 36px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--ease);box-shadow:0 4px 24px rgba(212,175,55,0.3);}
+.btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(212,175,55,0.45);color:#000;}
+.btn-hero-outline{background:transparent;color:var(--gold);border:1px solid rgba(212,175,55,0.5);border-radius:50px;padding:14px 32px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--ease);}
+.btn-hero-outline:hover{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);transform:translateY(-3px);}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:#444;animation:fadeUp 1s ease both 1.2s;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scroll-line 2s ease-in-out infinite;}
+@keyframes scroll-line{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+    .hero-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); border: none; cursor: pointer;
+      transition: all 0.3s; padding: 0;
+    }
+    .hero-dot.active { background: #d4af37; transform: scale(1.4); }
+
+/* STATS */
+.stats-bar{background:rgba(12,10,4,0.95);border-top:1px solid var(--border);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);position:relative;z-index:2;}
+.stat-item{text-align:center;padding:24px 16px;border-right:1px solid var(--border);transition:background .3s;}
+.stat-item:last-child{border-right:none;}
+.stat-item:hover{background:var(--gold-dim);}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-top:4px;}
+
+/* SECTIONS */
+section{position:relative;z-index:1;}
+.section-eyebrow{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.15;}
+.section-heading em{font-style:italic;color:var(--gold);}
+.gold-rule{display:flex;align-items:center;gap:12px;margin:16px 0 0;}
+.gold-rule::before{content:'';width:48px;height:1px;background:var(--gold);}
+.gold-rule span{font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);}
+
+/* ABOUT */
+.about-section{padding:100px 0;background:linear-gradient(180deg,#0a0a0a 0%,var(--dark3) 100%);}
+.about-img-stack{position:relative;height:420px;}
+.about-img-stack img{position:absolute;border-radius:var(--radius);object-fit:cover;}
+.about-img-main{width:72%;height:360px;top:0;right:0;border:1px solid var(--border);box-shadow:-20px 20px 60px rgba(0,0,0,0.6);z-index:2;}
+.about-img-accent{width:50%;height:220px;bottom:0;left:0;border:1px solid var(--border);box-shadow:20px -10px 40px rgba(0,0,0,0.5);z-index:3;}
+.about-gold-box{position:absolute;top:40px;left:-10px;z-index:1;width:100px;height:100px;border:2px solid rgba(212,175,55,0.3);border-radius:10px;}
+.about-text p{color:#999;font-size:0.95rem;line-height:1.9;margin-top:20px;}
+.about-pill{display:inline-flex;align-items:center;gap:8px;background:var(--gold-dim);border:1px solid var(--border);border-radius:30px;padding:6px 14px;font-size:0.75rem;letter-spacing:0.5px;color:var(--gold);margin:4px 4px 0 0;}
+
+/* MENU */
+.menu-section{padding:100px 0;background:#080806;}
+.menu-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;height:100%;transition:all .35s var(--ease);position:relative;}
+.menu-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.4),transparent);}
+.menu-card:hover{transform:translateY(-10px);border-color:rgba(212,175,55,0.45);box-shadow:0 20px 50px rgba(0,0,0,0.6);}
+.menu-card-img-wrap{overflow:hidden;position:relative;}
+.menu-card-img{width:100%;height:220px;object-fit:cover;transition:transform .5s var(--ease);display:block;}
+.menu-card:hover .menu-card-img{transform:scale(1.06);}
+.menu-tag{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.75);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--gold);backdrop-filter:blur(6px);}
+.menu-card-body{padding:24px;}
+.menu-card-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:6px;}
+.menu-card-desc{font-size:0.85rem;color:#777;line-height:1.7;}
+.menu-price{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);font-weight:700;margin-top:14px;display:flex;align-items:baseline;gap:4px;}
+.menu-price sup{font-size:0.9rem;font-family:'DM Sans',sans-serif;font-weight:400;}
+
+/* GALLERY */
+.gallery-section{padding:100px 0;background:linear-gradient(180deg,var(--dark3) 0%,#0a0a0a 100%);}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:240px 240px;gap:12px;}
+.g-item{position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--border);}
+.g-item.tall{grid-row:span 2;}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease),filter .4s;filter:brightness(0.8);}
+.g-item:hover img{transform:scale(1.08);filter:brightness(1);}
+.g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:16px;}
+.g-item:hover .g-overlay{opacity:1;}
+.g-overlay-text{font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
+
+/* TESTIMONIALS */
+.testimonials-section{padding:100px 0;background:#080806;}
+.testi-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:32px;height:100%;position:relative;overflow:hidden;transition:all .3s var(--ease);}
+.testi-card::before{content:'\201C';position:absolute;top:-10px;left:20px;font-family:'Playfair Display',serif;font-size:8rem;color:var(--gold);opacity:0.06;line-height:1;pointer-events:none;}
+.testi-card:hover{border-color:rgba(212,175,55,0.4);box-shadow:0 12px 40px rgba(0,0,0,0.5);transform:translateY(-4px);}
+.testi-stars{color:var(--gold);font-size:0.85rem;letter-spacing:2px;margin-bottom:16px;}
+.testi-text{font-size:0.92rem;color:#aaa;line-height:1.8;font-style:italic;}
+.testi-author{margin-top:20px;display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgba(212,175,55,0.1);}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.testi-name{font-size:0.88rem;font-weight:600;color:#ddd;}
+.testi-loc{font-size:0.72rem;color:var(--text-muted);}
+
+/* CTA */
+.cta-section{padding:90px 0;background:linear-gradient(135deg,#0f0d04 0%,#0a0906 50%,#12100a 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(212,175,55,0.08),transparent);pointer-events:none;}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:#fff;}
+.cta-section h2 em{font-style:italic;color:var(--gold);}
+.cta-section p{color:#777;font-size:0.95rem;margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;}
+
+/* FOOTER */
+footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px;position:relative;z-index:1;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);letter-spacing:1px;margin-bottom:6px;}
+.footer-brand span{font-style:italic;color:#fff;}
+.footer-tagline{font-size:0.78rem;color:#444;letter-spacing:1.5px;text-transform:uppercase;}
+.footer-copy{font-size:0.8rem;color:#3a3a3a;}
+.social-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);color:#666;font-size:1rem;text-decoration:none;transition:all .25s var(--ease);margin:0 4px;}
+.social-link:hover{background:var(--gold-dim);border-color:rgba(212,175,55,0.5);color:var(--gold);transform:translateY(-3px);}
+
+/* BUTTONS */
+.btn-if-primary{background:linear-gradient(135deg,var(--gold),#c9a227);color:#000;border:none;border-radius:50px;padding:13px 32px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--ease);box-shadow:0 4px 20px rgba(212,175,55,0.25);cursor:pointer;}
+.btn-if-primary:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(212,175,55,0.4);color:#000;}
+.btn-if-outline{background:transparent;color:var(--gold);border:1px solid rgba(212,175,55,0.45);border-radius:50px;padding:13px 28px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s var(--ease);cursor:pointer;}
+.btn-if-outline:hover{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);transform:translateY(-3px);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s;}.reveal-d2{transition-delay:.2s;}.reveal-d3{transition-delay:.3s;}
+
+/* RESPONSIVE */
+@media(max-width:991px){
+  .about-img-stack{height:300px;margin-bottom:40px;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto;}
+  .g-item.tall{grid-row:span 1;}
+  .navbar-collapse{background:rgba(6,5,3,0.98);padding:16px 20px 24px;border-top:1px solid var(--border);}
+  .navbar-nav .nav-link{padding:10px 0!important;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .navbar-nav .nav-link::after{display:none;}
+  .nav-pill-item{margin:6px 0 0;}
+  .nav-pill-item .nav-link{display:inline-block;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border);}
+  .stat-item:last-child{border-bottom:none;}
+}
+@media(max-width:575px){
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:2.6rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index2.html">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeP2kxUO6aH6oLNcJ7nUl9_uyXMhZzqgvKLw&s" alt="Logo">
+      IF's <span>Lounge</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="events-gallery.html">Events &amp; Gallery</a></li>
+        <li class="nav-item nav-pill-item" id="navManzini"><a class="nav-link" href="booking.html" onclick="switchLoc('manzini');return false;"><i class="bi bi-calendar2-check me-1"></i>Manzini</a></li>
+        <li class="nav-item nav-pill-item" id="navMbabane"><a class="nav-link" href="booking.html" onclick="switchLoc('mbabane');return false;"><i class="bi bi-calendar2-check me-1"></i>Mbabane</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div> 
+  <div class="container position-relative" style="z-index:2">
+    <img src="images/logo.png" alt="IF's Lounge Logo" class="hero-logo">
+      <div class="hero-eyebrow">
+      <span class="line"></span>
+      Est. Eswatini &nbsp;·&nbsp; Fine Dining
+      <span class="line r"></span>
+    </div>
+    <h1>IF's<br><em>Lounge</em></h1>
+    <p class="hero-sub">
+      Fine Dining <span class="dot">●</span>
+      Premium Drinks <span class="dot">●</span>
+      Live Vibes
+    </p>
+    <div class="hero-cta">
+      <a href="booking.html" class="btn-hero-primary"><i class="bi bi-calendar2-heart-fill"></i> Book Manzini</a>
+      <a href="booking.html" class="btn-hero-outline"><i class="bi bi-calendar2-heart"></i> Book Mbabane</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
+</header>
+
+<div class="stats-bar position-relative" style="z-index:2">
+  <div class="container">
+    <div class="row g-0">
+      <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Locations</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Menu Items</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-num">5★</div><div class="stat-label">Guest Rating</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-item"><div class="stat-num">14h</div><div class="stat-label">Daily Service</div></div></div>
+    </div>
+  </div>
+</div>
+
+<section class="about-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 reveal">
+        <div class="about-img-stack">
+          <div class="about-gold-box"></div>
+          <img src="images/services1.jpeg" alt="IF's Lounge interior" class="about-img-main">
+          <img src="images/food3.jpeg" alt="Cocktail bar" class="about-img-accent">
+        </div>
+      </div>
+      <div class="col-lg-7 reveal reveal-d1">
+        <div class="about-text">
+          <span class="section-eyebrow">Our Story</span>
+          <h2 class="section-heading">Where Every Visit<br>Becomes <em>Memorable</em></h2>
+          <div class="gold-rule"><span>Premium Dining in Eswatini</span></div>
+          <p>IF's Lounge is Eswatini's premier restaurant and bar, blending artful cuisine with a vibrant nightlife atmosphere. With two stunning venues in Manzini and Mbabane, we offer an experience that goes beyond a meal — it's an event.</p>
+          <p>From signature cocktails crafted by our expert mixologists to dishes that celebrate local and international flavours, every detail is designed to delight.</p>
+          <div style="margin-top:24px">
+            <span class="about-pill"><i class="bi bi-award me-1"></i> Premium Dining</span>
+            <span class="about-pill"><i class="bi bi-music-note-beamed me-1"></i> Live Music Weekends</span>
+            <span class="about-pill"><i class="bi bi-cup-straw me-1"></i> Signature Cocktails</span>
+            <span class="about-pill"><i class="bi bi-geo-alt me-1"></i> 2 Locations</span>
+          </div>
+          <div class="mt-4 d-flex gap-3 flex-wrap">
+            <a href="menu.html" class="btn-if-primary"><i class="bi bi-journal-text"></i> View Menu</a>
+            <a href="contact.html" class="btn-if-outline"><i class="bi bi-telephone"></i> Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section">
+  <div class="container">
+    <div class="row mb-5 align-items-end">
+      <div class="col-lg-7 reveal">
+        <span class="section-eyebrow">Chef's Selection</span>
+        <h2 class="section-heading">Featured <em>Dishes</em></h2>
+      </div>
+      <div class="col-lg-5 text-lg-end reveal reveal-d1">
+        <a href="menu.html" class="btn-if-outline mt-3 mt-lg-0"><i class="bi bi-grid me-1"></i> Full Menu</a>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal reveal-d1">
+        <div class="menu-card">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" class="menu-card-img" alt="Grilled Ribeye">
+            <span class="menu-tag">Signature</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-title">Grilled Ribeye Steak</div>
+            <p class="menu-card-desc">Premium cut with herb butter, roasted vegetables and chimichurri</p>
+            <div class="menu-price"><sup>E</sup>285</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal reveal-d2">
+        <div class="menu-card">
+          <div class="menu-card-img-wrap">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpZlqK9JFG_kb_DCPIa0d4-RI57KZVAbsR8g&s" class="menu-card-img" alt="Seafood Platter">
+            <span class="menu-tag">Chef's Pick</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-title">Seafood Platter</div>
+            <p class="menu-card-desc">Fresh lobster, tiger prawns and calamari with signature dipping sauces</p>
+            <div class="menu-price"><sup>E</sup>345</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal reveal-d3">
+        <div class="menu-card">
+          <div class="menu-card-img-wrap">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxv2iYijC7Lc-g0SK1YrLew1aJf9BN0jknQ&s" class="menu-card-img" alt="Cocktails">
+            <span class="menu-tag">Bar Favourites</span>
+          </div>
+          <div class="menu-card-body">
+            <div class="menu-card-title">Signature Cocktails</div>
+            <p class="menu-card-desc">Expertly crafted premium cocktails by our resident mixologists</p>
+            <div class="menu-price"><sup>E</sup>95</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <div class="container">
+    <div class="row mb-5 align-items-end">
+      <div class="col-lg-7 reveal">
+        <span class="section-eyebrow">Moments</span>
+        <h2 class="section-heading">Life at IF's <em>Lounge</em></h2>
+      </div>
+      <div class="col-lg-5 text-lg-end reveal reveal-d1">
+        <a href="events-gallery.html" class="btn-if-outline mt-3 mt-lg-0"><i class="bi bi-images me-1"></i> Full Gallery</a>
+      </div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="g-item tall">
+        <img src="images/event7.jpeg" alt="Lounge Interior">
+        <div class="g-overlay"><span class="g-overlay-text">The Lounge</span></div>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1579684947550-22e945225d9a?auto=format&fit=crop&w=800&q=80" alt="Signature Dish">
+        <div class="g-overlay"><span class="g-overlay-text">Fine Dining</span></div>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80" alt="Bar">
+        <div class="g-overlay"><span class="g-overlay-text">Premium Bar</span></div>
+      </div>
+      <div class="g-item">
+        <img src="images/food6.jpeg" alt="Steak">
+        <div class="g-overlay"><span class="g-overlay-text">Our Kitchen</span></div>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80" alt="Cocktails">
+        <div class="g-overlay"><span class="g-overlay-text">Pizza Specials</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-eyebrow">Guest Reviews</span>
+      <h2 class="section-heading">What Our Guests <em>Say</em></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal reveal-d1">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Best dining experience in town! The ambiance is perfect and the food is absolutely delicious. We'll definitely be back."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👩🏽</div>
+            <div><div class="testi-name">Sarah Johnson</div><div class="testi-loc">Manzini, Eswatini</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal reveal-d2">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Excellent service and incredible cocktails. The live music on weekends creates the most amazing atmosphere."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👨🏻</div>
+            <div><div class="testi-name">Michael Chen</div><div class="testi-loc">Mbabane, Eswatini</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal reveal-d3">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Perfect spot for date night. Romantic atmosphere and the staff treats you like royalty from the moment you arrive."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👩🏾</div>
+            <div><div class="testi-name">Jessica Ndlovu</div><div class="testi-loc">Manzini, Eswatini</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container position-relative" style="z-index:1">
+    <div class="reveal">
+      <span class="section-eyebrow" style="display:block;margin-bottom:12px">Reserve Your Table</span>
+      <h2>Ready for an <em>Unforgettable</em><br>Evening?</h2>
+      <p>Join us at either of our two stunning venues. Walk-ins welcome, reservations recommended.</p>
+      <div class="mt-4 d-flex gap-3 justify-content-center flex-wrap">
+        <a href="booking.html" class="btn-if-primary"><i class="bi bi-calendar2-heart-fill"></i> Book Manzini</a>
+        <a href="booking.html" class="btn-if-outline"><i class="bi bi-calendar2-heart"></i> Book Mbabane</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+        <div class="footer-brand">IF's <span>Lounge</span></div>
+        <div class="footer-tagline">Restaurant &amp; Bar · Eswatini</div>
+      </div>
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <a href="https://www.facebook.com/ifslounge" class="social-link" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/ifslounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/26878729132" class="social-link" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@ifs_lounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+      </div>
+      <div class="col-md-4 text-center text-md-end">
+        <p class="footer-copy">© 2026 IF's Lounge · All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+window.addEventListener('scroll',()=>{document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10);});
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

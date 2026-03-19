@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events & Gallery | IF's Lounge</title>
+  <meta name="description" content="Upcoming events, live nights and gallery at IF's Lounge — Eswatini's finest restaurant and bar.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d4af37;--gold-light:#f0d060;--gold-dim:rgba(212,175,55,0.15);
+  --dark:#0a0a0a;--dark2:#0e0c06;
+  --card-bg:rgba(18,16,8,0.92);--border:rgba(212,175,55,0.2);
+  --text-muted:#777;--radius:12px;--ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#e0ddd4;font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.5;}
+
+/* ─── NAVBAR ─── */
+.navbar{position:fixed;top:0;width:100%;z-index:1050;background:rgba(6,5,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);transition:box-shadow .3s;}
+.navbar.scrolled{box-shadow:0 4px 40px rgba(0,0,0,0.7);}
+.navbar-brand{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold)!important;letter-spacing:1px;padding:14px 0;}
+.navbar-brand img{height:36px;width:36px;border-radius:50%;object-fit:cover;border:1px solid rgba(212,175,55,0.35);}
+.navbar-brand span{font-style:italic;color:#fff;}
+.navbar-nav .nav-link{font-size:.8rem;font-weight:500;letter-spacing:.6px;text-transform:uppercase;color:#999!important;padding:24px 13px!important;position:relative;transition:color .25s var(--ease);}
+.navbar-nav .nav-link::after{content:'';position:absolute;bottom:16px;left:13px;right:13px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease);}
+.navbar-nav .nav-link:hover,.navbar-nav .nav-link.active{color:var(--gold)!important;}
+.navbar-nav .nav-link:hover::after,.navbar-nav .nav-link.active::after{transform:scaleX(1);}
+.nav-pill .nav-link{background:var(--gold-dim)!important;border:1px solid var(--border);border-radius:30px;padding:7px 16px!important;margin:14px 3px;color:var(--gold)!important;}
+.nav-pill .nav-link::after{display:none;}
+.nav-pill .nav-link:hover{background:rgba(212,175,55,0.28)!important;}
+.navbar-toggler{border:1px solid var(--border);border-radius:8px;padding:6px 10px;}
+.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212,175,55,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");}
+
+/* ─── HERO ─── */
+.page-hero{position:relative;margin-top:75px;height:78vh;min-height:520px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
+.hero-slides{position:absolute;inset:0;}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s var(--ease);transform:scale(1.06);animation:hzoom 18s ease-in-out infinite;}
+.hero-slide.active{opacity:1;}
+@keyframes hzoom{0%{transform:scale(1.06);}100%{transform:scale(1);}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.55) 45%,rgba(10,10,10,0.97) 100%);z-index:1;}
+.hero-grid{position:absolute;inset:0;z-index:2;pointer-events:none;background-image:linear-gradient(rgba(212,175,55,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);}
+.hero-particles{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;}
+.particle{position:absolute;width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:0;animation:floatUp var(--dur,6s) ease-in var(--delay,0s) infinite;}
+@keyframes floatUp{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:.6;}90%{opacity:.3;}100%{transform:translateY(-20px) scale(1);opacity:0;}}
+.hero-content{position:relative;z-index:3;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--gold);font-size:.72rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp .8s .3s forwards;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:36px;height:1px;background:var(--gold);}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6.5vw,5.5rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:14px;opacity:0;animation:fadeUp .8s .5s forwards;}
+.page-hero h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:.78rem;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,.4);opacity:0;animation:fadeUp .8s .7s forwards;}
+.hero-breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:#444;margin-top:20px;opacity:0;animation:fadeUp .8s .9s forwards;}
+.hero-breadcrumb a{color:#555;text-decoration:none;transition:color .2s;}
+.hero-breadcrumb a:hover{color:var(--gold);}
+.hero-breadcrumb .sep{color:var(--gold);font-size:.55rem;}
+.hero-breadcrumb .cur{color:var(--gold);}
+.hero-indicators{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:4;opacity:0;animation:fadeUp .8s 1s forwards;}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);border:none;cursor:pointer;transition:all .3s;padding:0;}
+.hero-dot.active{background:var(--gold);transform:scale(1.5);}
+.scroll-cue{position:absolute;bottom:30px;right:44px;z-index:4;display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.35);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;opacity:0;animation:fadeUp .8s 1.2s forwards;}
+.scroll-cue-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scLine 1.8s ease-in-out infinite;}
+@keyframes scLine{0%,100%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── TAB SWITCHER ─── */
+.tab-bar{position:sticky;top:75px;z-index:100;background:rgba(8,7,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:0;}
+.tab-nav{display:flex;justify-content:center;gap:0;}
+.tab-btn{background:transparent;border:none;border-bottom:2px solid transparent;color:#555;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:18px 36px;cursor:pointer;transition:all .25s var(--ease);display:flex;align-items:center;gap:8px;}
+.tab-btn i{font-size:1rem;}
+.tab-btn:hover{color:var(--gold);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ─── TAB PANELS ─── */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ─── SECTION LAYOUT ─── */
+.sec{padding:64px 0;}
+
+/* ─── SECTION HEADER ─── */
+.s-head{display:flex;align-items:flex-end;gap:18px;margin-bottom:48px;}
+.s-bar{width:4px;min-height:52px;background:linear-gradient(to bottom,var(--gold),rgba(212,175,55,.25));border-radius:2px;flex-shrink:0;}
+.s-text .eyebrow{font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;display:block;}
+.s-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;color:#fff;line-height:1.1;}
+.s-text h2 em{font-style:italic;color:var(--gold);}
+.s-text p{font-size:.82rem;color:var(--text-muted);margin-top:5px;}
+
+/* ─── FEATURED EVENT ─── */
+.feat-event{background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:48px;position:relative;overflow:hidden;margin-bottom:72px;}
+.feat-event::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.feat-event::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 0% 50%,rgba(212,175,55,0.05),transparent);pointer-events:none;}
+.feat-badge{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#000;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:30px;margin-bottom:18px;}
+.feat-event h3{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:#fff;margin-bottom:14px;line-height:1.1;}
+.feat-event h3 em{font-style:italic;color:var(--gold);}
+.feat-event p{font-size:.88rem;color:#888;line-height:1.8;}
+.countdown{display:flex;gap:14px;margin:28px 0;}
+.cd-item{background:rgba(0,0,0,.6);border:1px solid var(--border);border-radius:12px;padding:18px 20px;text-align:center;min-width:86px;position:relative;}
+.cd-item::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent);}
+.cd-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;display:block;}
+.cd-label{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:#555;display:block;margin-top:4px;}
+.feat-img{border-radius:16px;overflow:hidden;height:100%;min-height:320px;}
+.feat-img img{width:100%;height:100%;object-fit:cover;border-radius:16px;transition:transform .6s var(--ease);}
+.feat-img:hover img{transform:scale(1.04);}
+.btn-outline-gold{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(212,175,55,.5);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;padding:12px 26px;border-radius:30px;text-decoration:none;cursor:pointer;transition:all .25s var(--ease);}
+.btn-outline-gold:hover{background:var(--gold);color:#000;border-color:var(--gold);}
+.btn-gold-solid{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:12px 26px;border-radius:30px;text-decoration:none;border:none;cursor:pointer;transition:all .25s var(--ease);}
+.btn-gold-solid:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 22px rgba(212,175,55,.38);}
+
+/* ─── EVENT CARDS ─── */
+.ecard{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;overflow:hidden;height:100%;transition:all .3s var(--ease);position:relative;}
+.ecard::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent);}
+.ecard:hover{transform:translateY(-8px);border-color:rgba(212,175,55,.45);box-shadow:0 20px 44px rgba(0,0,0,.6);}
+.ecard-img{position:relative;height:220px;overflow:hidden;}
+.ecard-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease);}
+.ecard:hover .ecard-img img{transform:scale(1.08);}
+.ecard-date{position:absolute;top:16px;right:16px;background:var(--gold);color:#000;padding:10px 13px;border-radius:10px;text-align:center;font-weight:700;z-index:2;line-height:1;}
+.ecard-date .day{font-family:'Playfair Display',serif;font-size:1.4rem;}
+.ecard-date .mon{font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;display:block;}
+.ecard-body{padding:24px;}
+.ecard-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff;margin-bottom:12px;}
+.ecard-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;}
+.ecard-meta span{font-size:.75rem;color:#666;display:flex;align-items:center;gap:5px;}
+.ecard-meta i{color:var(--gold);}
+.ecard-desc{font-size:.82rem;color:#666;line-height:1.7;margin-bottom:18px;}
+.ecard-footer{display:flex;align-items:center;justify-content:space-between;}
+.ecard-price{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);}
+
+/* ─── PAST EVENTS ─── */
+.past-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.past-item{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;}
+.past-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease),filter .3s;}
+.past-item:hover img{transform:scale(1.1);filter:brightness(.6);}
+.past-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 100%);padding:20px;transform:translateY(100%);transition:transform .35s var(--ease);}
+.past-item:hover .past-overlay{transform:translateY(0);}
+.past-overlay h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold);margin-bottom:3px;}
+.past-overlay p{font-size:.75rem;color:#aaa;margin:0;}
+
+/* ─── GALLERY FILTER ─── */
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px;}
+.filt-btn{background:transparent;border:1px solid rgba(212,175,55,.25);color:#666;font-family:'DM Sans',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:9px 22px;border-radius:30px;cursor:pointer;transition:all .25s var(--ease);}
+.filt-btn:hover{border-color:rgba(212,175,55,.5);color:var(--gold);}
+.filt-btn.active{background:var(--gold);color:#000;border-color:var(--gold);}
+
+/* ─── GALLERY GRID ─── */
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 4px;}
+.gal-item{position:relative;overflow:hidden;border-radius:14px;cursor:pointer;aspect-ratio:1/1;border:1px solid transparent;transition:border-color .3s,box-shadow .3s;}
+.gal-item:hover{border-color:rgba(212,175,55,.35);box-shadow:0 12px 32px rgba(0,0,0,.6);}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease),filter .3s;}
+.gal-item:hover img{transform:scale(1.08);filter:brightness(.7);}
+.gal-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:18px;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 50%,transparent 100%);opacity:0;transition:opacity .3s var(--ease);}
+.gal-item:hover .gal-overlay{opacity:1;}
+.gal-overlay-icon{width:42px;height:42px;border-radius:50%;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.4);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.1rem;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);transition:transform .3s;}
+.gal-item:hover .gal-overlay-icon{transform:translate(-50%,-50%);}
+.gal-overlay h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold);margin-bottom:3px;text-align:center;}
+.gal-overlay p{font-size:.73rem;color:#ccc;margin:0;text-align:center;}
+.gal-item.large{grid-column:span 2;grid-row:span 2;aspect-ratio:1/1;}
+.gal-item.wide{grid-column:span 2;aspect-ratio:2/1;}
+.gal-item.tall{grid-row:span 2;aspect-ratio:1/2;}
+
+/* ─── LIGHTBOX ─── */
+.lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.94);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.lightbox.open{opacity:1;pointer-events:all;}
+.lb-inner{position:relative;max-width:880px;width:92%;max-height:90vh;}
+.lb-img-wrap{border-radius:14px;overflow:hidden;border:1px solid var(--border);}
+.lb-img-wrap img{display:block;width:100%;max-height:72vh;object-fit:contain;background:#0a0a0a;}
+.lb-caption{padding:16px 4px 0;}
+.lb-caption h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:3px;}
+.lb-caption p{font-size:.8rem;color:#666;}
+.lb-close{position:absolute;top:-46px;right:0;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.lb-close:hover{background:rgba(212,175,55,.2);color:var(--gold);}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid var(--border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lb-nav:hover{background:var(--gold-dim);}
+.lb-prev{left:-58px;}
+.lb-next{right:-58px;}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ─── FOOTER ─── */
+footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px;position:relative;z-index:1;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);letter-spacing:1px;margin-bottom:6px;}
+.footer-brand span{font-style:italic;color:#fff;}
+.footer-tagline{font-size:.75rem;color:#3a3a3a;letter-spacing:1.5px;text-transform:uppercase;}
+.footer-copy{font-size:.78rem;color:#333;}
+.social-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);color:#666;font-size:1rem;text-decoration:none;transition:all .25s var(--ease);margin:0 4px;}
+.social-link:hover{background:var(--gold-dim);border-color:rgba(212,175,55,.5);color:var(--gold);transform:translateY(-3px);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:991px){
+  .past-grid{grid-template-columns:repeat(2,1fr);}
+  .gal-grid{grid-template-columns:repeat(3,1fr);}
+  .gal-item.large,.gal-item.wide,.gal-item.tall{grid-column:span 1;grid-row:span 1;aspect-ratio:1/1;}
+  .feat-event{padding:30px;}
+  .countdown{flex-wrap:wrap;}
+  .lb-prev{left:-10px;}
+  .lb-next{right:-10px;}
+}
+@media(max-width:767px){
+  .gal-grid{grid-template-columns:repeat(2,1fr);}
+  .tab-btn{padding:16px 20px;font-size:.72rem;}
+  .navbar-collapse{background:rgba(6,5,3,.98);padding:16px 20px 24px;border-top:1px solid var(--border);}
+  .navbar-nav .nav-link{padding:10px 0!important;border-bottom:1px solid rgba(255,255,255,.04);}
+  .navbar-nav .nav-link::after{display:none;}
+  .nav-pill{margin:6px 0 0;}
+  .nav-pill .nav-link{display:inline-block;}
+}
+@media(max-width:480px){
+  .gal-grid{grid-template-columns:1fr;}
+  .past-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index2.html">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeP2kxUO6aH6oLNcJ7nUl9_uyXMhZzqgvKLw&s" alt="Logo">
+      IF's <span>Lounge</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link active" href="events-gallery.html">Events &amp; Gallery</a></li>
+        <li class="nav-item nav-pill"><a class="nav-link" href="booking.html"><i class="bi bi-calendar2-check me-1"></i>Manzini</a></li>
+        <li class="nav-item nav-pill"><a class="nav-link" href="booking.html" onclick="localStorage.setItem('ifsLoc','mbabane')"><i class="bi bi-calendar2-check me-1"></i>Mbabane</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="page-hero">
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('images/event1.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('images/event2.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('images/event3.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('images/event4.JPG')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="container hero-content">
+    <div class="hero-eyebrow">IF's Lounge</div>
+    <h1>Events &amp; <em>Gallery</em></h1>
+    <p class="hero-sub">Experience the finest nights in Eswatini</p>
+    <div class="hero-breadcrumb">
+      <a href="index2.html">Home</a>
+      <i class="bi bi-chevron-right sep"></i>
+      <span class="cur">Events &amp; Gallery</span>
+    </div>
+  </div>
+  <div class="hero-indicators">
+    <button class="hero-dot active" data-slide="0"></button>
+    <button class="hero-dot" data-slide="1"></button>
+    <button class="hero-dot" data-slide="2"></button>
+    <button class="hero-dot" data-slide="3"></button>
+  </div>
+  <div class="scroll-cue">
+    <div class="scroll-cue-line"></div>
+    <span>Scroll</span>
+  </div>
+</header>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <div class="container">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="events"><i class="bi bi-calendar-event"></i>Events</button>
+      <button class="tab-btn" data-tab="gallery"><i class="bi bi-images"></i>Gallery</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ EVENTS PANEL ══════════ -->
+<div class="tab-panel active" id="tab-events">
+  <section class="sec">
+    <div class="container">
+
+      <!-- Featured Event -->
+      <div class="feat-event reveal">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="feat-badge"><i class="bi bi-star-fill"></i>Featured Event</div>
+            <h3>New Year's Eve <em>Party 2026</em></h3>
+            <p class="mt-2">Ring in the new year with style! Join us for the most luxurious New Year's Eve party in town. Live band, premium open bar, gourmet buffet, and a spectacular champagne toast at midnight.</p>
+            <div class="countdown mt-4">
+              <div class="cd-item"><span class="cd-num" id="days">00</span><span class="cd-label">Days</span></div>
+              <div class="cd-item"><span class="cd-num" id="hours">00</span><span class="cd-label">Hours</span></div>
+              <div class="cd-item"><span class="cd-num" id="minutes">00</span><span class="cd-label">Mins</span></div>
+              <div class="cd-item"><span class="cd-num" id="seconds">00</span><span class="cd-label">Secs</span></div>
+            </div>
+            <div class="mt-4">
+              <a href="contact.html" class="btn-gold-solid"><i class="bi bi-envelope"></i>Contact Us</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="feat-img">
+              <img src="https://media.istockphoto.com/id/599997926/photo/beautiful-large-colorful-fireworks-display-with-unrecognizable-crowd-people-watching.jpg?s=612x612&w=0&k=20&c=AENisd6BzY_HbiG3TwRw2oUqZqYkDZKNM3fu872CzjE=" alt="New Year Gala">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <div class="s-head reveal">
+        <div class="s-bar"></div>
+        <div class="s-text">
+          <span class="eyebrow">What's On</span>
+          <h2>Upcoming <em>Events</em></h2>
+          <p>Don't miss out on these amazing nights</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="ecard">
+            <div class="ecard-img">
+          <img src="images/Doek Thursday.jpg (1).jpeg" alt="DJ Night">
+   <div class="ecard-date"><div class="day"></div><span class="mon">Mar</span></div>
+            </div>
+            <div class="ecard-body">
+              <h3 class="ecard-title">Live music Night</h3>
+              <div class="ecard-meta">
+                <span><i class="bi bi-clock"></i>6:00 PM – 2:00 AM</span>
+                <span><i class="bi bi-geo-alt"></i>Main Lounge</span>
+              </div>
+              <p class="ecard-desc">Enjoy a smooth evening with the best perfomances in town. Special cocktail menu and gourmet appetizers included.</p>
+              <div class="ecard-footer">
+                <span class="ecard-price">Free</span>
+                <a href="booking.html" class="btn-outline-gold">Book VIP <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="ecard">
+            <div class="ecard-img">
+              <img src="images/Friday Groove.jpg (1).jpeg" alt="Friday Groove">
+              <div class="ecard-date"><div class="day"></div><span class="mon">Mar</span></div>
+            </div>
+            <div class="ecard-body">
+              <h3 class="ecard-title">Friday Groove</h3>
+              <div class="ecard-meta">
+                <span><i class="bi bi-clock"></i>7:00 PM – 10:00 PM</span>
+                <span><i class="bi bi-geo-alt"></i>Wine Cellar</span>
+              </div>
+              <p class="ecard-desc">Get ready for an unforgettable evening of great music and drinks. Special resident DJ will be spinning the latest hits.</p>
+              <div class="ecard-footer">
+                <span class="ecard-price">E450 p/p</span>
+                <a href="booking.html" class="btn-outline-gold">Join Now <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="ecard">
+            <div class="ecard-img">
+              <img src="images/Saturday Nights.jpg (1).jpeg" alt="DJ Night">
+              <div class="ecard-date"><div class="day"></div><span class="mon">Mar</span></div>
+            </div>
+            <div class="ecard-body">
+              <h3 class="ecard-title">Resident Djs</h3>
+              <div class="ecard-meta">
+                <span><i class="bi bi-clock"></i>10:00 PM – 3:00 AM</span>
+                <span><i class="bi bi-geo-alt"></i>Club Area</span>
+              </div>
+              <p class="ecard-desc">Let our Djs takes over the decks for a night of house and afro beats. Premium bottle service available.</p>
+              <div class="ecard-footer">
+                <span class="ecard-price">Free  entry</span>
+                <a href="booking.html" class="btn-outline-gold">Book Table <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="ecard">
+            <div class="ecard-img">
+              <img src="images/Sunday Pholas.jpg.jpeg" alt="Sunday Brunch">
+              <div class="ecard-date"><div class="day"></div><span class="mon">Mar</span></div>
+            </div>
+            <div class="ecard-body">
+              <h3 class="ecard-title">Sunday Chillas</h3>
+              <div class="ecard-meta">
+                <span><i class="bi bi-clock"></i>11:00 AM – 12:00 AM</span>
+                <span><i class="bi bi-geo-alt"></i>Garden Terrace</span>
+              </div>
+              <p class="ecard-desc">Relaxed Sunday afternoon with live music and delicious brunch options.</p>
+              <div class="ecard-footer">
+                <span class="ecard-price">Free entry</span>
+                <a href="booking.html" class="btn-outline-gold">Reserve <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="ecard">
+            <div class="ecard-img">
+              <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1169&q=80" alt="Corporate Event">
+              <div class="ecard-date"><div class="day">10</div><span class="mon">Apr</span></div>
+            </div>
+            <div class="ecard-body">
+              <h3 class="ecard-title">Corporate Mixer</h3>
+              <div class="ecard-meta">
+                <span><i class="bi bi-clock"></i>6:30 PM – 9:30 PM</span>
+                <span><i class="bi bi-geo-alt"></i>Private Room</span>
+              </div>
+              <p class="ecard-desc">Network with professionals over drinks and canapés. Exclusive event for business networking.</p>
+              <div class="ecard-footer">
+                <span class="ecard-price">Fre entry</span>
+                <a href="booking.html" class="btn-outline-gold">Register <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="ecard">
+            <div class="ecard-img">
+              <img src="images/Karaoke Nights.jpg.jpeg" alt="Karaoke Night">
+              <div class="ecard-date"><div class="day"></div><span class="mon">Mar</span></div>
+            </div>
+            <div class="ecard-body">
+              <h3 class="ecard-title">Karaoke &amp; Cocktails</h3>
+              <div class="ecard-meta">
+                <span><i class="bi bi-clock"></i>9:00 PM – 1:00 AM</span>
+                <span><i class="bi bi-geo-alt"></i>Lounge Area</span>
+              </div>
+              <p class="ecard-desc">Show off your singing skills! Prizes for best performances. 2-for-1 cocktails all night.</p>
+              <div class="ecard-footer">
+                <span class="ecard-price">Free entry</span>
+                <a href="booking.html" class="btn-outline-gold">Join <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Past Events -->
+      <div class="mt-5 pt-4">
+        <div class="s-head reveal">
+          <div class="s-bar"></div>
+          <div class="s-text">
+            <span class="eyebrow">Memories</span>
+            <h2>Past Event <em>Highlights</em></h2>
+            <p>Memories from previous nights</p>
+          </div>
+        </div>
+        <div class="past-grid">
+         
+          
+          <div class="past-item reveal">
+            <img src="images/valentineP.jpeg" alt="Valentines Day">
+            <div class="past-overlay"><h4>Valentine's Dinner</h4><p>Romantic evening with Sands</p></div>
+          </div>
+          <div class="past-item reveal">
+            <img src="https://www.kikilikiki.com/unity/Content/Users/1212200814039344_Salebona_Nxumalo/Venues/Ifs%20Lounge%20Restaurant%20&%20Bar/Ifs%20Lounge%20Restaurant%20&%20Bar.jpg" alt="Spring Bash">
+            <div class="past-overlay"><h4>Spring Bash</h4><p>You just had to be there to feel the early festive celebration.</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ GALLERY PANEL ══════════ -->
+<div class="tab-panel" id="tab-gallery">
+  <section class="sec">
+    <div class="container-fluid px-4">
+
+      <div class="container mb-5">
+        <div class="s-head reveal">
+          <div class="s-bar"></div>
+          <div class="s-text">
+            <span class="eyebrow">Visual Journal</span>
+            <h2>Our <em>Gallery</em></h2>
+            <p>Moments captured at IF's Lounge</p>
+          </div>
+        </div>
+        <div class="filter-bar reveal">
+          <button class="filt-btn active" data-filter="all">All</button>
+          <button class="filt-btn" data-filter="interior">Interior</button>
+          <button class="filt-btn" data-filter="food">Food</button>
+          <button class="filt-btn" data-filter="drinks">Drinks</button>
+          <button class="filt-btn" data-filter="events">Events</button>
+        </div>
+      </div>
+
+      <div class="gal-grid" id="galGrid">
+
+        <!-- Interior x4 -->
+        <div class="gal-item large reveal" data-cat="interior">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSwagDhdEuHTHPEEVstO5bIFJMK5ZjHu0Pji-hIASCeLN7cmOav3sVlzoIcs4JjP1WOc0&usqp=CAU" alt="Main Dining Area">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Main Dining Area</h4><p>Elegant ambiance with modern decor</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="interior">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80" alt="Bar Area">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>The Gold Bar</h4><p>Premium spirits and craft cocktails</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="interior">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR06reLfsbpwte2TSyGy3IRPsNvidAwKclMug&s" alt="VIP Section">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>VIP Section</h4><p>Exclusive private dining</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="interior">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3FcaLRXO8QYiWaS6HZ7h9VmEVvjoPTaxEyiaXu66eA6TkvV0YX4aop1q-D2qwfknaEDs&usqp=CAU" alt="Garden Terrace">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Garden Terrace</h4><p>Al fresco dining experience</p></div>
+        </div>
+
+        <!-- Food x4 -->
+        <div class="gal-item wide reveal" data-cat="food">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80" alt="Grilled Steak">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Signature Ribs</h4><p>Perfectly grilled with herb butter</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="food">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC_ay8wK1kFLaTg-194JmJl7N55bq0zXGj4mrgTRZ3kLe-5cQcJxXVH3rSGlI1B1eZadw&usqp=CAU" alt="Seafood Platter">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Seafood Extravaganza</h4><p>Fresh prawns &amp; calamari</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="food">
+          <img src="https://www.giallozafferano.com/images/346-34665/smash-burger_1200x800.jpg" alt="Gourmet Burger">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>IF's Special Burger</h4><p>Angus beef with truffle sauce</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="food">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB4PTRbtfCRwE0Uz2mIYotViTRzWLHwDUbjg&s" alt="Chicken Burger">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Crispy Chicken Burger</h4><p>Golden and stacked high</p></div>
+        </div>
+
+        <!-- Drinks x4 -->
+        <div class="gal-item tall reveal" data-cat="drinks">
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80" alt="Signature Cocktail">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Sunset Martini</h4><p>Our signature cocktail</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="drinks">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8aeeHDQk6BBuWtLeWEjdSj32lH4tQZEE1Iw&s" alt="Wine Selection">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Premium Wines</h4><p>Curated from around the world</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="drinks">
+          <img src="https://sherlocks.com/wp-content/uploads/beer-selection.jpg" alt="Craft Beer">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Craft Beer Selection</h4><p>Local &amp; imported on tap</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="drinks">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80" alt="Cocktail Bar">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Mixology Station</h4><p>Expertly crafted cocktails</p></div>
+        </div>
+
+        <!-- Events x4 -->
+        <div class="gal-item large reveal" data-cat="events">
+          <img src="images/sumeet-ahire-YX2kh_nAM_A-unsplash.jpg" alt="Live Music Night">
+                  <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Live Music Night</h4><p>From Wednesday to Sunday</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="events">
+          <img src="https://i.pinimg.com/1200x/ed/a8/2e/eda82e237a0fb9e5cf85d7eb76a1cd7c.jpg" alt="Birthday Party">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Birthday Celebrations</h4><p>Make your moments special</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="events">
+          <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=800&q=80" alt="Private Event">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Private Functions</h4><p>Tailored events for every occasion</p></div>
+        </div>
+        <div class="gal-item reveal" data-cat="events">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhvuVzN2mC_-B8UKKdOPzmn6PL6UMFxua0AQ&s" alt="Karaoke Night">
+          <div class="gal-overlay"><div class="gal-overlay-icon"><i class="bi bi-zoom-in"></i></div><h4>Karaoke Night</h4><p>Sing, laugh, repeat</p></div>
+        </div>
+
+      </div><!-- /gal-grid -->
+    </div>
+  </section>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose"><i class="bi bi-x"></i></button>
+    <button class="lb-nav lb-prev" id="lbPrev"><i class="bi bi-chevron-left"></i></button>
+    <button class="lb-nav lb-next" id="lbNext"><i class="bi bi-chevron-right"></i></button>
+    <div class="lb-img-wrap">
+      <img src="" id="lbImg" alt="Gallery Image">
+    </div>
+    <div class="lb-caption">
+      <h3 id="lbTitle"></h3>
+      <p id="lbDesc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+        <div class="footer-brand">IF's <span>Lounge</span></div>
+        <div class="footer-tagline">Restaurant &amp; Bar · Eswatini</div>
+      </div>
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <a href="https://www.facebook.com/ifslounge" class="social-link" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/ifslounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/26878729132" class="social-link" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@ifs_lounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+      </div>
+      <div class="col-md-4 text-center text-md-end">
+        <p class="footer-copy">© 2026 IF's Lounge · All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ── Navbar scroll ──────────────────────────────────
+window.addEventListener('scroll',()=>document.querySelector('.navbar').classList.toggle('scrolled',scrollY>10));
+
+// ── Hero Slideshow ─────────────────────────────────
+const slides=document.querySelectorAll('.hero-slide');
+const dots=document.querySelectorAll('.hero-dot');
+let cur=0,timer;
+function goSlide(n){
+  slides[cur].classList.remove('active');dots[cur].classList.remove('active');
+  cur=(n+slides.length)%slides.length;
+  slides[cur].classList.add('active');dots[cur].classList.add('active');
+}
+timer=setInterval(()=>goSlide(cur+1),5200);
+dots.forEach(d=>d.addEventListener('click',()=>{clearInterval(timer);goSlide(+d.dataset.slide);timer=setInterval(()=>goSlide(cur+1),5200);}));
+
+// ── Hero Particles ─────────────────────────────────
+const pc=document.getElementById('heroParticles');
+for(let i=0;i<28;i++){
+  const p=document.createElement('div');p.className='particle';
+  p.style.left=Math.random()*100+'%';
+  p.style.setProperty('--dur',(4+Math.random()*6)+'s');
+  p.style.setProperty('--delay',(Math.random()*9)+'s');
+  const s=(2+Math.random()*3)+'px';p.style.width=s;p.style.height=s;
+  pc.appendChild(p);
+}
+
+// ── Tab Switching ─────────────────────────────────
+const tabBtns=document.querySelectorAll('.tab-btn');
+const tabPanels=document.querySelectorAll('.tab-panel');
+tabBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));
+    tabPanels.forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:document.querySelector('.tab-bar').offsetTop-72,behavior:'smooth'});
+    setTimeout(runReveal,80);
+  });
+});
+
+// ── Countdown ─────────────────────────────────────
+function tick(){
+  const d=new Date('December 31, 2026 23:59:59').getTime()-Date.now();
+  document.getElementById('days').textContent=String(Math.floor(d/86400000)).padStart(2,'0');
+  document.getElementById('hours').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('minutes').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');
+  document.getElementById('seconds').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+// ── Gallery Filter ─────────────────────────────────
+document.querySelectorAll('.filt-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filt-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.gal-item').forEach(item=>{
+      item.style.display=(f==='all'||item.dataset.cat===f)?'':'none';
+    });
+  });
+});
+
+// ── Custom Lightbox ────────────────────────────────
+const lb=document.getElementById('lightbox');
+const lbImg=document.getElementById('lbImg');
+const lbTitle=document.getElementById('lbTitle');
+const lbDesc=document.getElementById('lbDesc');
+let galItems=[],lbIdx=0;
+
+function openLB(items,idx){
+  galItems=items;lbIdx=idx;
+  const item=galItems[lbIdx];
+  lbImg.src=item.querySelector('img').src;
+  lbTitle.textContent=item.querySelector('h4').textContent;
+  lbDesc.textContent=item.querySelector('p').textContent;
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(){lb.classList.remove('open');document.body.style.overflow='';}
+function navLB(dir){
+  lbIdx=(lbIdx+dir+galItems.length)%galItems.length;
+  lbImg.src=galItems[lbIdx].querySelector('img').src;
+  lbTitle.textContent=galItems[lbIdx].querySelector('h4').textContent;
+  lbDesc.textContent=galItems[lbIdx].querySelector('p').textContent;
+}
+
+document.querySelectorAll('.gal-item').forEach((item,i,arr)=>{
+  item.addEventListener('click',()=>openLB([...arr],i));
+});
+document.getElementById('lbClose').addEventListener('click',closeLB);
+document.getElementById('lbPrev').addEventListener('click',()=>navLB(-1));
+document.getElementById('lbNext').addEventListener('click',()=>navLB(1));
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLB();
+  if(e.key==='ArrowLeft')navLB(-1);
+  if(e.key==='ArrowRight')navLB(1);
+});
+
+// ── Scroll Reveal ─────────────────────────────────
+function runReveal(){
+  document.querySelectorAll('.reveal:not(.in)').forEach((el,i)=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight-30){
+      setTimeout(()=>el.classList.add('in'),(i%5)*70);
+    }
+  });
+}
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),60);io.unobserve(e.target);}});
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

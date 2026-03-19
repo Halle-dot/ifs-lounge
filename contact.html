@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IF's Lounge | Contact</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/build/index.min.js"></script>
+<!-- Google Fonts: Playfair Display + DM Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5.3 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════
+   ROOT & RESET
+══════════════════════════════════════════ */
+:root {
+  --gold:       #d4af37;
+  --gold-light: #f0d060;
+  --gold-dim:   rgba(212,175,55,0.18);
+  --dark:       #0a0a0a;
+  --dark2:      #111111;
+  --dark3:      #1a1a1a;
+  --card-bg:    rgba(20,18,12,0.85);
+  --border:     rgba(212,175,55,0.22);
+  --text-muted: #888;
+  --radius:     14px;
+  --transition: 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--dark);
+  color: #e8e8e8;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Noise overlay for depth */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
+.navbar {
+  position: fixed; top: 0; width: 100%; z-index: 1050;
+  background: rgba(8,8,6,0.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  padding: 0;
+  transition: box-shadow 0.3s;
+}
+.navbar.scrolled { box-shadow: 0 4px 40px rgba(0,0,0,0.6); }
+
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: var(--gold) !important;
+  letter-spacing: 1.5px;
+  padding: 18px 0;
+}
+.navbar-brand img{height:36px;width:36px;border-radius:50%;object-fit:cover;border:1px solid rgba(212,175,55,0.35);}
+.navbar-brand span { font-style: italic; color: #fff; }
+
+.navbar-nav .nav-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #aaa !important;
+  padding: 28px 14px !important;
+  position: relative;
+  transition: color var(--transition);
+}
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 18px; left: 14px; right: 14px;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+.navbar-nav .nav-link:hover { color: var(--gold) !important; }
+.navbar-nav .nav-link:hover::after { transform: scaleX(1); }
+.navbar-nav .nav-link.active { color: var(--gold) !important; }
+.navbar-nav .nav-link.active::after { transform: scaleX(1); }
+
+/* Booking nav items styled as pills */
+.navbar-nav .nav-item.booking-pill .nav-link {
+  background: var(--gold-dim);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 18px !important;
+  margin: 18px 4px;
+  color: var(--gold) !important;
+}
+.navbar-nav .nav-item.booking-pill .nav-link::after { display:none; }
+.navbar-nav .nav-item.booking-pill .nav-link:hover {
+  background: rgba(212,175,55,0.28);
+}
+
+.navbar-toggler {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212,175,55,0.9)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.page-hero {
+  margin-top: 75px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0d0c08 0%, #0f0d00 40%, #0a0a0a 100%);
+  padding: 80px 20px 60px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+    .hero-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); border: none; cursor: pointer;
+      transition: all 0.3s; padding: 0;
+    }
+    .hero-dot.active { background: #d4af37; transform: scale(1.4); }
+
+
+/* Decorative radial glow */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Gold horizontal rule decoration */
+.hero-rule {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 20px;
+}
+.hero-rule span {
+  display: block; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  width: 80px;
+}
+.hero-rule i { color: var(--gold); font-size: 0.85rem; opacity: 0.7; }
+
+.page-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+}
+.page-hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.page-hero .sub {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* breadcrumb */
+.hero-breadcrumb {
+  margin-top: 22px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #555;
+}
+.hero-breadcrumb a { color: #666; text-decoration: none; transition: color .2s; }
+.hero-breadcrumb a:hover { color: var(--gold); }
+.hero-breadcrumb .sep { color: var(--gold); font-size: 0.6rem; }
+.hero-breadcrumb .current { color: var(--gold); }
+
+/* ══════════════════════════════════════════
+   MAIN WRAPPER
+══════════════════════════════════════════ */
+.main-wrapper {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 24px 100px;
+}
+
+/* ══════════════════════════════════════════
+   SECTION LABEL
+══════════════════════════════════════════ */
+.section-label {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 32px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 3px; height: 28px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.section-label h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════════
+   CARD BASE
+══════════════════════════════════════════ */
+.if-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.if-card:hover {
+  border-color: rgba(212,175,55,0.42);
+  box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+}
+.if-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
+}
+
+.card-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.card-heading i { font-size: 1rem; opacity: 0.85; }
+
+/* ══════════════════════════════════════════
+   INFO ITEMS
+══════════════════════════════════════════ */
+.info-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background var(--transition);
+}
+.info-item:last-child { border-bottom: none; padding-bottom: 0; }
+.info-item:first-child { padding-top: 0; }
+
+.info-icon {
+  width: 44px; height: 44px; min-width: 44px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.info-item:hover .info-icon {
+  background: rgba(212,175,55,0.26);
+  box-shadow: 0 0 16px rgba(212,175,55,0.18);
+}
+
+.info-label {
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+.info-value {
+  font-size: 0.92rem;
+  color: #ddd;
+  font-weight: 400;
+}
+.info-value a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.info-value a:hover { color: var(--gold-light); }
+
+/* Hours badge */
+.hours-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(46,204,113,0.1);
+  border: 1px solid rgba(46,204,113,0.25);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  color: #2ecc71;
+  margin-top: 4px;
+}
+.hours-dot {
+  width: 6px; height: 6px;
+  background: #2ecc71;
+  border-radius: 50%;
+  animation: pulse-green 2s infinite;
+}
+@keyframes pulse-green {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%     { opacity:0.5; transform:scale(1.4); }
+}
+
+/* ══════════════════════════════════════════
+   QUICK ACTION BUTTONS
+══════════════════════════════════════════ */
+.action-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.025);
+  text-decoration: none;
+  color: #ddd;
+  transition: all var(--transition);
+  margin-bottom: 10px;
+}
+.action-btn:last-child { margin-bottom: 0; }
+.action-btn:hover {
+  background: var(--gold-dim);
+  border-color: rgba(212,175,55,0.45);
+  color: #fff;
+  transform: translateX(4px);
+}
+.action-btn .ab-icon {
+  width: 40px; height: 40px; min-width: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.ab-whatsapp { background: rgba(37,211,102,0.15); color: #25d366; }
+.ab-email    { background: rgba(212,175,55,0.15); color: var(--gold); }
+.ab-book     { background: rgba(100,180,255,0.1); color: #64b4ff; }
+
+.action-btn .ab-text { flex: 1; }
+.action-btn .ab-text small {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 1px;
+}
+.action-btn .ab-text span { font-size: 0.9rem; font-weight: 500; }
+.action-btn .ab-arrow {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: transform var(--transition);
+}
+.action-btn:hover .ab-arrow { transform: translateX(4px); color: var(--gold); }
+
+/* ══════════════════════════════════════════
+   MAP
+══════════════════════════════════════════ */
+.map-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(212,175,55,0.25);
+  position: relative;
+}
+.map-wrapper::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(212,175,55,0.15);
+}
+.map-wrapper iframe {
+  width: 100%; height: 300px; border: 0; display: block;
+  filter: grayscale(40%) contrast(1.08) brightness(0.9);
+}
+
+/* ══════════════════════════════════════════
+   FORM
+══════════════════════════════════════════ */
+.form-label-custom {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.if-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,175,55,0.22);
+  border-radius: 8px;
+  color: #eee;
+  padding: 12px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+.if-input::placeholder { color: #444; }
+.if-input:focus {
+  border-color: var(--gold);
+  background: rgba(212,175,55,0.05);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+}
+.if-input:focus + .input-glow { opacity: 1; }
+
+textarea.if-input {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.6;
+}
+
+/* Floating label hint */
+.field-wrapper { position: relative; }
+
+/* Character counter */
+.char-count {
+  position: absolute;
+  bottom: 10px; right: 14px;
+  font-size: 0.7rem;
+  color: #444;
+  pointer-events: none;
+  transition: color .2s;
+}
+.char-count.near { color: #e67e22; }
+
+/* Buttons */
+.btn-if-primary {
+  background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex; align-items: center; gap: 8px;
+  position: relative; overflow: hidden;
+}
+.btn-if-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.btn-if-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,175,55,0.35); }
+.btn-if-primary:hover::before { opacity: 1; }
+.btn-if-primary:active { transform: translateY(0); }
+
+.btn-if-outline {
+  background: transparent;
+  border: 1px solid rgba(212,175,55,0.5);
+  color: var(--gold);
+  border-radius: 8px;
+  padding: 13px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-if-outline:hover {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* Status messages */
+#formStatus {
+  margin-top: 16px;
+  font-size: 0.87rem;
+  min-height: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .4s ease, opacity .3s ease, padding .3s ease, margin .3s ease;
+}
+#formStatus.visible { max-height: 80px; opacity: 1; }
+#formStatus.success {
+  color: #2ecc71;
+  padding: 12px 16px;
+  background: rgba(46,204,113,0.08);
+  border: 1px solid rgba(46,204,113,0.25);
+}
+#formStatus.error {
+  color: #e74c3c;
+  padding: 12px 16px;
+  background: rgba(231,76,60,0.08);
+  border: 1px solid rgba(231,76,60,0.25);
+}
+
+/* ══════════════════════════════════════════
+   DIVIDER ROW
+══════════════════════════════════════════ */
+.gold-divider {
+  display: flex; align-items: center; gap: 16px;
+  margin: 52px 0 48px;
+}
+.gold-divider::before, .gold-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.25), transparent);
+}
+.gold-divider span {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  background: #050505;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 28px 20px;
+  position: relative; z-index: 1;
+}
+footer p { color: #444; font-size: 0.82rem; letter-spacing: 0.3px; }
+footer strong { color: #666; }
+
+/* ─── FOOTER ─── */
+footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px;position:relative;z-index:1;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);letter-spacing:1px;margin-bottom:6px;}
+.footer-brand span{font-style:italic;color:#fff;}
+.footer-tagline{font-size:.78rem;color:#444;letter-spacing:1.5px;text-transform:uppercase;}
+.footer-copy{font-size:.8rem;color:#3a3a3a;}
+.social-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);color:#666;font-size:1rem;text-decoration:none;transition:all .25s var(--ease);margin:0 4px;}
+.social-link:hover{background:var(--gold-dim);border-color:rgba(212,175,55,.5);color:var(--gold);transform:translateY(-3px);}
+
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.6s ease both; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* ══════════════════════════════════════════
+   LOADING STATE FOR BUTTON
+══════════════════════════════════════════ */
+.btn-if-primary.loading { pointer-events: none; opacity: 0.8; }
+.spinner-ring {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  display: none;
+  animation: spin .7s linear infinite;
+}
+.loading .spinner-ring { display: block; }
+.loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE OVERRIDES
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .main-wrapper { padding: 40px 16px 70px; }
+  .if-card { padding: 24px 20px; }
+  .navbar-collapse { background: rgba(8,8,6,0.98); padding: 16px 20px 20px; }
+  .navbar-nav .nav-link { padding: 10px 0 !important; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .navbar-nav .nav-link::after { display: none; }
+  .navbar-nav .nav-item.booking-pill { margin: 8px 0 0; }
+  .navbar-nav .nav-item.booking-pill .nav-link { display: inline-block; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index2.html">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeP2kxUO6aH6oLNcJ7nUl9_uyXMhZzqgvKLw&s" alt="IF's Lounge Logo" style="height:40px; margin-right:10px;">
+</a>
+     
+    <a class="navbar-brand" href="index2.html">IF's <span>Lounge</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="events-gallery.html">Events &amp; Gallery</a></li>
+        <li class="nav-item nav-pill-item " id="navManzini"><a class="nav-link" href="booking.html" onclick="switchLoc('manzini');return false;"><i class="bi bi-calendar2-check me-1"></i>Manzini</a></li>
+        <li class="nav-item nav-pill-item" id="navMbabane"><a class="nav-link" href="booking.html" onclick="switchLoc('mbabane');return false;"><i class="bi bi-calendar2-check me-1"></i>Mbabane</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+      </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="hero-rule">
+    <span></span>
+    <i class="bi bi-diamond-fill"></i>
+    <span></span>
+  </div>
+  <h1>Get In <em>Touch</em></h1>
+  <p class="sub">We'd love to hear from you</p>
+  <div class="hero-breadcrumb">
+    <a href="index2.html">Home</a>
+    <i class="bi bi-chevron-right sep"></i>
+    <span class="current">Contact</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════ -->
+<div class="main-wrapper">
+
+  <!-- ─── Row 1: Info + Quick Actions ─── -->
+  <div class="row g-4 mb-4">
+
+    <!-- Info Card -->
+    <div class="col-lg-6 fade-up delay-1">
+      <div class="if-card h-100">
+        <div class="card-heading"><i class="bi bi-geo-alt-fill"></i> Our Information</div>
+
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-value">Manzini &amp; Mbabane, Eswatini</div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value"><a href="tel:+26878714212">+268 78 7142 12</a></div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value"><a href="mailto:ifsloungemm@gmail.com">ifsloungemm@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Opening Hours</div>
+            <div class="info-value">Monday – Sunday &nbsp;·&nbsp; 12 PM – 2 AM</div>
+            <div class="hours-badge mt-1"><span class="hours-dot"></span> Open Now</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Actions Card -->
+    <div class="col-lg-6 fade-up delay-2">
+      <div class="if-card h-100">
+        <div class="card-heading"><i class="bi bi-lightning-charge-fill"></i> Quick Actions</div>
+
+        <a href="https://wa.me/26878729132" target="_blank" rel="noopener" class="action-btn">
+          <div class="info-icon ab-icon ab-whatsapp"><i class="bi bi-whatsapp"></i></div>
+          <div class="ab-text">
+            <small>WhatsApp</small>
+            <span>Chat with us instantly</span>
+          </div>
+          <i class="bi bi-arrow-right ab-arrow"></i>
+        </a>
+
+        <a href="mailto:ifsloungemm@gmail.com" class="action-btn">
+          <div class="info-icon ab-icon ab-email"><i class="bi bi-envelope-fill"></i></div>
+          <div class="ab-text">
+            <small>Email Us</small>
+            <span>ifsloungemm@gmail.com</span>
+          </div>
+          <i class="bi bi-arrow-right ab-arrow"></i>
+        </a>
+
+        <a href="booking.html" class="action-btn">
+          <div class="info-icon ab-icon ab-book"><i class="bi bi-calendar2-heart-fill"></i></div>
+          <div class="ab-text">
+            <small>Reservations – Manzini</small>
+            <span>Book a table online →</span>
+          </div>
+          <i class="bi bi-arrow-right ab-arrow"></i>
+        </a>
+
+        <a href="booking2.html" class="action-btn" style="margin-bottom:0">
+          <div class="info-icon ab-icon ab-book"><i class="bi bi-calendar2-heart"></i></div>
+          <div class="ab-text">
+            <small>Reservations – Mbabane</small>
+            <span>Book a table online →</span>
+          </div>
+          <i class="bi bi-arrow-right ab-arrow"></i>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Row 2: Maps ─── -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6 fade-up delay-3">
+      <div class="if-card h-100">
+        <div class="card-heading"><i class="bi bi-pin-map-fill"></i> Find Us — Manzini</div>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3570.8193310008714!2d31.400349600000006!3d-26.4937614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1eef4f7eb4257d37%3A0x9cd5b0ac4561d36c!2sIf&#39;s%20Lounge%20Restaurant%20%26%20Bar!5e0!3m2!1sen!2s!4v1770213041025!5m2!1sen!2s"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="IF's Lounge Manzini"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 fade-up delay-4">
+      <div class="if-card h-100">
+        <div class="card-heading"><i class="bi bi-pin-map-fill"></i> Find Us — Mbabane</div>
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.1109530645713!2d31.137331700000015!3d-26.322906499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee8cfe7e1f441ef%3A0x385a74a10338facc!2sIF&#39;s%20Lounge%20(Mbabane)!5e0!3m2!1sen!2s!4v1773162940392!5m2!1sen!2s"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="IF's Lounge Mbabane"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Divider ─── -->
+  <div class="gold-divider fade-up delay-3">
+    <span>Send Us a Message</span>
+  </div>
+
+  <!-- ─── Contact Form ─── -->
+  <div class="row fade-up delay-4">
+    <div class="col-12">
+      <div class="if-card">
+        <div class="card-heading"><i class="bi bi-chat-square-text-fill"></i> Send Us a Message</div>
+
+        <form id="contactForm" novalidate>
+          <div class="row g-3">
+
+            <div class="col-sm-6">
+              <label class="form-label-custom" for="cf-name">Full Name <span style="color:var(--gold)">*</span></label>
+              <input type="text" id="cf-name" class="if-input" placeholder="e.g. Sipho Dlamini" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label-custom" for="cf-email">Email Address <span style="color:var(--gold)">*</span></label>
+              <input type="email" id="cf-email" class="if-input" placeholder="you@example.com" required>
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label-custom" for="cf-phone">Phone Number</label>
+              <input type="tel" id="cf-phone" class="if-input" placeholder="+268 ···">
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label-custom" for="cf-subject">Subject</label>
+              <input type="text" id="cf-subject" class="if-input" placeholder="e.g. Event Inquiry">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label-custom" for="cf-message">Your Message <span style="color:var(--gold)">*</span></label>
+              <div class="field-wrapper">
+                <textarea id="cf-message" class="if-input" placeholder="Tell us what's on your mind…" maxlength="500" required></textarea>
+                <span class="char-count" id="charCount">0 / 500</span>
+              </div>
+            </div>
+
+          </div><!-- /row -->
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <button type="submit" class="btn-if-primary" id="submitBtn">
+              <span class="btn-text"><i class="bi bi-send-fill me-1"></i> Send Message</span>
+              <div class="spinner-ring"></div>
+            </button>
+            <button type="button" class="btn-if-outline" id="saveBtn">
+              <i class="bi bi-download"></i> Save as .txt
+            </button>
+          </div>
+
+          <div id="formStatus"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main-wrapper -->
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+        <div class="footer-brand">IF's <span>Lounge</span></div>
+        <div class="footer-tagline">Restaurant &amp; Bar · Eswatini</div>
+      </div>
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <a href="https://www.facebook.com/ifslounge" class="social-link" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/ifslounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/26878729132" class="social-link" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@ifs_lounge_mbabane" class="social-link" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
+      </div>
+      <div class="col-md-4 text-center text-md-end">
+        <p class="footer-copy">© 2026 IF's Lounge · All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ── Navbar scroll shadow ── */
+window.addEventListener('scroll', () => {
+  document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+/* ── Character counter ── */
+const msgArea   = document.getElementById('cf-message');
+const charCount = document.getElementById('charCount');
+msgArea.addEventListener('input', () => {
+  const n = msgArea.value.length;
+  charCount.textContent = `${n} / 500`;
+  charCount.classList.toggle('near', n > 420);
+});
+
+/* ── Helpers ── */
+function getFormData() {
+  return {
+    name:    document.getElementById('cf-name').value.trim(),
+    email:   document.getElementById('cf-email').value.trim(),
+    phone:   document.getElementById('cf-phone').value.trim(),
+    subject: document.getElementById('cf-subject').value.trim(),
+    message: document.getElementById('cf-message').value.trim()
+  };
+}
+
+function setStatus(type, msg) {
+  const el = document.getElementById('formStatus');
+  el.className = `${type} visible`;
+  el.innerHTML = msg;
+}
+
+/* ── Save as .txt ── */
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const d = getFormData();
+  if (!d.name && !d.message) {
+    setStatus('error', ' Please fill in at least your name and message before saving.');
+    return;
+  }
+  const now = new Date().toLocaleString();
+  const txt =
+`===========================================
+  IF's Lounge — Contact Message
+===========================================
+Date:     ${now}
+-------------------------------------------
+Name:     ${d.name    || '—'}
+Email:    ${d.email   || '—'}
+Phone:    ${d.phone   || '—'}
+Subject:  ${d.subject || '—'}
+-------------------------------------------
+Message:
+
+${d.message || '—'}
+
+===========================================
+© 2026 IF's Lounge Restaurant & Bar
+===========================================`;
+
+  const blob = new Blob([txt], { type: 'text/plain' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `IFs-Lounge-Message-${Date.now()}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+
+
+/* ── Form Submit ── */
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const d = getFormData();
+  if (!d.name) { setStatus('error', '⚠️ Please enter your name.'); return; }
+  if (!d.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) {
+    setStatus('error', '⚠️ Please enter a valid email address.'); return;
+  }
+  if (!d.message) { setStatus('error', '⚠️ Please write a message.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.classList.add('loading');
+
+  // Send to WhatsApp via API
+  const whatsappMsg = `Name: ${d.name}%0AEmail: ${d.email}%0APhone: ${d.phone}%0ASubject: ${d.subject}%0A%0AMessage:%0A${d.message}`;
+  const whatsappUrl = `https://wa.me/26876880836?text=${whatsappMsg}`;
+
+  setTimeout(() => {
+    window.open(whatsappUrl, '_blank');
+    setStatus('success', '✅ Message sent to WhatsApp successfully! We will get back to you soon.');
+    btn.classList.remove('loading');
+    document.getElementById('contactForm').reset();
+    charCount.textContent = '0 / 500';
+  }, 1500);
+});
+
+/* ── Intersection Observer for fade-up ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
