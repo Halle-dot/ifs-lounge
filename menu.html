@@ -3,16 +3,6 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-   <meta name="description" content="IF’s Lounge – Luxury dining experience with exquisite meals, elegant atmosphere, and premium service. View our menu and book your table today.">
-<meta name="keywords" content="restaurant, IF’s Lounge, fine dining, menu, booking, luxury restaurant, Eswatini">
-<meta name="author" content="IF’s Lounge">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="IF’s Lounge | Luxury Dining in Eswatini">
-
-<meta property="og:description" content="Experience fine dining at IF’s Lounge in Manzini, Eswatini. Explore our premium menu and book your table today.">
-
-<meta property="og:url" content="https://halle-dot.github.io/ifs-lounge/">
-<meta property="og:type" content="website">
   <title>Our Menu | IF's Lounge</title>
   <meta name="description" content="IF's Lounge full menu — breakfast, grills, seafood, pizza, pasta, desserts and beverages.">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -398,33 +388,215 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
 }
 
 /* ---- MOBILE RESPONSIVE ---- */
+/* ═══════════════════════════════════════
+   MOBILE — TABLET (≤767px)
+═══════════════════════════════════════ */
 @media(max-width:767px){
-  .navbar-collapse{background:rgba(6,5,3,.98);padding:16px 20px 24px;border-top:1px solid var(--border);}
-  .navbar-nav .nav-link{padding:12px 0!important;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem;}
+
+  /* ── Navbar ── */
+  .navbar{padding:0;}
+  .navbar-brand{font-size:1.1rem;padding:12px 0;}
+  .navbar-brand img{height:30px;width:30px;}
+  .navbar-collapse{
+    background:rgba(4,4,2,.98);
+    padding:12px 16px 20px;
+    border-top:1px solid var(--border);
+    margin-top:0;
+  }
+  .navbar-nav .nav-link{
+    padding:11px 0!important;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    font-size:.82rem;
+    letter-spacing:.4px;
+  }
   .navbar-nav .nav-link::after{display:none;}
   .nav-pill-item{margin:8px 0 0;}
-  .nav-pill-item .nav-link{display:inline-block;}
-  .page-hero{padding:50px 16px 40px;}
-  .menu-toolbar{top:64px;}
-  .menu-toolbar .d-flex{flex-direction:column;gap:8px;}
-  .btn-dl{width:100%;justify-content:center;}
-  .card-grid{grid-template-columns:1fr;}
-  .row-grid{grid-template-columns:1fr;}
-  .bev-grid{grid-template-columns:1fr;}
-  .mcard-img-wrap{height:180px;}
-  .row-item{flex-wrap:wrap;gap:8px;}
-  .ri-right{width:100%;justify-content:space-between;}
-  .bev-item{flex-wrap:nowrap;}
-  .bev-right{flex-shrink:0;}
-  .btn-add-order{padding:11px 16px;font-size:.85rem;}
-  .btn-add-row{padding:8px 14px;font-size:.78rem;}
-  .menu-main{padding:40px 14px 120px;}
-  .menu-section-header{margin:40px 0 20px;}
-  .wa-fab{bottom:20px;right:16px;padding:15px;border-radius:50%;gap:0;}
+  .nav-pill-item .nav-link{
+    display:inline-flex;
+    padding:7px 14px!important;
+    border-bottom:none!important;
+    font-size:.78rem;
+  }
+
+  /* ── Hero ── */
+  .page-hero{
+    padding:44px 16px 36px;
+    margin-top:64px;
+  }
+  .page-hero h1{font-size:clamp(1.9rem,8vw,2.8rem);letter-spacing:1px;}
+  .page-hero .sub{font-size:.75rem;letter-spacing:2px;}
+  .hero-rule span{width:50px;}
+  .hero-breadcrumb{font-size:.7rem;gap:6px;margin-top:14px;}
+
+  /* ── Sticky toolbar ── */
+  .menu-toolbar{
+    top:64px;
+    padding:10px 0;
+  }
+  .menu-toolbar .container{padding-left:12px;padding-right:12px;}
+  .menu-toolbar .d-flex{flex-direction:column;gap:6px;}
+
+  /* Category pills — compact horizontal scroll */
+  .cat-scroll{gap:6px;padding-bottom:4px;}
+  .cat-btn{
+    padding:5px 12px;
+    font-size:.7rem;
+    letter-spacing:.3px;
+  }
+
+  /* Diet badges */
+  .diet-row{gap:5px;margin-top:7px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+  .diet-row::-webkit-scrollbar{display:none;}
+  .diet-badge{
+    padding:4px 10px;
+    font-size:.67rem;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+
+  /* Download button */
+  .menu-actions{margin-top:8px;justify-content:flex-start;}
+  .btn-download{padding:6px 16px;font-size:.75rem;}
+
+  /* ── Menu main ── */
+  .menu-main{
+    padding:30px 12px 120px;
+    overflow-x:hidden;
+  }
+
+  /* ── Section headers ── */
+  .menu-section-header{
+    margin:36px 0 16px;
+    gap:14px;
+  }
+  .msh-bar{min-height:40px;width:3px;}
+  .msh-text .eyebrow{font-size:.62rem;letter-spacing:2px;}
+  .msh-text h2{font-size:clamp(1.35rem,5vw,1.75rem);}
+  .msh-text p{font-size:.76rem;}
+
+  /* ── Card grids — single column ── */
+  .card-grid{grid-template-columns:1fr;gap:14px;}
+  .row-grid{grid-template-columns:1fr;gap:10px;}
+  .bev-grid{grid-template-columns:1fr;gap:10px;}
+
+  /* ── Menu card ── */
+  .mcard{border-radius:10px;}
+  .mcard:hover{transform:translateY(-4px);}
+  .mcard-img-wrap{height:170px;}
+  .mcard-body{padding:14px;}
+  .mcard-title{font-size:1rem;}
+  .mcard-price{font-size:1.1rem;}
+  .mcard-desc{font-size:.8rem;line-height:1.6;}
+  .mcard-tags{margin-top:8px;gap:4px;}
+  .mtag{font-size:.65rem;padding:2px 8px;}
+  .btn-add-order{
+    padding:10px 14px;
+    font-size:.8rem;
+    margin-top:10px;
+  }
+
+  /* ── Row items (sandwiches, etc.) ── */
+  .row-item{
+    flex-wrap:wrap;
+    gap:8px;
+    padding:12px 14px;
+    border-radius:9px;
+  }
+  .ri-name{font-size:.88rem;}
+  .ri-desc{font-size:.74rem;}
+  .ri-right{
+    width:100%;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .ri-price{font-size:1rem;}
+  .btn-add-row{
+    padding:7px 12px;
+    font-size:.74rem;
+  }
+
+  /* ── Beverage items ── */
+  .bev-item{
+    flex-wrap:nowrap;
+    padding:14px;
+    border-radius:9px;
+    gap:12px;
+  }
+  .bev-icon{
+    width:40px;height:40px;min-width:40px;
+    font-size:.95rem;border-radius:8px;
+  }
+  .bev-name{font-size:.85rem;}
+  .bev-desc{font-size:.73rem;}
+  .bev-price{font-size:.95rem;}
+  .bev-right{gap:8px;}
+
+  /* ── Menu note ── */
+  .menu-note{padding:14px 16px;gap:8px;margin-top:32px;}
+  .menu-note p{font-size:.78rem;}
+
+  /* ── WhatsApp FAB — compact circle ── */
+  .wa-fab{
+    bottom:18px;right:14px;
+    padding:14px;
+    border-radius:50%;
+    gap:0;
+    width:52px;height:52px;
+    justify-content:center;
+  }
   .wa-fab .wa-fab-label{display:none;}
-  .wa-fab .wa-badge{margin-left:0;position:absolute;top:-4px;right:-4px;}
-  .cart-drawer{max-width:100%;height:95vh;border-radius:16px 16px 0 0;}
-  .toast-item{right:auto;left:16px;bottom:90px;max-width:calc(100vw - 32px);}
+  .wa-fab .wa-fab-icon{font-size:1.2rem;}
+  .wa-fab .wa-badge{
+    margin-left:0;
+    position:absolute;
+    top:-5px;right:-5px;
+    width:20px;height:20px;
+    font-size:.65rem;
+  }
+
+  /* ── Cart drawer — full width, taller ── */
+  .cart-drawer{
+    max-width:100%;
+    height:96vh;
+    border-radius:14px 14px 0 0;
+  }
+  .cart-drawer-header{padding:10px 16px 10px;}
+  .cart-drawer-header h3{font-size:1rem;}
+  .cart-items{padding:2px 16px;}
+  .cart-notes{padding:0 16px 8px;}
+  .cart-location{padding:0 16px 8px;}
+  .cart-footer{padding:8px 16px 20px;}
+  .cl-name{font-size:.85rem;}
+  .cl-price{font-size:.88rem;}
+  .qty-btn{width:26px;height:26px;}
+  .cart-total-row .amount{font-size:1.1rem;}
+  .btn-wa-order{padding:13px;font-size:.92rem;}
+
+  /* ── Toast — bottom left clear of FAB ── */
+  .toast-item{
+    right:auto;
+    left:14px;
+    bottom:84px;
+    max-width:calc(100vw - 28px);
+    font-size:.78rem;
+  }
+}
+
+/* ═══════════════════════════════════════
+   SMALL PHONES (≤390px)
+═══════════════════════════════════════ */
+@media(max-width:390px){
+  .page-hero{padding:38px 12px 30px;}
+  .page-hero h1{font-size:1.75rem;}
+  .menu-main{padding:24px 10px 110px;}
+  .cat-btn{padding:4px 10px;font-size:.66rem;}
+  .mcard-img-wrap{height:150px;}
+  .mcard-body{padding:12px;}
+  .mcard-title{font-size:.94rem;}
+  .mcard-price{font-size:1rem;}
+  .bev-item{padding:11px 12px;}
+  .cart-drawer{height:97vh;}
+  .wa-fab{width:48px;height:48px;padding:12px;bottom:14px;right:12px;}
 }
 </style>
 </head>
@@ -505,11 +677,10 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
         </div>
 
         <!-- BUTTONS ONLY — no title, no wrapper section -->
-<a href="https://github.com/user-attachments/files/26115048/IFS_LOUNGE_MENU.pdf" 
-   class="btn-download" 
-   target="_blank">
-          <i class="bi bi-download"></i> Download Menu
-        </a>
+        <div class="menu-actions" style="margin-top:12px;">
+          <button class="btn-menu" onclick="openMenu()"><i class="bi bi-eye"></i> View Menu</button>
+          <a href="https://drive.google.com/uc?export=download&id=FILE_ID" class="btn-download"><i class="bi bi-download"></i> Download Menu</a>
+        </div>
 
       </div>
     </div>
@@ -517,7 +688,12 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
 </div>
 
 <!-- Modal -->
-
+<div id="menuModal" class="menu-modal">
+  <div class="menu-modal-content">
+    <span class="close-btn" onclick="closeMenu()">&times;</span>
+    <iframe src="https://drive.google.com/file/d/FILE_ID/preview" frameborder="0"></iframe>
+  </div>
+</div>
 
 <!-- MENU CONTENT -->
 <div class="menu-main" id="menuPrint">
