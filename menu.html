@@ -1091,7 +1091,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     </h6>
     <p style="font-size: 0.8rem; margin: 0;">
         
-        <strong>Eswatini MTN:</strong> 76880836 | Retail code: 345432 <br>
+        <strong>Eswatini MTN:</strong> 26876880836 | Retail code: 345432 <br>
         <span style="color: #888;">Order will be processed once proof of payment is sent via WhatsApp.</span>
     </p>
 </div>
@@ -1276,9 +1276,9 @@ function sendWhatsAppOrder() {
     const total = currentTotal || "0.00"; 
 
     // 2. YOUR BUSINESS DETAILS
-    const businessNumber = "26876000000"; // Eswatini format: 268XXXXXXX
+    const businessNumber = "26876889836"; // Eswatini format: 268XXXXXXX
     const lipaNumber = "123456"; 
-    const momoNumber = "76000000"; 
+    const momoNumber = "76880836"; 
 
     // 3. Construct the message
     const message = `*NEW ORDER - IF's LOUNGE*%0A%0A` +
@@ -1293,7 +1293,7 @@ function sendWhatsAppOrder() {
 
     // 4. THE FIX: Correct URL structure
     // Added the "/" after wa.me and removed the extra {}
-    const waUrl = "https://wa.me/76880836"  + "?text=" + message;
+    const waUrl = "https://wa.me/26876880836"  + "?text=" + message;
     
     window.open(waUrl, '_blank');
 }
