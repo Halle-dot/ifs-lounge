@@ -365,6 +365,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .btn-wa-order:disabled{background:#152b1c;color:#2a6640;cursor:not-allowed;transform:none;box-shadow:none;}
 .btn-wa-order i{font-size:1.2rem;}
 .cart-hint{text-align:center;font-size:.72rem;color:#444;margin-top:8px;letter-spacing:.3px;}
+  
 
 /* Toast */
 .toast-item{position:fixed;bottom:100px;right:28px;z-index:1200;background:#111;border:1px solid rgba(37,211,102,0.4);border-radius:10px;padding:12px 18px;font-size:.83rem;color:#ccc;display:flex;align-items:center;gap:9px;transform:translateY(20px);opacity:0;transition:all .3s var(--ease);pointer-events:none;max-width:260px;}
@@ -1084,6 +1085,16 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <span class="label">Estimated Total</span>
       <span class="amount" id="cartTotal">E0</span>
     </div>
+    <div class="payment-info-box" style="background: rgba(212,175,55,0.1); border: 1px solid var(--gold); padding: 15px; border-radius: 8px; margin-top: 20px;">
+    <h6 style="color: var(--gold); font-size: 0.9rem; margin-bottom: 8px;">
+        <i class="bi bi-info-circle"></i> Eswatini Payment Details
+    </h6>
+    <p style="font-size: 0.8rem; margin: 0;">
+        
+        <strong>Eswatini Mobile:</strong> 79000000 <br>
+        <span style="color: #888;">Order will be processed once proof of payment is sent via WhatsApp.</span>
+    </p>
+</div>
     <button class="btn-wa-order" id="btnSendOrder" onclick="sendOnWhatsApp()" disabled>
       <i class="bi bi-whatsapp"></i> Send Order on WhatsApp
     </button>
@@ -1234,22 +1245,48 @@ function validateOrder(){
   const count = cart.reduce((s,i)=>s+i.qty,0);
   document.getElementById('btnSendOrder').disabled = count===0 || name==='';
 }
+  let currentTotal = 0;
+let selectedItemsList = "";
 
-function sendOnWhatsApp(){
-  const name = document.getElementById('cartName').value.trim();
-  if(cart.length===0 || !name) return;
-  const notes = document.getElementById('cartNotes').value.trim();
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  let msg = `*IF's Lounge – New Order*\n`;
-  msg += `👤 Name: *${name}*\n`;
-  msg += `📍 Branch: *${selectedLocation}*\n\n`;
-  msg += `*Items:*\n`;
-  cart.forEach(i=>{msg += `• ${i.qty}x ${i.name} — E${i.price*i.qty}\n`;});
-  msg += `\n*Total: E${total}*`;
-  if(notes) msg += `\n\n📝 *Notes:* ${notes}`;
-  msg += `\n\n_Sent from ifslounge.com_`;
-  const encoded = encodeURIComponent(msg);
-  window.open(`https://wa.me/26878729132?text=${encoded}`,'_blank');
+function calculateTotal() {
+    let total = 0;
+    let items = [];
+    const checkboxes = document.querySelectorAll('.menu-item:checked');
+
+    checkboxes.forEach((cb) => {
+        total += parseFloat(cb.getAttribute('data-price'));
+        items.push(`${cb.getAttribute('data-name')} (E${cb.getAttribute('data-price')})`);
+    });
+
+    // Update global variables for WhatsApp
+    currentTotal = total.toFixed(2);
+    selectedItemsList = items.join(', ');
+
+    // Update the UI
+    document.getElementById('displayTotal').innerText = currentTotal;
+}
+
+function sendWhatsAppOrder() {
+    const name = document.getElementById('name').value || "Customer";
+    const businessNumber = "26876000000"; 
+    const lipaCode = "123456"; // Your Eswatini MoMo Merchant Code
+
+    if (currentTotal == 0) {
+        alert("Please select at least one item first!");
+        return;
+    }
+
+    const message = 
+        `*🍴 NEW ORDER - IF's LOUNGE*%0A` +
+        `*Customer:* ${name}%0A%0A` +
+        `*Items:* ${selectedItemsList}%0A` +
+        `*TOTAL: E${currentTotal}*%0A%0A` +
+        `--- *PAYMENT* ---%0A` +
+        `*MTN MoMo (Lipa):* ${lipaCode}%0A` +
+        `_(Dial *007*3*4# to pay)_%0A%0A` +
+        `_Please send your MoMo screenshot here._`;
+
+    window.open(`https://wa.me{businessNumber}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 let toastTimer;
@@ -1267,6 +1304,7 @@ function closeMenu(){document.getElementById('menuModal').style.display='none';}
 window.onclick=function(event){const modal=document.getElementById('menuModal');if(event.target===modal){modal.style.display='none';}};
 
 updateCartUI();
+  
 </script>
 </body>
 </html>
