@@ -1267,27 +1267,37 @@ function calculateTotal() {
 }
 
 function sendWhatsAppOrder() {
-    const name = document.getElementById('name').value || "Customer";
-    const businessNumber = "26876880836"; 
-    const lipaCode = "123456"; // Your Eswatini MoMo Merchant Code
+    // 1. Get user data (Ensure these IDs exist in your HTML inputs)
+    const name = document.getElementById('name')?.value || "Guest";
+    
+    // These variables should be updated by your calculateTotal() function
+    // For debugging, I've put placeholders
+    const orderItems = selectedItemsList || "No items selected"; 
+    const total = currentTotal || "0.00"; 
 
-    if (currentTotal == 0) {
-        alert("Please select at least one item first!");
-        return;
-    }
+    // 2. YOUR BUSINESS DETAILS
+    const businessNumber = "26876000000"; // Eswatini format: 268XXXXXXX
+    const lipaNumber = "123456"; 
+    const momoNumber = "76000000"; 
 
-    const message = 
-        `*🍴 NEW ORDER - IF's LOUNGE*%0A` +
-        `*Customer:* ${name}%0A%0A` +
-        `*Items:* ${selectedItemsList}%0A` +
-        `*TOTAL: E${currentTotal}*%0A%0A` +
-        `--- *PAYMENT* ---%0A` +
-        `*MTN MoMo (Lipa):* ${lipaCode}%0A` +
-        `_(Dial *007*3*4# to pay)_%0A%0A` +
-        `_Please send your MoMo screenshot here._`;
+    // 3. Construct the message
+    const message = `*NEW ORDER - IF's LOUNGE*%0A%0A` +
+        `*Name:* ${name}%0A` +
+        `*Order:* ${orderItems}%0A` +
+        `*Total:* E${total}%0A%0A` +
+        `--- *PAYMENT INSTRUCTIONS* ---%0A` +
+        `Please pay to:%0A` +
+        `*MTN MoMo (Lipa):* ${lipaNumber}%0A` +
+        `*MoMo Number:* ${momoNumber}%0A%0A` +
+        `_Please send a screenshot of your confirmation here after paying._`;
 
-    window.open(`https://wa.me{businessNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    // 4. THE FIX: Correct URL structure
+    // Added the "/" after wa.me and removed the extra {}
+    const waUrl = "https://wa.me/76880836"  + "?text=" + message;
+    
+    window.open(waUrl, '_blank');
 }
+
 
 let toastTimer;
 function showToast(name){
