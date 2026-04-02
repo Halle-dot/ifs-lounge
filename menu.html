@@ -212,7 +212,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 @keyframes badge-pop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);backdrop-filter:blur(4px);}
 .cart-overlay.open{opacity:1;pointer-events:all;}
-.cart-drawer{position:flec;bottom:0;right:0;width:100%;max-width:480px;height:90vh;z-index:1100;background:#0f0d07;border:1px solid rgba(212,175,55,0.25);border-bottom:none;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;transform:translateY(100%);transition:transform .4s var(--ease);}
+.cart-drawer{position:fixed;bottom:0;right:0;width:100%;max-width:480px;height:90vh;z-index:1100;background:#0f0d07;border:1px solid rgba(212,175,55,0.25);border-bottom:none;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;transform:translateY(100%);transition:transform .4s var(--ease);}
 .cart-drawer.open{transform:translateY(0);}
 .cart-drawer-handle{width:44px;height:5px;background:rgba(212,175,55,0.35);border-radius:3px;margin:14px auto 0;flex-shrink:0;}
 .cart-drawer-header{padding:12px 20px 12px;border-bottom:1px solid rgba(212,175,55,0.15);flex-shrink:0;}
@@ -1057,15 +1057,15 @@ function sendOnWhatsApp(){
   msg+=` *Customer:* ${name}\n`;
   msg+=` *Branch:* ${selectedLocation}\n`;
   msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
-  msg+=`*🛒 ITEMS ORDERED:*\n`;
+  msg+=`* ITEMS ORDERED:*\n`;
   cart.forEach(i=>{
     msg+=`• ${i.qty}x ${i.name}`;
     if(i.qty>1)msg+=` (E${i.price} × ${i.qty})`;
     msg+=` — *E${i.price*i.qty}*\n`;
   });
   msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
-  msg+=`Subtotal: E${subtotal}\n`;
-  msg+=` Service Charge (10%): E${service}\n`;
+  msg+=` Subtotal: E${subtotal}\n`;
+  msg+=` Service Charge (15%): E${service}\n`;
   msg+=` *TOTAL: E${total}*\n`;
   msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
   msg+=`💳 *Payment:* ${pay.label}\n`;
