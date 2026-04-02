@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -756,19 +757,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
       <button class="loc-btn" id="locMbabane" onclick="setLocation('Mbabane')">Mbabane</button>
     </div>
   </div>
-<!-- DELIVERY OPTIONS (Shows for Manzini) -->
-<div id="manziniDeliveryWrap" style="display: block; margin-top: 15px; padding: 0 16px;">
-  <label><i class="bi bi-truck me-1"></i> Delivery Option</label>
-  <div class="loc-btns" style="margin-bottom: 10px;">
-    <button class="loc-btn active" id="optCollection" onclick="setDeliveryType('Collection')">Collection</button>
-    <button class="loc-btn" id="optDelivery" onclick="setDeliveryType('Delivery')">Delivery</button>
-  </div>
-  
-  <div id="specificLocationWrap" style="display: none;">
-    <input type="text" id="deliveryAddress" placeholder="Enter delivery location in Manzini..." 
-           style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.2);border-radius:8px;color:#ccc;font-size:.82rem;padding:10px 12px;outline:none;">
-  </div>
-</div>
+
   <!-- PAYMENT METHOD -->
   <div class="cart-payment" id="cartPaymentWrap">
     <label><i class="bi bi-credit-card me-1"></i>Payment Method</label>
@@ -907,90 +896,186 @@ const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersect
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.06+'s';io.observe(el);});
 
 // ===================== CART + PAYMENT + INVOICE =====================
-let selectedLocation = 'Manzini';
-let selectedPayment = 'momo';
-let deliveryType = 'Collection'; // Default type
+let cart=[];
+let selectedLocation='Manzini';
+let selectedPayment='momo';
 
-function setLocation(loc) {
-  selectedLocation = loc;
-  document.getElementById('locManzini').classList.toggle('active', loc === 'Manzini');
-  document.getElementById('locMbabane').classList.toggle('active', loc === 'Mbabane');
+function setLocation(loc){
+  selectedLocation=loc;
+  document.getElementById('locManzini').classList.toggle('active',loc==='Manzini');
+  document.getElementById('locMbabane').classList.toggle('active',loc==='Mbabane');
+}
 
-  // Show/Hide Manzini delivery options
-  const manziniWrap = document.getElementById('manziniDeliveryWrap');
-  if (manziniWrap) {
-    manziniWrap.style.display = (loc === 'Manzini') ? 'block' : 'none';
-  }
-  
-  // Reset delivery type if switching to Mbabane
-  if (loc !== 'Manzini') {
-    deliveryType = 'Collection';
-    if(document.getElementById('specificLocationWrap')) {
-        document.getElementById('specificLocationWrap').style.display = 'none';
-    }
-  }
-  
+function setPayment(method){
+  selectedPayment=method;
+  ['payMomo','payWallet','payCash'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  ['payDetailMomo','payDetailWallet','payDetailCash'].forEach(id=>document.getElementById(id).style.display='none');
+  const btnMap={momo:'payMomo',ewallet:'payWallet',cash:'payCash'};
+  const detMap={momo:'payDetailMomo',ewallet:'payDetailWallet',cash:'payDetailCash'};
+  document.getElementById(btnMap[method]).classList.add('active');
+  document.getElementById(detMap[method]).style.display='';
+}
+
+function addToCart(btn,name,price){
+  const existing=cart.find(i=>i.name===name);
+  if(existing){existing.qty++;}else{cart.push({name,price,qty:1});}
+  btn.classList.add('added');
+  btn.innerHTML='<i class="bi bi-check-lg"></i> Added!';
+  setTimeout(()=>{
+    btn.classList.remove('added');
+    btn.innerHTML='<i class="bi bi-whatsapp"></i> '+(btn.classList.contains('btn-add-order')?'Add to Order':'Add');
+  },1800);
+  updateCartUI();
+  showToast(name);
+}
+
+function updateCartUI(){
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const badge=document.getElementById('waBadge');
+  const fab=document.getElementById('waFab');
+  badge.textContent=count;
+  fab.classList.toggle('has-items',count>0);
+  document.getElementById('cartTotal').textContent='E'+subtotal;
   validateOrder();
+  const container=document.getElementById('cartItems');
+  const empty=document.getElementById('cartEmpty');
+  if(cart.length===0){empty.style.display='';[...container.querySelectorAll('.cart-line')].forEach(el=>el.remove());return;}
+  empty.style.display='none';
+  [...container.querySelectorAll('.cart-line')].forEach(el=>el.remove());
+  cart.forEach((item,idx)=>{
+    const line=document.createElement('div');
+    line.className='cart-line';
+    line.innerHTML=`<div class="cl-name">${item.name}</div><div class="cl-qty"><button class="qty-btn" onclick="changeQty(${idx},-1)"><i class="bi bi-dash"></i></button><span class="qty-num">${item.qty}</span><button class="qty-btn" onclick="changeQty(${idx},1)"><i class="bi bi-plus"></i></button></div><div class="cl-price">E${item.price*item.qty}</div><button class="cl-remove" onclick="removeItem(${idx})" title="Remove"><i class="bi bi-trash3"></i></button>`;
+    container.appendChild(line);
+  });
 }
 
-function setDeliveryType(type) {
-  deliveryType = type;
-  document.getElementById('optCollection').classList.toggle('active', type === 'Collection');
-  document.getElementById('optDelivery').classList.toggle('active', type === 'Delivery');
-  
-  // Show/Hide address input
-  const addressWrap = document.getElementById('specificLocationWrap');
-  addressWrap.style.display = (type === 'Delivery') ? 'block' : 'none';
-  
-  validateOrder();
+function changeQty(idx,delta){cart[idx].qty+=delta;if(cart[idx].qty<=0)cart.splice(idx,1);updateCartUI();}
+function removeItem(idx){cart.splice(idx,1);updateCartUI();}
+
+function openCart(){
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.documentElement.style.overflow='hidden';
+  document._scrollY=window.scrollY;
 }
-
-// UPDATE: Modify your existing validateOrder to check for address
-function validateOrder() {
-  const name = document.getElementById('cartName').value.trim();
-  const count = cart.reduce((s, i) => s + i.qty, 0);
-  
-  // Logic for delivery address validation
-  let isAddressValid = true;
-  if (selectedLocation === 'Manzini' && deliveryType === 'Delivery') {
-    const address = document.getElementById('deliveryAddress').value.trim();
-    isAddressValid = address !== '';
-  }
-
-  document.getElementById('btnSendOrder').disabled = count === 0 || name === '' || !isAddressValid;
+function closeCart(){
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.body.style.overflow='';
+  document.documentElement.style.overflow='';
+  if(document._scrollY!==undefined){window.scrollTo(0,document._scrollY);}
 }
-
-// UPDATE: Add listener to the address input for validation
-document.addEventListener('DOMContentLoaded', () => {
-    const addrInput = document.getElementById('deliveryAddress');
-    if(addrInput) addrInput.addEventListener('input', validateOrder);
+window.addEventListener('orientationchange',()=>{
+  const isOpen=document.getElementById('cartDrawer').classList.contains('open');
+  if(isOpen){setTimeout(()=>{document.body.style.overflow='hidden';document.documentElement.style.overflow='hidden';},100);}
 });
 
-// UPDATE: Modify your sendOnWhatsApp function to include delivery details
-function sendOnWhatsApp() {
-  // ... (keep your existing variable declarations) ...
-  const address = document.getElementById('deliveryAddress').value.trim();
-
-  let msg = ` *IF'S LOUNGE — ORDER RECEIPT*\n`;
-  msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-  msg += ` *Order No:* ${orderNo}\n`;
-  msg += ` *Date:* ${dateStr} at ${timeStr}\n`;
-  msg += ` *Customer:* ${name}\n`;
-  msg += ` *Branch:* ${selectedLocation}\n`;
-  
-  // Add Delivery info if applicable
-  if (selectedLocation === 'Manzini') {
-    msg += ` *Type:* ${deliveryType}\n`;
-    if (deliveryType === 'Delivery') {
-      msg += ` *Address:* ${address}\n`;
-    }
-  }
-
-  msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-
-
-  msg+=`_Thank you for choosing IF's Lounge! _\n_Sent from ifslounge.com_`;
+function validateOrder(){
+  const name=document.getElementById('cartName').value.trim();
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('btnSendOrder').disabled=count===0||name==='';
 }
+
+function generateOrderNo(){
+  const ts=Date.now().toString(36).toUpperCase();
+  const rand=Math.random().toString(36).substring(2,5).toUpperCase();
+  return 'IFS-'+ts.slice(-4)+rand;
+}
+
+function getPaymentDetails(){
+  const details={
+    momo:{label:'MTN MoMo',value:'Retail Code: 151433',note:'Dial *175# → Pay Bill → Code 151433 → Enter amount → Confirm PIN. Send proof via WhatsApp.'},
+    ewallet:{label:'Eswatini Mobile E-Wallet',value:'Number: 76775793',note:'Open E-Wallet → Send Money → 76775793 → Enter amount → Confirm. Send proof via WhatsApp.'},
+    cash:{label:'Cash Payment',value:'Pay at branch on arrival',note:'Please have the exact amount ready when you arrive.'}
+  };
+  return details[selectedPayment];
+}
+
+function previewInvoice(){
+  const name=document.getElementById('cartName').value.trim();
+  if(cart.length===0||!name)return;
+  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const service=Math.round(subtotal*0.10);
+  const total=subtotal+service;
+  const notes=document.getElementById('cartNotes').value.trim();
+  const orderNo=generateOrderNo();
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('en-ZA',{day:'2-digit',month:'short',year:'numeric'});
+  const timeStr=now.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+  const pay=getPaymentDetails();
+
+  document.getElementById('invOrderNo').textContent=orderNo;
+  document.getElementById('invDateTime').textContent=dateStr+' · '+timeStr;
+  document.getElementById('invCustomer').textContent=name;
+  document.getElementById('invBranch').textContent=selectedLocation;
+  document.getElementById('invSubtotal').textContent='E'+subtotal;
+  document.getElementById('invService').textContent='E'+service;
+  document.getElementById('invTotal').textContent='E'+total;
+  document.getElementById('invPayMethod').textContent=pay.label+' — '+pay.value;
+  document.getElementById('invPayNote').textContent=pay.note;
+
+  const linesContainer=document.getElementById('invLines');
+  linesContainer.innerHTML='';
+  cart.forEach(item=>{
+    const row=document.createElement('div');
+    row.className='invoice-line';
+    row.innerHTML=`<div class="inv-item-info"><div class="inv-item-name">${item.name}</div><div class="inv-item-qty">× ${item.qty} @ E${item.price} each</div></div><div class="inv-item-price">E${item.price*item.qty}</div>`;
+    linesContainer.appendChild(row);
+  });
+
+  if(notes){document.getElementById('invNotesBox').style.display='';document.getElementById('invNotes').textContent=notes;}
+  else{document.getElementById('invNotesBox').style.display='none';}
+
+  window._inv={orderNo,subtotal,service,total,dateStr,timeStr};
+  document.getElementById('invoiceOverlay').style.display='flex';
+}
+
+function closeInvoice(){
+  document.getElementById('invoiceOverlay').style.display='none';
+}
+
+function sendOnWhatsApp(){
+  const name=document.getElementById('cartName').value.trim();
+  if(cart.length===0||!name)return;
+  const notes=document.getElementById('cartNotes').value.trim();
+  const inv=window._inv||{};
+  const subtotal=inv.subtotal||cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const service=inv.service||Math.round(subtotal*0.1);
+  const total=inv.total||subtotal+service;
+  const orderNo=inv.orderNo||generateOrderNo();
+  const now=new Date();
+  const dateStr=inv.dateStr||now.toLocaleDateString('en-ZA',{day:'2-digit',month:'short',year:'numeric'});
+  const timeStr=inv.timeStr||now.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+  const pay=getPaymentDetails();
+
+  let msg=` *IF'S LOUNGE — ORDER RECEIPT*\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=` *Order No:* ${orderNo}\n`;
+  msg+=` *Date:* ${dateStr} at ${timeStr}\n`;
+  msg+=` *Customer:* ${name}\n`;
+  msg+=` *Branch:* ${selectedLocation}\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`* ITEMS ORDERED:*\n`;
+  cart.forEach(i=>{
+    msg+=`• ${i.qty}x ${i.name}`;
+    if(i.qty>1)msg+=` (E${i.price} × ${i.qty})`;
+    msg+=` — *E${i.price*i.qty}*\n`;
+  });
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=` Subtotal: E${subtotal}\n`;
+  msg+=` Service Charge (15%): E${service}\n`;
+  msg+=` *TOTAL: E${total}*\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`💳 *Payment:* ${pay.label}\n`;
+  msg+=`   ${pay.value}\n`;
+  if(selectedPayment!=='cash')msg+=`    Please send proof of payment.\n`;
+  if(notes){msg+=`━━━━━━━━━━━━━━━━━━━━\n`;msg+=` *Notes:* ${notes}\n`;}
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`_Thank you for choosing IF's Lounge! _\n_Sent from ifslounge.com_`;
+
   const encoded=encodeURIComponent(msg);
   window.open(`https://wa.me/26878729132?text=${encoded}`,'_blank');
   closeInvoice();
