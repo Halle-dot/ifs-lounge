@@ -34,39 +34,12 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 /* PAGE HERO */
 .page-hero{position:relative;margin-top:var(--nav-h);overflow:hidden;background:linear-gradient(160deg,#0d0b04 0%,#0f0d00 50%,#0a0a0a 100%);padding:90px 20px 70px;text-align:center;border-bottom:1px solid var(--border);}
 .page-hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(212,175,55,0.12) 0%,transparent 65%);pointer-events:none;z-index:1;}
-
-/* Hero particles canvas layer */
 .hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
-.hero-particle{
-  position:absolute;
-  bottom:0;
-  opacity:0;
-  animation:particle-rise var(--dur,8s) var(--delay,0s) infinite ease-in-out;
-  filter:blur(var(--blur,0px));
-}
-.hp-dot{
-  border-radius:50%;
-  background:radial-gradient(circle,#f0d060 0%,#d4af37 60%,transparent 100%);
-  box-shadow:0 0 var(--glow,6px) var(--glow,6px) rgba(212,175,55,var(--ga,.35));
-}
-.hp-diamond{
-  border-radius:2px;
-  background:var(--gold);
-  box-shadow:0 0 var(--glow,8px) var(--glow,8px) rgba(212,175,55,var(--ga,.3));
-}
-.hp-streak{
-  border-radius:4px;
-  background:linear-gradient(to top,rgba(212,175,55,0),#f0d060,rgba(212,175,55,0));
-}
-@keyframes particle-rise{
-  0%  {transform:translateY(0)   translateX(0)                       rotate(var(--rot0,0deg));   opacity:0;}
-  8%  {opacity:var(--peak,.9);}
-  50% {transform:translateY(var(--midY,-50vh))  translateX(var(--drift,30px))  rotate(var(--rot1,90deg));  opacity:var(--mid,.55);}
-  92% {opacity:.1;}
-  100%{transform:translateY(var(--topY,-105vh)) translateX(var(--drift2,10px)) rotate(var(--rot2,200deg)); opacity:0;}
-}
-
-/* Hero text layer */
+.hero-particle{position:absolute;bottom:0;opacity:0;animation:particle-rise var(--dur,8s) var(--delay,0s) infinite ease-in-out;filter:blur(var(--blur,0px));}
+.hp-dot{border-radius:50%;background:radial-gradient(circle,#f0d060 0%,#d4af37 60%,transparent 100%);box-shadow:0 0 var(--glow,6px) var(--glow,6px) rgba(212,175,55,var(--ga,.35));}
+.hp-diamond{border-radius:2px;background:var(--gold);box-shadow:0 0 var(--glow,8px) var(--glow,8px) rgba(212,175,55,var(--ga,.3));}
+.hp-streak{border-radius:4px;background:linear-gradient(to top,rgba(212,175,55,0),#f0d060,rgba(212,175,55,0));}
+@keyframes particle-rise{0%{transform:translateY(0) translateX(0) rotate(var(--rot0,0deg));opacity:0;}8%{opacity:var(--peak,.9);}50%{transform:translateY(var(--midY,-50vh)) translateX(var(--drift,30px)) rotate(var(--rot1,90deg));opacity:var(--mid,.55);}92%{opacity:.1;}100%{transform:translateY(var(--topY,-105vh)) translateX(var(--drift2,10px)) rotate(var(--rot2,200deg));opacity:0;}}
 .hero-content{position:relative;z-index:3;}
 .hero-rule{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:18px;}
 .hero-rule span{display:block;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:80px;}
@@ -81,115 +54,23 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .hero-breadcrumb .cur{color:var(--gold);}
 @keyframes hero-fadein{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-
 /* TOOLBAR */
 .menu-toolbar{position:sticky;top:var(--nav-h);z-index:100;background:rgba(8,7,3,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);padding:14px 0;}
-
-/* MENU ACTIONS — buttons only, no section wrapper */
-.menu-actions{
-  display:flex;
-  justify-content:center;
-  gap:14px;
-  flex-wrap:wrap;
-}
-
-.btn-menu, .btn-download {
-  padding: 8px 22px;
-  border-radius: 30px;
-  font-family:'DM Sans',sans-serif;
-  font-size:.82rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s ease;
-  cursor: pointer;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-
-.btn-menu {
-  background: var(--gold);
-  color: #000;
-  border: none;
-}
-
-.btn-menu:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow:0 6px 20px rgba(212,175,55,0.35);
-}
-
-.btn-download {
-  background: transparent;
-  border: 1px solid rgba(212,175,55,0.45);
-  color: var(--gold);
-}
-
-.btn-download:hover {
-  background: var(--gold-dim);
-  border-color:var(--gold);
-  transform: translateY(-2px);
-  color: var(--gold);
-}
+.menu-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.btn-menu,.btn-download{padding:8px 22px;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;transition:0.3s ease;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+.btn-menu{background:var(--gold);color:#000;border:none;}
+.btn-menu:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,175,55,0.35);}
+.btn-download{background:transparent;border:1px solid rgba(212,175,55,0.45);color:var(--gold);}
+.btn-download:hover{background:var(--gold-dim);border-color:var(--gold);transform:translateY(-2px);color:var(--gold);}
 
 /* Modal */
-.menu-modal {
-  display: none;
-  position: fixed;
-  z-index: 1200;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(8px);
-  animation: fadeIn 0.4s ease;
-}
-
-.menu-modal-content {
-  position: relative;
-  margin: 5% auto;
-  width: 90%;
-  max-width: 900px;
-  height: 80%;
-  background: #000;
-  border-radius: 15px;
-  overflow: hidden;
-  animation: slideUp 0.4s ease;
-  border:1px solid var(--border);
-}
-
-.menu-modal iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 16px;
-  font-size: 28px;
-  color: #fff;
-  cursor: pointer;
-  z-index:10;
-  line-height:1;
-  opacity:.8;
-  transition:opacity .2s;
-}
+.menu-modal{display:none;position:fixed;z-index:1200;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);animation:fadeIn 0.4s ease;}
+.menu-modal-content{position:relative;margin:5% auto;width:90%;max-width:900px;height:80%;background:#000;border-radius:15px;overflow:hidden;animation:slideUp 0.4s ease;border:1px solid var(--border);}
+.menu-modal iframe{width:100%;height:100%;border:none;}
+.close-btn{position:absolute;top:10px;right:16px;font-size:28px;color:#fff;cursor:pointer;z-index:10;line-height:1;opacity:.8;transition:opacity .2s;}
 .close-btn:hover{opacity:1;}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes slideUp{from{transform:translateY(50px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 
 /* CATEGORY PILLS */
 .cat-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
@@ -201,8 +82,6 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .diet-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
 .diet-badge{display:inline-flex;align-items:center;gap:5px;background:transparent;border:1px solid rgba(255,255,255,0.08);color:#666;padding:5px 14px;border-radius:20px;font-size:.73rem;font-weight:500;cursor:pointer;transition:all .25s var(--ease);}
 .diet-badge:hover,.diet-badge.active{background:var(--gold-dim);border-color:rgba(212,175,55,0.45);color:var(--gold);}
-
-/* TOOLBAR ACTIONS */
 .btn-dl{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#000;border:none;border-radius:8px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .25s var(--ease);text-decoration:none;white-space:nowrap;}
 .btn-dl:hover{background:var(--gold-light);color:#000;transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,175,55,0.35);}
 
@@ -235,8 +114,6 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .mcard-desc{font-size:.83rem;color:#777;line-height:1.7;flex:1;}
 .mcard-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
 .mtag{display:inline-flex;align-items:center;gap:4px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);color:var(--gold);padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:500;}
-
-/* ADD TO ORDER BUTTON (card) */
 .btn-add-order{width:100%;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;border:1px solid rgba(37,211,102,0.4);color:#25D366;border-radius:8px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s var(--ease);}
 .btn-add-order:hover{background:rgba(37,211,102,0.12);border-color:#25D366;transform:translateY(-1px);}
 .btn-add-order.added{background:rgba(37,211,102,0.18);border-color:#25D366;color:#25D366;}
@@ -249,13 +126,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .ri-desc{font-size:.78rem;color:var(--text-muted);}
 .ri-price{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);font-weight:700;white-space:nowrap;flex-shrink:0;}
 .ri-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.btn-add-row {
-  background: transparent;
-  border: 1px solid rgba(37,211,102,0.4);
-  color: #25D366;
-  border-radius: 8px; padding: 6px 12px; font-size: .75rem; font-weight: 600; cursor: pointer; transition: all .25s var(--ease); white-space: nowrap; font-family: 'DM Sans', sans-serif;display: inline-flex;   /* inline-flex avoids stretching across the div */align-items: center;gap: 5px;
-}
-
+.btn-add-row{background:transparent;border:1px solid rgba(37,211,102,0.4);color:#25D366;border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .25s var(--ease);white-space:nowrap;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:5px;}
 .btn-add-row:hover{background:rgba(37,211,102,0.12);border-color:#25D366;}
 .btn-add-row.added{background:rgba(37,211,102,0.18);border-color:#25D366;}
 
@@ -267,18 +138,71 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .bev-name{font-size:.9rem;font-weight:600;color:#ddd;margin-bottom:2px;}
 .bev-desc{font-size:.78rem;color:var(--text-muted);}
 .bev-price{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);font-weight:700;white-space:nowrap;flex-shrink:0;}
-.bev-right {display: flex;flex-direction: column;align-items: flex-end; gap: 4px;
-}
-
+.bev-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
 
 /* MENU NOTE */
 .menu-note{background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.18);border-radius:12px;padding:20px 24px;margin-top:48px;display:flex;gap:10px;align-items:flex-start;}
 .menu-note i{color:var(--gold);font-size:1.1rem;margin-top:1px;flex-shrink:0;}
 .menu-note p{font-size:.83rem;color:#888;line-height:1.7;margin:0;}
 
-/* ===================== WHATSAPP CART ===================== */
+/* ===================== PAYMENT METHOD ===================== */
+.cart-payment{padding:0 20px 10px;flex-shrink:0;}
+.cart-payment label{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:7px;display:block;}
+.pay-btns{display:flex;gap:8px;margin-bottom:8px;}
+.pay-btn{flex:1;background:transparent;border:1px solid rgba(212,175,55,0.2);color:#888;border-radius:10px;padding:9px 6px 8px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;cursor:pointer;transition:all .25s ease;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;touch-action:manipulation;}
+.pay-btn i{font-size:1.1rem;margin-bottom:1px;}
+.pay-btn-title{font-size:.76rem;font-weight:700;color:#ccc;line-height:1;}
+.pay-btn-sub{font-size:.65rem;color:#555;line-height:1;}
+.pay-btn.active{background:rgba(212,175,55,0.15);border-color:var(--gold);color:var(--gold);}
+.pay-btn.active .pay-btn-title{color:var(--gold);}
+.pay-btn.active .pay-btn-sub{color:rgba(212,175,55,0.7);}
+.pay-btn:hover:not(.active){background:rgba(212,175,55,0.07);border-color:rgba(212,175,55,0.35);}
+.pay-detail{margin-top:4px;animation:fadeIn .25s ease;}
+.pay-detail-inner{background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.22);border-radius:9px;padding:11px 14px;}
+.pay-detail-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.pay-detail-row i{font-size:1.2rem;flex-shrink:0;}
+.pay-detail-row strong{font-size:.84rem;color:#ddd;display:block;margin-bottom:1px;}
+.pay-detail-row span{font-size:.78rem;color:#888;}
+.pay-detail-note{font-size:.72rem;color:#666;line-height:1.6;margin:0;border-top:1px solid rgba(212,175,55,0.12);padding-top:7px;}
 
-/* Floating WA button */
+/* ===================== INVOICE MODAL ===================== */
+.invoice-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1400;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);animation:fadeIn .3s ease;}
+.invoice-modal{background:#0f0d07;border:1px solid rgba(212,175,55,0.35);border-radius:16px;width:100%;max-width:440px;max-height:88vh;overflow-y:auto;position:relative;animation:slideUp .35s ease;}
+.invoice-modal::-webkit-scrollbar{width:4px;}
+.invoice-modal::-webkit-scrollbar-thumb{background:rgba(212,175,55,0.4);border-radius:2px;}
+.invoice-header{background:linear-gradient(135deg,#0a0800,#1a1400);padding:24px 24px 18px;border-bottom:1px solid rgba(212,175,55,0.2);text-align:center;}
+.invoice-logo{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);letter-spacing:1px;margin-bottom:2px;}
+.invoice-logo span{font-style:italic;color:#fff;}
+.invoice-subtitle{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:#666;}
+.invoice-badge{display:inline-block;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.4);color:#25D366;border-radius:20px;padding:3px 14px;font-size:.7rem;font-weight:700;letter-spacing:.5px;margin-top:10px;}
+.invoice-body{padding:20px 24px;}
+.invoice-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.inv-meta-item label{font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:#555;display:block;margin-bottom:2px;}
+.inv-meta-item span{font-size:.82rem;color:#ccc;font-weight:500;}
+.invoice-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,0.3),transparent);margin:14px 0;}
+.invoice-items-head{display:flex;justify-content:space-between;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.invoice-line{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.invoice-line:last-child{border-bottom:none;}
+.inv-item-info{flex:1;}
+.inv-item-name{font-size:.84rem;color:#ddd;font-weight:500;}
+.inv-item-qty{font-size:.72rem;color:#666;}
+.inv-item-price{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);font-weight:700;}
+.invoice-total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0 0;}
+.invoice-total-row .itl{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#888;}
+.invoice-total-row .ita{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold);}
+.invoice-service{display:flex;justify-content:space-between;font-size:.76rem;color:#555;padding:4px 0 0;border-top:1px dashed rgba(212,175,55,0.15);margin-top:4px;}
+.invoice-pay-box{background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.2);border-radius:9px;padding:12px 14px;margin:14px 0;}
+.invoice-pay-box .ipb-title{font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.invoice-pay-box .ipb-val{font-size:.9rem;color:#ddd;font-weight:600;}
+.invoice-pay-box .ipb-note{font-size:.72rem;color:#666;margin-top:3px;}
+.invoice-footer-note{text-align:center;font-size:.72rem;color:#444;margin-top:14px;line-height:1.6;}
+.invoice-actions{display:flex;gap:8px;padding:16px 24px 20px;border-top:1px solid rgba(212,175,55,0.15);}
+.inv-btn-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;border:none;border-radius:10px;padding:13px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .25s ease;}
+.inv-btn-wa:hover{background:#20c05a;}
+.inv-btn-close{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#777;border-radius:10px;padding:13px 16px;cursor:pointer;font-size:.85rem;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.inv-btn-close:hover{border-color:rgba(255,255,255,0.3);color:#ccc;}
+
+/* ===================== WHATSAPP CART ===================== */
 .wa-fab{position:fixed;bottom:30px;right:28px;z-index:1200;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;border:none;border-radius:50px;padding:14px 22px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 8px 32px rgba(37,211,102,0.45);transition:all .3s var(--ease);text-decoration:none;}
 .wa-fab:hover{background:#20c05a;transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,0.55);color:#fff;}
 .wa-fab .wa-fab-icon{font-size:1.3rem;line-height:1;}
@@ -286,27 +210,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .wa-fab .wa-badge{background:#fff;color:#25D366;border-radius:50%;width:22px;height:22px;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-left:2px;transition:transform .2s;flex-shrink:0;}
 .wa-fab.has-items .wa-badge{animation:badge-pop .3s var(--ease);}
 @keyframes badge-pop{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
-
-/* Cart Drawer Overlay */
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);backdrop-filter:blur(4px);}
 .cart-overlay.open{opacity:1;pointer-events:all;}
-
-/* Cart Drawer */
-.cart-drawer{
-  position:fixed;bottom:0;right:0;
-  width:100%;max-width:480px;
-  height:90vh;
-  z-index:1100;
-  background:#0f0d07;
-  border:1px solid rgba(212,175,55,0.25);
-  border-bottom:none;
-  border-radius:20px 20px 0 0;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  transform:translateY(100%);
-  transition:transform .4s var(--ease);
-}
+.cart-drawer{position:fixed;bottom:0;right:0;width:100%;max-width:480px;height:90vh;z-index:1100;background:#0f0d07;border:1px solid rgba(212,175,55,0.25);border-bottom:none;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;transform:translateY(100%);transition:transform .4s var(--ease);}
 .cart-drawer.open{transform:translateY(0);}
 .cart-drawer-handle{width:44px;height:5px;background:rgba(212,175,55,0.35);border-radius:3px;margin:14px auto 0;flex-shrink:0;}
 .cart-drawer-header{padding:12px 20px 12px;border-bottom:1px solid rgba(212,175,55,0.15);flex-shrink:0;}
@@ -315,24 +221,14 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .cart-drawer-header p{font-size:.76rem;color:#555;margin-top:2px;letter-spacing:.5px;}
 .cart-close{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#777;border-radius:8px;padding:6px 11px;cursor:pointer;font-size:.85rem;transition:all .2s;margin-left:auto;}
 .cart-close:hover{border-color:rgba(255,255,255,0.3);color:#ccc;}
-
-.cart-items{
-  flex:1 1 0;
-  min-height:0;
-  overflow-y:auto;
-  padding:4px 20px;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(212,175,55,0.5) rgba(255,255,255,0.05);
-}
+.cart-items{flex:1 1 0;min-height:0;overflow-y:auto;padding:4px 20px;scrollbar-width:thin;scrollbar-color:rgba(212,175,55,0.5) rgba(255,255,255,0.05);}
 .cart-items::-webkit-scrollbar{width:6px;}
 .cart-items::-webkit-scrollbar-track{background:rgba(255,255,255,0.04);border-radius:3px;}
 .cart-items::-webkit-scrollbar-thumb{background:rgba(212,175,55,0.5);border-radius:3px;}
 .cart-items::-webkit-scrollbar-thumb:hover{background:rgba(212,175,55,0.8);}
-
 .cart-empty{text-align:center;padding:36px 20px;color:#555;}
 .cart-empty i{font-size:2.2rem;color:rgba(37,211,102,0.3);margin-bottom:10px;display:block;}
 .cart-empty p{font-size:.85rem;line-height:1.6;}
-
 .cart-line{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
 .cart-line:last-child{border-bottom:none;}
 .cl-name{flex:1;font-size:.9rem;font-weight:500;color:#e0ddd4;line-height:1.4;word-break:break-word;}
@@ -343,19 +239,16 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .qty-num{font-size:.9rem;color:#fff;min-width:20px;text-align:center;font-weight:700;}
 .cl-remove{background:transparent;border:none;color:#484440;cursor:pointer;font-size:.95rem;padding:5px;transition:color .2s;line-height:1;flex-shrink:0;}
 .cl-remove:hover,.cl-remove:active{color:#e05555;}
-
 .cart-notes{padding:0 20px 10px;flex-shrink:0;}
 .cart-notes label{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px;display:block;}
 .cart-notes textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.2);border-radius:8px;color:#ccc;font-family:'DM Sans',sans-serif;font-size:.82rem;padding:9px 12px;resize:none;outline:none;transition:border-color .2s;}
 .cart-notes textarea:focus{border-color:rgba(212,175,55,0.5);}
 .cart-notes textarea::placeholder{color:#444;}
-
 .cart-location{padding:0 20px 10px;flex-shrink:0;}
 .cart-location label{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px;display:block;}
 .loc-btns{display:flex;gap:8px;}
 .loc-btn{flex:1;background:transparent;border:1px solid rgba(212,175,55,0.2);color:#888;border-radius:8px;padding:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center;touch-action:manipulation;}
 .loc-btn.active{background:var(--gold-dim);border-color:rgba(212,175,55,0.5);color:var(--gold);}
-
 .cart-footer{padding:10px 20px 22px;border-top:1px solid rgba(212,175,55,0.15);flex-shrink:0;}
 .cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .cart-total-row .label{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#777;}
@@ -365,8 +258,6 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .btn-wa-order:disabled{background:#152b1c;color:#2a6640;cursor:not-allowed;transform:none;box-shadow:none;}
 .btn-wa-order i{font-size:1.2rem;}
 .cart-hint{text-align:center;font-size:.72rem;color:#444;margin-top:8px;letter-spacing:.3px;}
-
-/* Toast */
 .toast-item{position:fixed;bottom:100px;right:28px;z-index:1200;background:#111;border:1px solid rgba(37,211,102,0.4);border-radius:10px;padding:12px 18px;font-size:.83rem;color:#ccc;display:flex;align-items:center;gap:9px;transform:translateY(20px);opacity:0;transition:all .3s var(--ease);pointer-events:none;max-width:260px;}
 .toast-item.show{transform:translateY(0);opacity:1;}
 .toast-item i{color:#25D366;font-size:1rem;}
@@ -379,8 +270,6 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
 .footer-copy{font-size:.8rem;color:#3a3a3a;}
 .social-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);color:#666;font-size:1rem;text-decoration:none;transition:all .25s var(--ease);margin:0 4px;}
 .social-link:hover{background:var(--gold-dim);border-color:rgba(212,175,55,.5);color:var(--gold);transform:translateY(-3px);}
-
-/* ANIMATIONS */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
 .reveal.in{opacity:1;transform:translateY(0);}
 
@@ -395,299 +284,142 @@ footer{background:#040402;border-top:1px solid var(--border);padding:40px 0 28px
   @page{margin:1.5cm;}
 }
 
-/* ═══════════════════════════════════════════════════
-   RESPONSIVE SYSTEM
-   Fixes: orientation change zoom, cart drawer portrait
-   visibility, FAB visibility, landscape layout
-═══════════════════════════════════════════════════ */
+:root{--nav-h:64px;}
+html,body{max-width:100%;overflow-x:hidden;}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+.menu-toolbar{top:var(--nav-h);}
+.page-hero{margin-top:var(--nav-h);}
 
-/* ── CSS custom property for navbar height ── */
-:root { --nav-h: 64px; }
+@media(min-width:768px){:root{--nav-h:64px;}}
 
-/* ── Global: prevent horizontal overflow on ALL screens ── */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-/* Prevent iOS text size inflation on rotation */
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-
-/* ── Toolbar top offset uses CSS var so it always tracks navbar ── */
-.menu-toolbar { top: var(--nav-h); }
-.page-hero    { margin-top: var(--nav-h); }
-
-/* ═══════════════════════════════════════
-   DESKTOP (≥ 768px)
-═══════════════════════════════════════ */
-@media(min-width:768px){
-  :root { --nav-h: 64px; }
-}
-
-/* ═══════════════════════════════════════
-   TABLET + PORTRAIT PHONES (≤ 767px)
-═══════════════════════════════════════ */
 @media(max-width:767px){
-  :root { --nav-h: 58px; }
-
-  /* ── Navbar ── */
-  .navbar { padding: 0; min-height: var(--nav-h); }
-  .navbar .container { height: var(--nav-h); align-items: center; display: flex; }
-  .navbar-brand { font-size: 1.1rem; padding: 0; height: var(--nav-h); gap: 8px; align-items: center; }
-  .navbar-brand img { height: 28px; width: 28px; }
-  .navbar-toggler { padding: 5px 8px; margin-left: auto; }
-  .navbar-collapse {
-    background: rgba(4,4,2,.98);
-    padding: 10px 16px 18px;
-    border-top: 1px solid var(--border);
-    position: absolute;
-    top: var(--nav-h);
-    left: 0; right: 0;
-    z-index: 1049;
-  }
-  .navbar-nav .nav-link {
-    padding: 10px 0 !important;
-    height: auto;
-    display: block;
-    border-bottom: 1px solid rgba(255,255,255,.05);
-    font-size: .82rem;
-    letter-spacing: .4px;
-  }
-  .navbar-nav .nav-link::after { display: none; }
-  .nav-pill-item { margin: 8px 0 0; }
-  .nav-pill-item .nav-link {
-    display: inline-flex;
-    padding: 6px 14px !important;
-    border-bottom: none !important;
-    font-size: .78rem;
-    height: auto;
-  }
-
-  /* ── Hero ── */
-  .page-hero { padding: 40px 16px 34px; }
-  .page-hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); letter-spacing: 1px; }
-  .page-hero .sub { font-size: .73rem; letter-spacing: 1.8px; }
-  .hero-rule span { width: 46px; }
-  .hero-breadcrumb { font-size: .68rem; gap: 6px; margin-top: 12px; }
-
-  /* ── Toolbar ── */
-  .menu-toolbar { padding: 8px 0; }
-  .menu-toolbar .container { padding-left: 12px; padding-right: 12px; }
-  .menu-toolbar .d-flex { flex-direction: column; gap: 5px; }
-
-  /* Category pills */
-  .cat-scroll { gap: 5px; padding-bottom: 4px; }
-  .cat-btn { padding: 5px 11px; font-size: .69rem; letter-spacing: .2px; }
-
-  /* Diet badges — single scrolling row */
-  .diet-row {
-    gap: 4px; margin-top: 6px;
-    flex-wrap: nowrap; overflow-x: auto;
-    padding-bottom: 2px; scrollbar-width: none;
-  }
-  .diet-row::-webkit-scrollbar { display: none; }
-  .diet-badge { padding: 4px 9px; font-size: .65rem; white-space: nowrap; flex-shrink: 0; }
-
-  /* Download button */
-  .menu-actions { margin-top: 7px; justify-content: flex-start; }
-  .btn-download { padding: 5px 14px; font-size: .73rem; }
-
-  /* ── Menu main ── */
-  .menu-main { padding: 26px 12px 160px; overflow-x: hidden; }
-
-  /* ── Section headers ── */
-  .menu-section-header { margin: 32px 0 14px; gap: 12px; }
-  .msh-bar { min-height: 38px; width: 3px; }
-  .msh-text .eyebrow { font-size: .6rem; letter-spacing: 1.8px; }
-  .msh-text h2 { font-size: clamp(1.3rem, 5vw, 1.7rem); }
-  .msh-text p { font-size: .74rem; }
-
-  /* ── Grids — single column ── */
-  .card-grid { grid-template-columns: 1fr; gap: 13px; }
-  .row-grid { grid-template-columns: 1fr; gap: 9px; }
-  .bev-grid { grid-template-columns: 1fr; gap: 9px; }
-
-  /* ── Cards ── */
-  .mcard { border-radius: 10px; }
-  .mcard:hover { transform: none; }
-  .mcard-img-wrap { height: 165px; }
-  .mcard-body { padding: 13px; }
-  .mcard-title { font-size: .98rem; }
-  .mcard-price { font-size: 1.08rem; }
-  .mcard-desc { font-size: .79rem; line-height: 1.6; }
-  .mcard-tags { margin-top: 7px; gap: 4px; }
-  .mtag { font-size: .63rem; padding: 2px 7px; }
-  .btn-add-order { padding: 10px 12px; font-size: .79rem; margin-top: 10px; min-height: 40px; }
-
-  /* ── Row items ── */
-  .row-item { flex-wrap: wrap; gap: 7px; padding: 11px 13px; border-radius: 9px; }
-  .row-item:hover { transform: none; }
-  .ri-name { font-size: .86rem; }
-  .ri-desc { font-size: .73rem; }
-  .ri-right { width: 100%; justify-content: space-between; align-items: center; }
-  .ri-price { font-size: .98rem; }
-  .btn-add-row { padding: 8px 12px; font-size: .74rem; min-height: 36px; flex: 1;}
-
-  /* ── Beverage items ── */
-  .bev-item { flex-wrap: nowrap; padding: 12px; border-radius: 9px; gap: 10px; }
-  .bev-item:hover { transform: none; }
-  .bev-icon { width: 38px; height: 38px; min-width: 38px; font-size: .9rem; border-radius: 8px; }
-  .bev-name { font-size: .84rem; }
-  .bev-desc { font-size: .71rem; }
-  .bev-price { font-size: .92rem; }
-  .bev-right {  display: flex; align-items: center; gap: 7px; }
-
-  /* ── Menu note ── */
-  .menu-note { padding: 12px 14px; gap: 8px; margin-top: 28px; }
-  .menu-note p { font-size: .76rem; }
-
-  /* ── Footer ── */
-  footer { padding: 28px 0 20px; }
-
-  /* ── WhatsApp FAB ──
-     z-index 1050 keeps it above page content.
-     When cart opens JS adds .wa-fab-hidden to push it behind the drawer.
-  ── */
-  .wa-fab {
-    bottom: max(18px, env(safe-area-inset-bottom, 18px));
-    right: max(14px, env(safe-area-inset-right, 14px));
-    padding: 0;
-    border-radius: 50%;
-    gap: 0;
-    width: 54px; height: 54px;
-    justify-content: center;
-    align-items: center;
-    z-index: 1200;
-    box-shadow: 0 6px 24px rgba(37,211,102,0.6);
-  }
-  .wa-fab .wa-fab-label { display: none; }
-  .wa-fab .wa-fab-icon { font-size: 1.3rem; line-height: 1; margin: 0; padding: 0; }
-  .wa-fab .wa-badge {
-    margin-left: 0;
-    position: absolute;
-    top: -6px; right: -6px;
-    width: 21px; height: 21px;
-    font-size: .64rem;
-    border: 2px solid #0a0a0a;
-    z-index: 1;
-  }
-
-  /* ── Cart Overlay — sits below drawer, above page ── */
-  .cart-overlay { z-index: 1098; }
-
-  /* ── Cart Drawer ──
-     Uses 100dvh (dynamic viewport height) which adjusts when
-     mobile browser chrome shows/hides. Falls back to 100vh.
-     height: calc keeps full height minus a safe handle gap at top.
-  ── */
-  .cart-drawer {
-    max-width: 100%;
-    /* Show nearly full screen so it's clearly visible in portrait */
-    height: calc(100dvh - var(--nav-h));
-    /* Fallback for browsers without dvh */
-    height: calc(100vh - var(--nav-h));
-    border-radius: 16px 16px 0 0;
-    z-index: 1101;
-  }
-  .cart-drawer-handle { width: 40px; height: 4px; margin: 12px auto 0; }
-  .cart-drawer-header { padding: 10px 14px 10px; }
-  .cart-drawer-header h3 { font-size: .98rem; }
-  .cart-items { padding: 2px 14px; }
-  .cart-notes { padding: 0 14px 7px; }
-  .cart-location { padding: 0 14px 7px; }
-  .cart-footer {
-    padding: 8px 14px;
-    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
-  }
-  .cl-name { font-size: .84rem; }
-  .cl-price { font-size: .86rem; }
-  .qty-btn { width: 28px; height: 28px; }
-  .cart-total-row .amount { font-size: 1.08rem; }
-  .btn-wa-order { padding: 13px; font-size: .9rem; }
-
-  /* ── Toast — sits above FAB ── */
-  .toast-item {
-    right: auto;
-    left: 12px;
-    bottom: max(82px, calc(env(safe-area-inset-bottom, 0px) + 82px));
-    max-width: calc(100vw - 24px);
-    font-size: .76rem;
-  }
+  :root{--nav-h:58px;}
+  .navbar{padding:0;min-height:var(--nav-h);}
+  .navbar .container{height:var(--nav-h);align-items:center;display:flex;}
+  .navbar-brand{font-size:1.1rem;padding:0;height:var(--nav-h);gap:8px;align-items:center;}
+  .navbar-brand img{height:28px;width:28px;}
+  .navbar-toggler{padding:5px 8px;margin-left:auto;}
+  .navbar-collapse{background:rgba(4,4,2,.98);padding:10px 16px 18px;border-top:1px solid var(--border);position:absolute;top:var(--nav-h);left:0;right:0;z-index:1049;}
+  .navbar-nav .nav-link{padding:10px 0!important;height:auto;display:block;border-bottom:1px solid rgba(255,255,255,.05);font-size:.82rem;letter-spacing:.4px;}
+  .navbar-nav .nav-link::after{display:none;}
+  .nav-pill-item{margin:8px 0 0;}
+  .nav-pill-item .nav-link{display:inline-flex;padding:6px 14px!important;border-bottom:none!important;font-size:.78rem;height:auto;}
+  .page-hero{padding:40px 16px 34px;}
+  .page-hero h1{font-size:clamp(1.8rem,7.5vw,2.6rem);letter-spacing:1px;}
+  .page-hero .sub{font-size:.73rem;letter-spacing:1.8px;}
+  .hero-rule span{width:46px;}
+  .hero-breadcrumb{font-size:.68rem;gap:6px;margin-top:12px;}
+  .menu-toolbar{padding:8px 0;}
+  .menu-toolbar .container{padding-left:12px;padding-right:12px;}
+  .menu-toolbar .d-flex{flex-direction:column;gap:5px;}
+  .cat-scroll{gap:5px;padding-bottom:4px;}
+  .cat-btn{padding:5px 11px;font-size:.69rem;letter-spacing:.2px;}
+  .diet-row{gap:4px;margin-top:6px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+  .diet-row::-webkit-scrollbar{display:none;}
+  .diet-badge{padding:4px 9px;font-size:.65rem;white-space:nowrap;flex-shrink:0;}
+  .menu-actions{margin-top:7px;justify-content:flex-start;}
+  .btn-download{padding:5px 14px;font-size:.73rem;}
+  .menu-main{padding:26px 12px 160px;overflow-x:hidden;}
+  .menu-section-header{margin:32px 0 14px;gap:12px;}
+  .msh-bar{min-height:38px;width:3px;}
+  .msh-text .eyebrow{font-size:.6rem;letter-spacing:1.8px;}
+  .msh-text h2{font-size:clamp(1.3rem,5vw,1.7rem);}
+  .msh-text p{font-size:.74rem;}
+  .card-grid{grid-template-columns:1fr;gap:13px;}
+  .row-grid{grid-template-columns:1fr;gap:9px;}
+  .bev-grid{grid-template-columns:1fr;gap:9px;}
+  .mcard{border-radius:10px;}
+  .mcard:hover{transform:none;}
+  .mcard-img-wrap{height:165px;}
+  .mcard-body{padding:13px;}
+  .mcard-title{font-size:.98rem;}
+  .mcard-price{font-size:1.08rem;}
+  .mcard-desc{font-size:.79rem;line-height:1.6;}
+  .mcard-tags{margin-top:7px;gap:4px;}
+  .mtag{font-size:.63rem;padding:2px 7px;}
+  .btn-add-order{padding:10px 12px;font-size:.79rem;margin-top:10px;min-height:40px;}
+  .row-item{flex-wrap:wrap;gap:7px;padding:11px 13px;border-radius:9px;}
+  .row-item:hover{transform:none;}
+  .ri-name{font-size:.86rem;}
+  .ri-desc{font-size:.73rem;}
+  .ri-right{width:100%;justify-content:space-between;align-items:center;}
+  .ri-price{font-size:.98rem;}
+  .btn-add-row{padding:8px 12px;font-size:.74rem;min-height:36px;flex:1;}
+  .bev-item{flex-wrap:nowrap;padding:12px;border-radius:9px;gap:10px;}
+  .bev-item:hover{transform:none;}
+  .bev-icon{width:38px;height:38px;min-width:38px;font-size:.9rem;border-radius:8px;}
+  .bev-name{font-size:.84rem;}
+  .bev-desc{font-size:.71rem;}
+  .bev-price{font-size:.92rem;}
+  .bev-right{display:flex;align-items:center;gap:7px;}
+  .menu-note{padding:12px 14px;gap:8px;margin-top:28px;}
+  .menu-note p{font-size:.76rem;}
+  footer{padding:28px 0 20px;}
+  .wa-fab{bottom:max(18px,env(safe-area-inset-bottom,18px));right:max(14px,env(safe-area-inset-right,14px));padding:0;border-radius:50%;gap:0;width:54px;height:54px;justify-content:center;align-items:center;z-index:1200;box-shadow:0 6px 24px rgba(37,211,102,0.6);}
+  .wa-fab .wa-fab-label{display:none;}
+  .wa-fab .wa-fab-icon{font-size:1.3rem;line-height:1;margin:0;padding:0;}
+  .wa-fab .wa-badge{margin-left:0;position:absolute;top:-6px;right:-6px;width:21px;height:21px;font-size:.64rem;border:2px solid #0a0a0a;z-index:1;}
+  .cart-overlay{z-index:1098;}
+  .cart-drawer{max-width:100%;height:calc(100dvh - var(--nav-h));height:calc(100vh - var(--nav-h));border-radius:16px 16px 0 0;z-index:1101;}
+  .cart-drawer-handle{width:40px;height:4px;margin:12px auto 0;}
+  .cart-drawer-header{padding:10px 14px 10px;}
+  .cart-drawer-header h3{font-size:.98rem;}
+  .cart-items{padding:2px 14px;}
+  .cart-notes{padding:0 14px 7px;}
+  .cart-location{padding:0 14px 7px;}
+  .cart-payment{padding:0 14px 8px;}
+  .pay-btn{padding:8px 4px 7px;}
+  .pay-btn i{font-size:1rem;}
+  .cart-footer{padding:8px 14px;padding-bottom:max(16px,env(safe-area-inset-bottom,16px));}
+  .cl-name{font-size:.84rem;}
+  .cl-price{font-size:.86rem;}
+  .qty-btn{width:28px;height:28px;}
+  .cart-total-row .amount{font-size:1.08rem;}
+  .btn-wa-order{padding:13px;font-size:.9rem;}
+  .toast-item{right:auto;left:12px;bottom:max(82px,calc(env(safe-area-inset-bottom,0px) + 82px));max-width:calc(100vw - 24px);font-size:.76rem;}
+  .invoice-modal{max-height:92vh;border-radius:14px 14px 0 0;position:fixed;bottom:0;left:0;right:0;max-width:100%;margin:0;}
+  .invoice-overlay{align-items:flex-end;padding:0;}
+  .invoice-body{padding:14px 16px;}
+  .invoice-header{padding:18px 16px 14px;}
+  .invoice-actions{padding:12px 16px 20px;}
 }
 
-/* ═══════════════════════════════════════
-   LANDSCAPE PHONES
-   Triggered when height ≤ 500px (phone rotated)
-═══════════════════════════════════════ */
 @media(max-height:500px) and (orientation:landscape){
-  :root { --nav-h: 48px; }
-
-  .page-hero { padding: 22px 16px 18px; }
-  .page-hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); }
-  .page-hero .sub { font-size: .66rem; letter-spacing: 1.4px; }
-  .hero-breadcrumb { margin-top: 8px; }
-  .hero-rule { margin-bottom: 8px; }
-
-  .menu-toolbar { padding: 5px 0; }
-  .cat-btn { padding: 4px 10px; font-size: .66rem; }
-  .diet-badge { padding: 3px 8px; font-size: .62rem; }
-
-  /* Two columns in landscape — makes better use of width */
-  .card-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
-  .row-grid { grid-template-columns: repeat(2,1fr); gap: 8px; }
-  .bev-grid { grid-template-columns: repeat(2,1fr); gap: 8px; }
-
-  .mcard-img-wrap { height: 120px; }
-  .menu-main { padding: 18px 12px 90px; }
-  .menu-section-header { margin: 22px 0 10px; }
-
-  /* Landscape cart: full available height */
-  .cart-drawer {
-    height: calc(100dvh - 0px);
-    height: 100dvh;
-    border-radius: 0;
-    /* Slide in from right in landscape instead of bottom */
-    width: min(400px, 90vw);
-    max-width: 90vw;
-    top: 0; bottom: 0; right: 0;
-    left: auto;
-    transform: translateX(110%);
-    border-radius: 12px 0 0 12px;
-    border: 1px solid rgba(212,175,55,0.25);
-    border-right: none;
-  }
-  .cart-drawer.open {
-    transform: translateX(0);
-  }
-
-  .wa-fab {
-    bottom: max(12px, env(safe-area-inset-bottom, 12px));
-    right: max(12px, env(safe-area-inset-right, 12px));
-    width: 48px; height: 48px;
-  }
-  .toast-item { bottom: 70px; }
+  :root{--nav-h:48px;}
+  .page-hero{padding:22px 16px 18px;}
+  .page-hero h1{font-size:clamp(1.4rem,4vw,2rem);}
+  .page-hero .sub{font-size:.66rem;letter-spacing:1.4px;}
+  .hero-breadcrumb{margin-top:8px;}
+  .hero-rule{margin-bottom:8px;}
+  .menu-toolbar{padding:5px 0;}
+  .cat-btn{padding:4px 10px;font-size:.66rem;}
+  .diet-badge{padding:3px 8px;font-size:.62rem;}
+  .card-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .row-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .bev-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .mcard-img-wrap{height:120px;}
+  .menu-main{padding:18px 12px 90px;}
+  .menu-section-header{margin:22px 0 10px;}
+  .cart-drawer{height:calc(100dvh - 0px);height:100dvh;border-radius:0;width:min(400px,90vw);max-width:90vw;top:0;bottom:0;right:0;left:auto;transform:translateX(110%);border-radius:12px 0 0 12px;border:1px solid rgba(212,175,55,0.25);border-right:none;}
+  .cart-drawer.open{transform:translateX(0);}
+  .wa-fab{bottom:max(12px,env(safe-area-inset-bottom,12px));right:max(12px,env(safe-area-inset-right,12px));width:48px;height:48px;}
+  .toast-item{bottom:70px;}
 }
 
-/* ═══════════════════════════════════════
-   SMALL PORTRAIT PHONES (≤ 390px)
-═══════════════════════════════════════ */
 @media(max-width:390px) and (orientation:portrait){
-  .page-hero { padding: 34px 12px 28px; }
-  .page-hero h1 { font-size: 1.7rem; }
-  .menu-main { padding: 22px 10px 150px; }
-  .cat-btn { padding: 4px 9px; font-size: .63rem; }
-  .mcard-img-wrap { height: 148px; }
-  .mcard-body { padding: 11px; }
-  .mcard-title { font-size: .92rem; }
-  .mcard-price { font-size: .98rem; }
-  .bev-item { padding: 10px 11px; }
-  .bev-icon { width: 34px; height: 34px; min-width: 34px; }
-  .cart-drawer {
-    height: calc(100dvh - 10px);
-    height: calc(100vh - 10px);
-  }
-  .wa-fab { width: 50px; height: 50px; bottom: 16px; right: 12px; }
+  .page-hero{padding:34px 12px 28px;}
+  .page-hero h1{font-size:1.7rem;}
+  .menu-main{padding:22px 10px 150px;}
+  .cat-btn{padding:4px 9px;font-size:.63rem;}
+  .mcard-img-wrap{height:148px;}
+  .mcard-body{padding:11px;}
+  .mcard-title{font-size:.92rem;}
+  .mcard-price{font-size:.98rem;}
+  .bev-item{padding:10px 11px;}
+  .bev-icon{width:34px;height:34px;min-width:34px;}
+  .cart-drawer{height:calc(100dvh - 10px);height:calc(100vh - 10px);}
+  .wa-fab{width:50px;height:50px;bottom:16px;right:12px;}
 }
-
 </style>
 </head>
 <body>
@@ -707,8 +439,8 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
         <li class="nav-item"><a class="nav-link active" href="menu.html">Menu</a></li>
         <li class="nav-item"><a class="nav-link" href="events-gallery.html">Events &amp; Gallery</a></li>
-        <li class="nav-item nav-pill-item" id="navManzini"><a class="nav-link" href="booking.html"><i class="bi bi-calendar2-check me-1"></i>Manzini</a></li>
-        <li class="nav-item nav-pill-item" id="navMbabane"><a class="nav-link" href="booking.html"><i class="bi bi-calendar2-check me-1"></i>Mbabane</a></li>
+        <li class="nav-item nav-pill-item"><a class="nav-link" href="booking.html"><i class="bi bi-calendar2-check me-1"></i>Manzini</a></li>
+        <li class="nav-item nav-pill-item"><a class="nav-link" href="booking.html"><i class="bi bi-calendar2-check me-1"></i>Mbabane</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -717,11 +449,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 <!-- HERO -->
 <header class="page-hero">
-
-  <!-- Floating gold particles -->
   <div class="hero-particles" id="heroParticles"></div>
-
-  <!-- Text content -->
   <div class="hero-content">
     <div class="hero-rule"><span></span><i class="bi bi-diamond-fill"></i><span></span></div>
     <h1>Our <em>Menu</em></h1>
@@ -732,8 +460,6 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <span class="cur">Menu</span>
     </div>
   </div>
-
-
 </header>
 
 <!-- STICKY TOOLBAR -->
@@ -765,55 +491,30 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
           <button class="diet-badge" data-diet="meat"><i class="bi bi-fire"></i> Meat</button>
           <button class="diet-badge" data-diet="traditional"><i class="bi bi-globe-americas"></i> Traditional</button>
         </div>
-
-        <!-- BUTTONS ONLY — no title, no wrapper section -->
-<a href="https://github.com/user-attachments/files/26115048/IFS_LOUNGE_MENU.pdf" 
-   class="btn-download" 
-   target="_blank">
+        <a href="https://github.com/user-attachments/files/26115048/IFS_LOUNGE_MENU.pdf" class="btn-download mt-2" target="_blank">
           <i class="bi bi-download"></i> Download Menu
         </a>
-
       </div>
     </div>
   </div>
 </div>
-
-
 
 <!-- MENU CONTENT -->
 <div class="menu-main" id="menuPrint">
 
   <!-- BREAKFAST -->
   <div data-section="breakfast">
-    <div class="menu-section-header reveal">
-      <div class="msh-bar"></div>
-      <div class="msh-text"><span class="eyebrow">Morning</span><h2>Break<em>fast</em></h2><p>Rise and shine with our morning favourites</p></div>
-    </div>
+    <div class="menu-section-header reveal"><div class="msh-bar"></div><div class="msh-text"><span class="eyebrow">Morning</span><h2>Break<em>fast</em></h2><p>Rise and shine with our morning favourites</p></div></div>
     <div class="card-grid">
-      <div class="mcard reveal" data-cat="breakfast" data-diet="meat">
-        <div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRv4q-9s9syCNR_6UG4yIQ3p8xXKMfxmBTEQ&s')"></div></div>
-        <div class="mcard-body"><div class="mcard-header"><span class="mcard-title">English Breakfast</span><span class="mcard-price">E65</span></div><p class="mcard-desc">2 toasted bread slices, 2 fried eggs, 2 tomato slices, 2 bacon rashers and 1 sausage</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-sun"></i> Hearty</span></div>
-        <button class="btn-add-order" onclick="addToCart(this,'English Breakfast',65)"><i class="bi bi-whatsapp"></i> Add to Order</button></div>
-      </div>
-      <div class="mcard reveal" data-cat="breakfast" data-diet="meat">
-        <div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&q=80')"></div></div>
-        <div class="mcard-body"><div class="mcard-header"><span class="mcard-title">3 Egg Omelette</span><span class="mcard-price">E58</span></div><p class="mcard-desc">Bacon, peppers, onions, ham and mushrooms</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-egg-fried"></i> Fresh</span></div>
-        <button class="btn-add-order" onclick="addToCart(this,'3 Egg Omelette',58)"><i class="bi bi-whatsapp"></i> Add to Order</button></div>
-      </div>
-      <div class="mcard reveal" data-cat="breakfast" data-diet="vegetarian">
-        <div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&q=80')"></div></div>
-        <div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Muesli Bowl</span><span class="mcard-price">E45</span></div><p class="mcard-desc">Served with fresh fruits and plain yoghurt</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-flower1"></i> Vegetarian</span><span class="mtag"><i class="bi bi-heart"></i> Healthy</span></div>
-        <button class="btn-add-order" onclick="addToCart(this,'Muesli Bowl',45)"><i class="bi bi-whatsapp"></i> Add to Order</button></div>
-      </div>
+      <div class="mcard reveal" data-cat="breakfast" data-diet="meat"><div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRv4q-9s9syCNR_6UG4yIQ3p8xXKMfxmBTEQ&s')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">English Breakfast</span><span class="mcard-price">E65</span></div><p class="mcard-desc">2 toasted bread slices, 2 fried eggs, 2 tomato slices, 2 bacon rashers and 1 sausage</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-sun"></i> Hearty</span></div><button class="btn-add-order" onclick="addToCart(this,'English Breakfast',65)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
+      <div class="mcard reveal" data-cat="breakfast" data-diet="meat"><div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400&q=80')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">3 Egg Omelette</span><span class="mcard-price">E58</span></div><p class="mcard-desc">Bacon, peppers, onions, ham and mushrooms</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-egg-fried"></i> Fresh</span></div><button class="btn-add-order" onclick="addToCart(this,'3 Egg Omelette',58)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
+      <div class="mcard reveal" data-cat="breakfast" data-diet="vegetarian"><div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=400&q=80')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Muesli Bowl</span><span class="mcard-price">E45</span></div><p class="mcard-desc">Served with fresh fruits and plain yoghurt</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-flower1"></i> Vegetarian</span><span class="mtag"><i class="bi bi-heart"></i> Healthy</span></div><button class="btn-add-order" onclick="addToCart(this,'Muesli Bowl',45)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
     </div>
   </div>
 
   <!-- SANDWICHES -->
   <div data-section="sandwiches">
-    <div class="menu-section-header reveal">
-      <div class="msh-bar"></div>
-      <div class="msh-text"><span class="eyebrow">Light Bites</span><h2>Sand<em>wiches</em></h2><p>Served with chips or salad</p></div>
-    </div>
+    <div class="menu-section-header reveal"><div class="msh-bar"></div><div class="msh-text"><span class="eyebrow">Light Bites</span><h2>Sand<em>wiches</em></h2><p>Served with chips or salad</p></div></div>
     <div class="row-grid">
       <div class="row-item reveal" data-cat="sandwiches" data-diet="vegetarian"><div><div class="ri-name">Cheese &amp; Tomato</div><div class="ri-desc">Served with chips or salad</div></div><div class="ri-right"><span class="ri-price">E38</span><button class="btn-add-row" onclick="addToCart(this,'Cheese & Tomato Sandwich',38)"><i class="bi bi-whatsapp"></i> Add</button></div></div>
       <div class="row-item reveal" data-cat="sandwiches" data-diet="vegetarian"><div><div class="ri-name">Egg &amp; Cheese</div></div><div class="ri-right"><span class="ri-price">E38</span><button class="btn-add-row" onclick="addToCart(this,'Egg & Cheese Sandwich',38)"><i class="bi bi-whatsapp"></i> Add</button></div></div>
@@ -826,35 +527,17 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
   <!-- BURGERS -->
   <div data-section="burgers">
-    <div class="menu-section-header reveal">
-      <div class="msh-bar"></div>
-      <div class="msh-text"><span class="eyebrow">Stacked High</span><h2>Bur<em>gers</em></h2><p>Served with chips or salad</p></div>
-    </div>
+    <div class="menu-section-header reveal"><div class="msh-bar"></div><div class="msh-text"><span class="eyebrow">Stacked High</span><h2>Bur<em>gers</em></h2><p>Served with chips or salad</p></div></div>
     <div class="card-grid">
-      <div class="mcard reveal" data-cat="burgers" data-diet="meat">
-        <div class="mcard-img-wrap"><span class="mcard-badge">House Special</span><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80')"></div></div>
-        <div class="mcard-body"><div class="mcard-header"><span class="mcard-title">IFS Fried Chicken Burger</span><span class="mcard-price">E88</span></div><p class="mcard-desc">Lettuce, crumbed chicken breast, topped with coleslaw. Served with chips or salad</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-award"></i> Signature</span></div>
-        <button class="btn-add-order" onclick="addToCart(this,'IFS Fried Chicken Burger',88)"><i class="bi bi-whatsapp"></i> Add to Order</button></div>
-      </div>
-      <div class="mcard reveal" data-cat="burgers" data-diet="meat">
-        <div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&q=80')"></div></div>
-        <div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Beef Burger</span><span class="mcard-price">E90</span></div><p class="mcard-desc">Beef patty, cheese slice, lettuce and egg. Served with chips or salad</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-fire"></i> Meat Lover</span></div>
-        <button class="btn-add-order" onclick="addToCart(this,'Beef Burger',90)"><i class="bi bi-whatsapp"></i> Add to Order</button></div>
-      </div>
-      <div class="mcard reveal" data-cat="burgers" data-diet="meat">
-        <div class="mcard-img-wrap"><span class="mcard-badge">Go Big</span><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400&q=80')"></div></div>
-        <div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Double Beef Burger</span><span class="mcard-price">E120</span></div><p class="mcard-desc">2 patties, 2 eggs, 2 cheese slices and 2 bacon rashers. Served with chips and salad</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-lightning"></i> Beast Mode</span></div>
-        <button class="btn-add-order" onclick="addToCart(this,'Double Beef Burger',120)"><i class="bi bi-whatsapp"></i> Add to Order</button></div>
-      </div>
+      <div class="mcard reveal" data-cat="burgers" data-diet="meat"><div class="mcard-img-wrap"><span class="mcard-badge">House Special</span><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">IFS Fried Chicken Burger</span><span class="mcard-price">E88</span></div><p class="mcard-desc">Lettuce, crumbed chicken breast, topped with coleslaw. Served with chips or salad</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-award"></i> Signature</span></div><button class="btn-add-order" onclick="addToCart(this,'IFS Fried Chicken Burger',88)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
+      <div class="mcard reveal" data-cat="burgers" data-diet="meat"><div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&q=80')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Beef Burger</span><span class="mcard-price">E90</span></div><p class="mcard-desc">Beef patty, cheese slice, lettuce and egg. Served with chips or salad</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-fire"></i> Meat Lover</span></div><button class="btn-add-order" onclick="addToCart(this,'Beef Burger',90)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
+      <div class="mcard reveal" data-cat="burgers" data-diet="meat"><div class="mcard-img-wrap"><span class="mcard-badge">Go Big</span><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400&q=80')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Double Beef Burger</span><span class="mcard-price">E120</span></div><p class="mcard-desc">2 patties, 2 eggs, 2 cheese slices and 2 bacon rashers. Served with chips and salad</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-lightning"></i> Beast Mode</span></div><button class="btn-add-order" onclick="addToCart(this,'Double Beef Burger',120)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
     </div>
   </div>
 
   <!-- STARTERS -->
   <div data-section="starters">
-    <div class="menu-section-header reveal">
-      <div class="msh-bar"></div>
-      <div class="msh-text"><span class="eyebrow">To Begin</span><h2>Starters &amp; <em>Soups</em></h2><p>Begin your culinary journey</p></div>
-    </div>
+    <div class="menu-section-header reveal"><div class="msh-bar"></div><div class="msh-text"><span class="eyebrow">To Begin</span><h2>Starters &amp; <em>Soups</em></h2><p>Begin your culinary journey</p></div></div>
     <div class="card-grid">
       <div class="mcard reveal" data-cat="starters" data-diet="meat"><div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://assets.unileversolutions.com/recipes-v2/230886.png')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Chicken Livers</span><span class="mcard-price">E45</span></div><p class="mcard-desc">Peri peri or plain. Served with 2 slices of toast or garlic bread</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-fire"></i> Peri Peri</span></div><button class="btn-add-order" onclick="addToCart(this,'Chicken Livers',45)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
       <div class="mcard reveal" data-cat="starters" data-diet="vegetarian"><div class="mcard-img-wrap"><div class="mcard-img" style="background-image:url('https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80')"></div></div><div class="mcard-body"><div class="mcard-header"><span class="mcard-title">Mushroom Soup</span><span class="mcard-price">E38</span></div><p class="mcard-desc">Served with garlic bread or toasted bread</p><div class="mcard-tags"><span class="mtag"><i class="bi bi-flower1"></i> Vegetarian</span></div><button class="btn-add-order" onclick="addToCart(this,'Mushroom Soup',38)"><i class="bi bi-whatsapp"></i> Add to Order</button></div></div>
@@ -1051,7 +734,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <h3><i class="bi bi-whatsapp"></i> Your Order</h3>
       <button class="cart-close" onclick="closeCart()"><i class="bi bi-x-lg"></i></button>
     </div>
-    <p>Review your items, then send via WhatsApp</p>
+    <p>Review items · choose payment · send receipt via WhatsApp</p>
   </div>
 
   <div class="cart-items" id="cartItems">
@@ -1074,6 +757,58 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     </div>
   </div>
 
+  <!-- PAYMENT METHOD -->
+  <div class="cart-payment" id="cartPaymentWrap">
+    <label><i class="bi bi-credit-card me-1"></i>Payment Method</label>
+    <div class="pay-btns">
+      <button class="pay-btn active" id="payMomo" onclick="setPayment('momo')">
+        <i class="bi bi-phone-fill"></i>
+        <span class="pay-btn-title">MTN MoMo</span>
+        <span class="pay-btn-sub">Retail 151433</span>
+      </button>
+      <button class="pay-btn" id="payWallet" onclick="setPayment('ewallet')">
+        <i class="bi bi-wallet2"></i>
+        <span class="pay-btn-title">E-Wallet</span>
+        <span class="pay-btn-sub">76775793</span>
+      </button>
+      <button class="pay-btn" id="payCash" onclick="setPayment('cash')">
+        <i class="bi bi-cash-stack"></i>
+        <span class="pay-btn-title">Cash</span>
+        <span class="pay-btn-sub">At venue</span>
+      </button>
+    </div>
+    <!-- MTN MoMo detail -->
+    <div class="pay-detail" id="payDetailMomo">
+      <div class="pay-detail-inner">
+        <div class="pay-detail-row">
+          <i class="bi bi-phone-fill" style="color:#FFCC00;"></i>
+          <div><strong>MTN MoMo</strong><br><span>Retail Code: <b style="color:var(--gold);font-size:1.05rem;letter-spacing:1px;">151433</b></span></div>
+        </div>
+        <p class="pay-detail-note">Dial <b>*175#</b> → Pay Bill → Enter Retail Code <b>151433</b> → Enter amount → Confirm PIN. Send proof of payment via WhatsApp.</p>
+      </div>
+    </div>
+    <!-- E-Wallet detail -->
+    <div class="pay-detail" id="payDetailWallet" style="display:none;">
+      <div class="pay-detail-inner">
+        <div class="pay-detail-row">
+          <i class="bi bi-wallet2" style="color:#00A859;"></i>
+          <div><strong>Eswatini Mobile E-Wallet</strong><br><span>Number: <b style="color:var(--gold);font-size:1.05rem;letter-spacing:1px;">76775793</b></span></div>
+        </div>
+        <p class="pay-detail-note">Open E-Wallet app → Send Money → Enter <b>76775793</b> → Enter amount → Confirm. Send proof of payment via WhatsApp.</p>
+      </div>
+    </div>
+    <!-- Cash detail -->
+    <div class="pay-detail" id="payDetailCash" style="display:none;">
+      <div class="pay-detail-inner">
+        <div class="pay-detail-row">
+          <i class="bi bi-cash-stack" style="color:#25D366;"></i>
+          <div><strong>Cash Payment</strong><br><span>Pay at the branch on arrival</span></div>
+        </div>
+        <p class="pay-detail-note">Please have the exact amount ready. Our staff will confirm your order on WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="cart-notes" id="cartNotesWrap">
     <label><i class="bi bi-pencil me-1"></i>Special instructions (optional)</label>
     <textarea id="cartNotes" rows="2" style="height:56px" placeholder="e.g. No onions, extra spicy, table number…"></textarea>
@@ -1081,24 +816,57 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
   <div class="cart-footer">
     <div class="cart-total-row">
-      <span class="label">Estimated Total</span>
+      <span class="label">Subtotal</span>
       <span class="amount" id="cartTotal">E0</span>
     </div>
-    <!====Payment Option===>
-    <div class="payment-info-box" style="background: rgba(212,175,55,0.1); border: 1px solid var(--gold); padding: 15px; border-radius: 8px; margin-top: 20px;">
-    <h6 style="color: var(--gold); font-size: 0.9rem; margin-bottom: 8px;">
-        <i class="bi bi-info-circle"></i> Eswatini Payment Details
-    </h6>
-    <p style="font-size: 0.8rem; margin: 0;">
-        <strong>MTN MoMo (retail code):</strong> 123456 <br>
-        <strong>Eswatini Mobile:</strong> 79779099 <br>
-        <span style="color: #888;">Order will be processed once proof of payment is sent via WhatsApp.</span>
-    </p>
-</div>
-    <button class="btn-wa-order" id="btnSendOrder" onclick="sendOnWhatsApp()" disabled>
-      <i class="bi bi-whatsapp"></i> Send Order on WhatsApp
+    <button class="btn-wa-order" id="btnSendOrder" onclick="previewInvoice()" disabled>
+      <i class="bi bi-receipt"></i> Review &amp; Send Order
     </button>
-    <p class="cart-hint">Opens WhatsApp · Staff will confirm your order</p>
+    <p class="cart-hint">Preview your receipt · then send via WhatsApp</p>
+  </div>
+</div>
+
+<!-- INVOICE MODAL -->
+<div class="invoice-overlay" id="invoiceOverlay" style="display:none;">
+  <div class="invoice-modal">
+    <div class="invoice-header">
+      <div class="invoice-logo">IF's <span>Lounge</span></div>
+      <div class="invoice-subtitle">Restaurant &amp; Bar · Eswatini</div>
+      <div class="invoice-badge"><i class="bi bi-receipt me-1"></i>Order Receipt</div>
+    </div>
+    <div class="invoice-body">
+      <div class="invoice-meta">
+        <div class="inv-meta-item"><label>Order No.</label><span id="invOrderNo">—</span></div>
+        <div class="inv-meta-item"><label>Date &amp; Time</label><span id="invDateTime">—</span></div>
+        <div class="inv-meta-item"><label>Customer</label><span id="invCustomer">—</span></div>
+        <div class="inv-meta-item"><label>Branch</label><span id="invBranch">—</span></div>
+      </div>
+      <div class="invoice-divider"></div>
+      <div class="invoice-items-head"><span>Item</span><span>Amount</span></div>
+      <div id="invLines"></div>
+      <div class="invoice-divider"></div>
+      <div class="invoice-service"><span>Subtotal</span><span id="invSubtotal">E0</span></div>
+      <div class="invoice-service"><span>Service Charge (10%)</span><span id="invService">E0</span></div>
+      <div class="invoice-total-row">
+        <span class="itl">Total (incl. VAT)</span>
+        <span class="ita" id="invTotal">E0</span>
+      </div>
+      <div class="invoice-divider"></div>
+      <div class="invoice-pay-box">
+        <div class="ipb-title"><i class="bi bi-credit-card me-1"></i>Payment Method</div>
+        <div class="ipb-val" id="invPayMethod">—</div>
+        <div class="ipb-note" id="invPayNote">—</div>
+      </div>
+      <div id="invNotesBox" style="display:none;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px;margin-top:8px;">
+        <div style="font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-bottom:4px;">Special Instructions</div>
+        <div id="invNotes" style="font-size:.82rem;color:#aaa;"></div>
+      </div>
+      <div class="invoice-footer-note">Thank you for choosing IF's Lounge! 🙏<br>Send proof of payment on WhatsApp to confirm your order.</div>
+    </div>
+    <div class="invoice-actions">
+      <button class="inv-btn-close" onclick="closeInvoice()"><i class="bi bi-arrow-left me-1"></i>Back</button>
+      <button class="inv-btn-wa" onclick="sendOnWhatsApp()"><i class="bi bi-whatsapp me-1"></i>Send via WhatsApp</button>
+    </div>
   </div>
 </div>
 
@@ -1114,47 +882,22 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 window.addEventListener('scroll',()=>{document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10);});
 
 // ---- CATEGORY / DIET FILTER ----
-const catBtns   = [...document.querySelectorAll('.cat-btn')];
-const dietBtns  = [...document.querySelectorAll('.diet-badge')];
-const sections  = [...document.querySelectorAll('[data-section]')];
-
-function applyFilters(cat,diet){
-  sections.forEach(sec=>{
-    const items = [...sec.querySelectorAll('[data-cat]')];
-    const visible = items.filter(i=>(cat==='all'||i.dataset.cat===cat)&&(diet==='all'||i.dataset.diet===diet));
-    items.forEach(i=>{
-      const show=(cat==='all'||i.dataset.cat===cat)&&(diet==='all'||i.dataset.diet===diet);
-      i.style.display=show?'':'none';
-    });
-    const header=sec.querySelector('.menu-section-header');
-    const has=visible.length>0;
-    if(header)header.style.display=has?'':'none';
-    sec.style.display=has?'':'none';
-  });
-}
+const catBtns=[...document.querySelectorAll('.cat-btn')];
+const dietBtns=[...document.querySelectorAll('.diet-badge')];
+const sections=[...document.querySelectorAll('[data-section]')];
+function applyFilters(cat,diet){sections.forEach(sec=>{const items=[...sec.querySelectorAll('[data-cat]')];const visible=items.filter(i=>(cat==='all'||i.dataset.cat===cat)&&(diet==='all'||i.dataset.diet===diet));items.forEach(i=>{const show=(cat==='all'||i.dataset.cat===cat)&&(diet==='all'||i.dataset.diet===diet);i.style.display=show?'':'none';});const header=sec.querySelector('.menu-section-header');const has=visible.length>0;if(header)header.style.display=has?'':'none';sec.style.display=has?'':'none';});}
 let activeCat='all',activeDiet='all';
-catBtns.forEach(b=>b.addEventListener('click',()=>{
-  catBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');
-  activeCat=b.dataset.cat;activeDiet='all';
-  dietBtns.forEach(x=>x.classList.remove('active'));
-  document.querySelector('[data-diet="all"]').classList.add('active');
-  applyFilters(activeCat,activeDiet);
-}));
-dietBtns.forEach(b=>b.addEventListener('click',()=>{
-  dietBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');
-  activeDiet=b.dataset.diet;activeCat='all';
-  catBtns.forEach(x=>x.classList.remove('active'));
-  document.querySelector('[data-cat="all"]').classList.add('active');
-  applyFilters(activeCat,activeDiet);
-}));
+catBtns.forEach(b=>b.addEventListener('click',()=>{catBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');activeCat=b.dataset.cat;activeDiet='all';dietBtns.forEach(x=>x.classList.remove('active'));document.querySelector('[data-diet="all"]').classList.add('active');applyFilters(activeCat,activeDiet);}));
+dietBtns.forEach(b=>b.addEventListener('click',()=>{dietBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');activeDiet=b.dataset.diet;activeCat='all';catBtns.forEach(x=>x.classList.remove('active'));document.querySelector('[data-cat="all"]').classList.add('active');applyFilters(activeCat,activeDiet);}));
 
 // ---- SCROLL REVEAL ----
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.06+'s';io.observe(el);});
 
-// ===================== WHATSAPP CART =====================
-let cart = [];
-let selectedLocation = 'Manzini';
+// ===================== CART + PAYMENT + INVOICE =====================
+let cart=[];
+let selectedLocation='Manzini';
+let selectedPayment='momo';
 
 function setLocation(loc){
   selectedLocation=loc;
@@ -1162,8 +905,18 @@ function setLocation(loc){
   document.getElementById('locMbabane').classList.toggle('active',loc==='Mbabane');
 }
 
-function addToCart(btn, name, price){
-  const existing = cart.find(i=>i.name===name);
+function setPayment(method){
+  selectedPayment=method;
+  ['payMomo','payWallet','payCash'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  ['payDetailMomo','payDetailWallet','payDetailCash'].forEach(id=>document.getElementById(id).style.display='none');
+  const btnMap={momo:'payMomo',ewallet:'payWallet',cash:'payCash'};
+  const detMap={momo:'payDetailMomo',ewallet:'payDetailWallet',cash:'payDetailCash'};
+  document.getElementById(btnMap[method]).classList.add('active');
+  document.getElementById(detMap[method]).style.display='';
+}
+
+function addToCart(btn,name,price){
+  const existing=cart.find(i=>i.name===name);
   if(existing){existing.qty++;}else{cart.push({name,price,qty:1});}
   btn.classList.add('added');
   btn.innerHTML='<i class="bi bi-check-lg"></i> Added!';
@@ -1176,32 +929,23 @@ function addToCart(btn, name, price){
 }
 
 function updateCartUI(){
-  const count = cart.reduce((s,i)=>s+i.qty,0);
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const badge = document.getElementById('waBadge');
-  const fab = document.getElementById('waFab');
-  badge.textContent = count;
-  fab.classList.toggle('has-items', count>0);
-  document.getElementById('cartTotal').textContent = 'E'+total;
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const badge=document.getElementById('waBadge');
+  const fab=document.getElementById('waFab');
+  badge.textContent=count;
+  fab.classList.toggle('has-items',count>0);
+  document.getElementById('cartTotal').textContent='E'+subtotal;
   validateOrder();
-  const container = document.getElementById('cartItems');
-  const empty = document.getElementById('cartEmpty');
+  const container=document.getElementById('cartItems');
+  const empty=document.getElementById('cartEmpty');
   if(cart.length===0){empty.style.display='';[...container.querySelectorAll('.cart-line')].forEach(el=>el.remove());return;}
   empty.style.display='none';
   [...container.querySelectorAll('.cart-line')].forEach(el=>el.remove());
   cart.forEach((item,idx)=>{
-    const line = document.createElement('div');
+    const line=document.createElement('div');
     line.className='cart-line';
-    line.innerHTML=`
-      <div class="cl-name">${item.name}</div>
-      <div class="cl-qty">
-        <button class="qty-btn" onclick="changeQty(${idx},-1)"><i class="bi bi-dash"></i></button>
-        <span class="qty-num">${item.qty}</span>
-        <button class="qty-btn" onclick="changeQty(${idx},1)"><i class="bi bi-plus"></i></button>
-      </div>
-      <div class="cl-price">E${item.price*item.qty}</div>
-      <button class="cl-remove" onclick="removeItem(${idx})" title="Remove"><i class="bi bi-trash3"></i></button>
-    `;
+    line.innerHTML=`<div class="cl-name">${item.name}</div><div class="cl-qty"><button class="qty-btn" onclick="changeQty(${idx},-1)"><i class="bi bi-dash"></i></button><span class="qty-num">${item.qty}</span><button class="qty-btn" onclick="changeQty(${idx},1)"><i class="bi bi-plus"></i></button></div><div class="cl-price">E${item.price*item.qty}</div><button class="cl-remove" onclick="removeItem(${idx})" title="Remove"><i class="bi bi-trash3"></i></button>`;
     container.appendChild(line);
   });
 }
@@ -1212,128 +956,176 @@ function removeItem(idx){cart.splice(idx,1);updateCartUI();}
 function openCart(){
   document.getElementById('cartOverlay').classList.add('open');
   document.getElementById('cartDrawer').classList.add('open');
-  // Lock scroll on both html and body (iOS fix)
   document.body.style.overflow='hidden';
   document.documentElement.style.overflow='hidden';
-  // Record scroll pos to restore on close (iOS Safari jump fix)
-  document._scrollY = window.scrollY;
+  document._scrollY=window.scrollY;
 }
 function closeCart(){
   document.getElementById('cartOverlay').classList.remove('open');
   document.getElementById('cartDrawer').classList.remove('open');
   document.body.style.overflow='';
   document.documentElement.style.overflow='';
-  // Restore scroll position
-  if(document._scrollY !== undefined){
-    window.scrollTo(0, document._scrollY);
-  }
+  if(document._scrollY!==undefined){window.scrollTo(0,document._scrollY);}
 }
-// Re-lock scroll if orientation changes while cart is open
-window.addEventListener('orientationchange', () => {
-  const isOpen = document.getElementById('cartDrawer').classList.contains('open');
-  if(isOpen){
-    // Brief timeout to let browser reflow first
-    setTimeout(()=>{
-      document.body.style.overflow='hidden';
-      document.documentElement.style.overflow='hidden';
-    }, 100);
-  }
+window.addEventListener('orientationchange',()=>{
+  const isOpen=document.getElementById('cartDrawer').classList.contains('open');
+  if(isOpen){setTimeout(()=>{document.body.style.overflow='hidden';document.documentElement.style.overflow='hidden';},100);}
 });
 
 function validateOrder(){
-  const name = document.getElementById('cartName').value.trim();
-  const count = cart.reduce((s,i)=>s+i.qty,0);
-  document.getElementById('btnSendOrder').disabled = count===0 || name==='';
+  const name=document.getElementById('cartName').value.trim();
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('btnSendOrder').disabled=count===0||name==='';
+}
+
+function generateOrderNo(){
+  const ts=Date.now().toString(36).toUpperCase();
+  const rand=Math.random().toString(36).substring(2,5).toUpperCase();
+  return 'IFS-'+ts.slice(-4)+rand;
+}
+
+function getPaymentDetails(){
+  const details={
+    momo:{label:'MTN MoMo',value:'Retail Code: 151433',note:'Dial *175# → Pay Bill → Code 151433 → Enter amount → Confirm PIN. Send proof via WhatsApp.'},
+    ewallet:{label:'Eswatini Mobile E-Wallet',value:'Number: 76775793',note:'Open E-Wallet → Send Money → 76775793 → Enter amount → Confirm. Send proof via WhatsApp.'},
+    cash:{label:'Cash Payment',value:'Pay at branch on arrival',note:'Please have the exact amount ready when you arrive.'}
+  };
+  return details[selectedPayment];
+}
+
+function previewInvoice(){
+  const name=document.getElementById('cartName').value.trim();
+  if(cart.length===0||!name)return;
+  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const service=Math.round(subtotal*0.10);
+  const total=subtotal+service;
+  const notes=document.getElementById('cartNotes').value.trim();
+  const orderNo=generateOrderNo();
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('en-ZA',{day:'2-digit',month:'short',year:'numeric'});
+  const timeStr=now.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+  const pay=getPaymentDetails();
+
+  document.getElementById('invOrderNo').textContent=orderNo;
+  document.getElementById('invDateTime').textContent=dateStr+' · '+timeStr;
+  document.getElementById('invCustomer').textContent=name;
+  document.getElementById('invBranch').textContent=selectedLocation;
+  document.getElementById('invSubtotal').textContent='E'+subtotal;
+  document.getElementById('invService').textContent='E'+service;
+  document.getElementById('invTotal').textContent='E'+total;
+  document.getElementById('invPayMethod').textContent=pay.label+' — '+pay.value;
+  document.getElementById('invPayNote').textContent=pay.note;
+
+  const linesContainer=document.getElementById('invLines');
+  linesContainer.innerHTML='';
+  cart.forEach(item=>{
+    const row=document.createElement('div');
+    row.className='invoice-line';
+    row.innerHTML=`<div class="inv-item-info"><div class="inv-item-name">${item.name}</div><div class="inv-item-qty">× ${item.qty} @ E${item.price} each</div></div><div class="inv-item-price">E${item.price*item.qty}</div>`;
+    linesContainer.appendChild(row);
+  });
+
+  if(notes){document.getElementById('invNotesBox').style.display='';document.getElementById('invNotes').textContent=notes;}
+  else{document.getElementById('invNotesBox').style.display='none';}
+
+  window._inv={orderNo,subtotal,service,total,dateStr,timeStr};
+  document.getElementById('invoiceOverlay').style.display='flex';
+}
+
+function closeInvoice(){
+  document.getElementById('invoiceOverlay').style.display='none';
 }
 
 function sendOnWhatsApp(){
-  const name = document.getElementById('cartName').value.trim();
-  if(cart.length===0 || !name) return;
-  const notes = document.getElementById('cartNotes').value.trim();
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  let msg = `*IF's Lounge – New Order*\n`;
-  msg += ` Name: *${name}*\n`;
-  msg += ` Branch: *${selectedLocation}*\n\n`;
-  msg += `*Items:*\n`;
-  cart.forEach(i=>{msg += `• ${i.qty}x ${i.name} — E${i.price*i.qty}\n`;});
-  msg += `\n*Total: E${total}*`;
-  if(notes) msg += `\n\n *Notes:* ${notes}`;
-  msg += `\n\n_Sent from ifslounge.com_`;
-  const encoded = encodeURIComponent(msg);
+  const name=document.getElementById('cartName').value.trim();
+  if(cart.length===0||!name)return;
+  const notes=document.getElementById('cartNotes').value.trim();
+  const inv=window._inv||{};
+  const subtotal=inv.subtotal||cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const service=inv.service||Math.round(subtotal*0.1);
+  const total=inv.total||subtotal+service;
+  const orderNo=inv.orderNo||generateOrderNo();
+  const now=new Date();
+  const dateStr=inv.dateStr||now.toLocaleDateString('en-ZA',{day:'2-digit',month:'short',year:'numeric'});
+  const timeStr=inv.timeStr||now.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+  const pay=getPaymentDetails();
+
+  let msg=`🍽️ *IF'S LOUNGE — ORDER RECEIPT*\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`📋 *Order No:* ${orderNo}\n`;
+  msg+=`📅 *Date:* ${dateStr} at ${timeStr}\n`;
+  msg+=`👤 *Customer:* ${name}\n`;
+  msg+=`📍 *Branch:* ${selectedLocation}\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`*🛒 ITEMS ORDERED:*\n`;
+  cart.forEach(i=>{
+    msg+=`• ${i.qty}x ${i.name}`;
+    if(i.qty>1)msg+=` (E${i.price} × ${i.qty})`;
+    msg+=` — *E${i.price*i.qty}*\n`;
+  });
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`💰 Subtotal: E${subtotal}\n`;
+  msg+=`🔢 Service Charge (10%): E${service}\n`;
+  msg+=`✅ *TOTAL: E${total}*\n`;
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`💳 *Payment:* ${pay.label}\n`;
+  msg+=`   ${pay.value}\n`;
+  if(selectedPayment!=='cash')msg+=`   ⚠️ Please send proof of payment.\n`;
+  if(notes){msg+=`━━━━━━━━━━━━━━━━━━━━\n`;msg+=`📝 *Notes:* ${notes}\n`;}
+  msg+=`━━━━━━━━━━━━━━━━━━━━\n`;
+  msg+=`_Thank you for choosing IF's Lounge! 🙏_\n_Sent from ifslounge.com_`;
+
+  const encoded=encodeURIComponent(msg);
   window.open(`https://wa.me/26878729132?text=${encoded}`,'_blank');
+  closeInvoice();
 }
 
 let toastTimer;
 function showToast(name){
   const t=document.getElementById('toast');
-  const m=document.getElementById('toastMsg');
-  m.textContent=name+' added to order!';
+  document.getElementById('toastMsg').textContent=name+' added to order!';
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-function openMenu(){document.getElementById('menuModal').style.display='block';}
-function closeMenu(){document.getElementById('menuModal').style.display='none';}
-window.onclick=function(event){const modal=document.getElementById('menuModal');if(event.target===modal){modal.style.display='none';}};
-
 updateCartUI();
 </script>
-</body>
-</html>
+
 <script>
-// ---- HERO PARTICLES (prominent gold) ----
+// ---- HERO PARTICLES ----
 (function(){
-  const container = document.getElementById('heroParticles');
-  if(!container) return;
-
-  // Particle configs: [type, count, sizeRange, peakOpacity, glowPx, glowAlpha, blur]
-  const groups = [
-    // Large glowing dots
-    { type:'hp-dot',    count:14, sMin:6,  sMax:14, peak:.92, glow:12, ga:.45, blur:0  },
-    // Medium dots
-    { type:'hp-dot',    count:18, sMin:3,  sMax:7,  peak:.75, glow:7,  ga:.32, blur:0  },
-    // Small soft dots
-    { type:'hp-dot',    count:12, sMin:1.5,sMax:3,  peak:.55, glow:4,  ga:.2,  blur:.5 },
-    // Spinning diamonds
-    { type:'hp-diamond',count:10, sMin:4,  sMax:9,  peak:.85, glow:10, ga:.38, blur:0  },
-    // Vertical streaks
-    { type:'hp-streak', count:8,  sMin:1,  sMax:2,  peak:.7,  glow:0,  ga:0,   blur:0, streakH:true },
+  const container=document.getElementById('heroParticles');
+  if(!container)return;
+  const groups=[
+    {type:'hp-dot',count:14,sMin:6,sMax:14,peak:.92,glow:12,ga:.45,blur:0},
+    {type:'hp-dot',count:18,sMin:3,sMax:7,peak:.75,glow:7,ga:.32,blur:0},
+    {type:'hp-dot',count:12,sMin:1.5,sMax:3,peak:.55,glow:4,ga:.2,blur:.5},
+    {type:'hp-diamond',count:10,sMin:4,sMax:9,peak:.85,glow:10,ga:.38,blur:0},
+    {type:'hp-streak',count:8,sMin:1,sMax:2,peak:.7,glow:0,ga:0,blur:0,streakH:true},
   ];
-
-  groups.forEach(g => {
+  groups.forEach(g=>{
     for(let i=0;i<g.count;i++){
-      const p = document.createElement('div');
-      p.className = 'hero-particle ' + g.type;
-      const left  = 2 + Math.random()*96;
-      const dur   = 5 + Math.random()*10;
-      const delay = Math.random()*12;
-      const drift = (Math.random()-0.5)*120;
-      const drift2= (Math.random()-0.5)*60;
-      const size  = g.sMin + Math.random()*(g.sMax - g.sMin);
-      const w     = g.streakH ? size : size;
-      const h     = g.streakH ? size*18 : size;
-      const midY  = -(25 + Math.random()*35);  // vh
-      const topY  = -(80 + Math.random()*30);  // vh
-      const rot0  = Math.random()*360;
-      const rot1  = rot0 + (Math.random()-0.5)*120;
-      const rot2  = rot1 + (Math.random()-0.5)*120;
-      const mid   = g.peak * (0.4 + Math.random()*0.3);
-
-      p.style.cssText = [
-        `left:${left}%`,
-        `width:${w}px`,`height:${h}px`,
-        `--dur:${dur}s`,`--delay:${delay}s`,
-        `--drift:${drift}px`,`--drift2:${drift2}px`,
-        `--midY:${midY}vh`,`--topY:${topY}vh`,
-        `--peak:${g.peak}`,`--mid:${mid}`,
-        `--glow:${g.glow}px`,`--ga:${g.ga}`,
-        `--blur:${g.blur}px`,
-        `--rot0:${rot0}deg`,`--rot1:${rot1}deg`,`--rot2:${rot2}deg`,
-      ].join(';');
-
+      const p=document.createElement('div');
+      p.className='hero-particle '+g.type;
+      const left=2+Math.random()*96;
+      const dur=5+Math.random()*10;
+      const delay=Math.random()*12;
+      const drift=(Math.random()-.5)*120;
+      const drift2=(Math.random()-.5)*60;
+      const size=g.sMin+Math.random()*(g.sMax-g.sMin);
+      const w=size,h=g.streakH?size*18:size;
+      const midY=-(25+Math.random()*35);
+      const topY=-(80+Math.random()*30);
+      const rot0=Math.random()*360;
+      const rot1=rot0+(Math.random()-.5)*120;
+      const rot2=rot1+(Math.random()-.5)*120;
+      const mid=g.peak*(0.4+Math.random()*0.3);
+      p.style.cssText=[`left:${left}%`,`width:${w}px`,`height:${h}px`,`--dur:${dur}s`,`--delay:${delay}s`,`--drift:${drift}px`,`--drift2:${drift2}px`,`--midY:${midY}vh`,`--topY:${topY}vh`,`--peak:${g.peak}`,`--mid:${mid}`,`--glow:${g.glow}px`,`--ga:${g.ga}`,`--blur:${g.blur}px`,`--rot0:${rot0}deg`,`--rot1:${rot1}deg`,`--rot2:${rot2}deg`].join(';');
       container.appendChild(p);
     }
   });
 })();
 </script>
+</body>
+</html>
